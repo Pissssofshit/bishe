@@ -127,4 +127,46 @@
     select id, operatetime, daytime, `type`, relatedid, attitude, longitude, latitude
     from user_log
   </select>
+  <resultMap id="BaseResultMap" type="com.bishe.model.UserLog">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="operatetime" jdbcType="INTEGER" property="operatetime" />
+    <result column="daytime" jdbcType="INTEGER" property="daytime" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="relatedid" jdbcType="INTEGER" property="relatedid" />
+    <result column="attitude" jdbcType="INTEGER" property="attitude" />
+    <result column="longitude" jdbcType="INTEGER" property="longitude" />
+    <result column="latitude" jdbcType="INTEGER" property="latitude" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bishe.model.UserLog">
+    insert into user_log (id, operatetime, daytime, 
+      `type`, relatedid, attitude, 
+      longitude, latitude)
+    values (#{id,jdbcType=INTEGER}, #{operatetime,jdbcType=INTEGER}, #{daytime,jdbcType=INTEGER}, 
+      #{type,jdbcType=INTEGER}, #{relatedid,jdbcType=INTEGER}, #{attitude,jdbcType=INTEGER}, 
+      #{longitude,jdbcType=INTEGER}, #{latitude,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.bishe.model.UserLog">
+    update user_log
+    set operatetime = #{operatetime,jdbcType=INTEGER},
+      daytime = #{daytime,jdbcType=INTEGER},
+      `type` = #{type,jdbcType=INTEGER},
+      relatedid = #{relatedid,jdbcType=INTEGER},
+      attitude = #{attitude,jdbcType=INTEGER},
+      longitude = #{longitude,jdbcType=INTEGER},
+      latitude = #{latitude,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, operatetime, daytime, `type`, relatedid, attitude, longitude, latitude
+    from user_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, operatetime, daytime, `type`, relatedid, attitude, longitude, latitude
+    from user_log
+  </select>
 </mapper>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bishe.dao.ArticleMapper">
+  <resultMap id="BaseResultMap" type="com.bishe.model.Article">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="daytime" jdbcType="INTEGER" property="daytime" />
+    <result column="operatetime" jdbcType="INTEGER" property="operatetime" />
+    <result column="longitude" jdbcType="INTEGER" property="longitude" />
+    <result column="latitude" jdbcType="INTEGER" property="latitude" />
+    <result column="authorid" jdbcType="INTEGER" property="authorid" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from article
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bishe.model.Article">
+    insert into article (id, title, content, 
+      daytime, operatetime, longitude, 
+      latitude, authorid)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{daytime,jdbcType=INTEGER}, #{operatetime,jdbcType=INTEGER}, #{longitude,jdbcType=INTEGER}, 
+      #{latitude,jdbcType=INTEGER}, #{authorid,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.bishe.model.Article">
+    update article
+    set title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      daytime = #{daytime,jdbcType=INTEGER},
+      operatetime = #{operatetime,jdbcType=INTEGER},
+      longitude = #{longitude,jdbcType=INTEGER},
+      latitude = #{latitude,jdbcType=INTEGER},
+      authorid = #{authorid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, title, content, daytime, operatetime, longitude, latitude, authorid
+    from article
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, title, content, daytime, operatetime, longitude, latitude, authorid
+    from article
+  </select>
+  <resultMap id="BaseResultMap" type="com.bishe.model.Article">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="daytime" jdbcType="INTEGER" property="daytime" />
+    <result column="operatetime" jdbcType="INTEGER" property="operatetime" />
+    <result column="longitude" jdbcType="INTEGER" property="longitude" />
+    <result column="latitude" jdbcType="INTEGER" property="latitude" />
+    <result column="authorid" jdbcType="INTEGER" property="authorid" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from article
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bishe.model.Article">
+    insert into article (id, title, content, 
+      daytime, operatetime, longitude, 
+      latitude, authorid)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{daytime,jdbcType=INTEGER}, #{operatetime,jdbcType=INTEGER}, #{longitude,jdbcType=INTEGER}, 
+      #{latitude,jdbcType=INTEGER}, #{authorid,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.bishe.model.Article">
+    update article
+    set title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      daytime = #{daytime,jdbcType=INTEGER},
+      operatetime = #{operatetime,jdbcType=INTEGER},
+      longitude = #{longitude,jdbcType=INTEGER},
+      latitude = #{latitude,jdbcType=INTEGER},
+      authorid = #{authorid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, title, content, daytime, operatetime, longitude, latitude, authorid
+    from article
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, title, content, daytime, operatetime, longitude, latitude, authorid
+    from article
+  </select>
+  <resultMap id="BaseResultMap" type="com.bishe.model.Article">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="daytime" jdbcType="INTEGER" property="daytime" />
+    <result column="operatetime" jdbcType="INTEGER" property="operatetime" />
+    <result column="longitude" jdbcType="INTEGER" property="longitude" />
+    <result column="latitude" jdbcType="INTEGER" property="latitude" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from article
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bishe.model.Article">
+    insert into article (id, title, content, 
+      daytime, operatetime, longitude, 
+      latitude)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{daytime,jdbcType=INTEGER}, #{operatetime,jdbcType=INTEGER}, #{longitude,jdbcType=INTEGER}, 
+      #{latitude,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.bishe.model.Article">
+    update article
+    set title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      daytime = #{daytime,jdbcType=INTEGER},
+      operatetime = #{operatetime,jdbcType=INTEGER},
+      longitude = #{longitude,jdbcType=INTEGER},
+      latitude = #{latitude,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, title, content, daytime, operatetime, longitude, latitude
+    from article
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, title, content, daytime, operatetime, longitude, latitude
+    from article
+  </select>
+</mapper>

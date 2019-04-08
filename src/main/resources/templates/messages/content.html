@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="content">
+{$ad1}
+<div class="row-body{$content_class}">
+	<div class="nine columns" id="messages">
+		<div th:include="/shared/top:: top"></div>
+		<div th:include="/messages/rows::row"></div>
+	</div>
+	<div class="three columns">
+		{$sidebar}
+	</div>
+</div>
+{$ad2}
+</div>
+</html>
+<!--<script type="text/javascript">-->
+<!--// Remove the old user id, if any was set (prevent storing multiple ids to be checked when on messages page)-->
+<!--if(typeof old_fid != 'undefined') {-->
+	<!--// Get the array element and remove it-->
+	<!--var i = friends_windows.indexOf(old_fid);-->
+	<!--if(i != -1) {-->
+		<!--friends_windows.splice(i, 1);-->
+	<!--}-->
+<!--}-->
+
+<!--// Add the current user id to be checked-->
+<!--addFriendArray('{$fid}');-->
+
+<!--// Store the current user id to be checked when the page gets reloaded-->
+<!--old_fid = '{$fid}';-->
+<!--</script>-->

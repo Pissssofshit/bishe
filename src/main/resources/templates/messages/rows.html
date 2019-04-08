@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div class="message-container last-message" th:fragment="row(message)"  data-filter="" data-last="53" data-username="" data-type="0" data-userid="1">
+    <div class="message-content">
+
+        <div class="message-inner">
+            <div class="message-avatar" id="avatar53">
+                <a th:href="@{http://bishefront.com/index.php(u=${message.username})}" rel="loadpage">
+                    <img onmouseover="profileCard(1, 53, 0, 0, 0);" onmouseout="profileCard(0, 0, 0, 1, 0);" onclick="profileCard(0, 0, 1, 1, 0);" src="http://bishefront.com/thumb.php?src=default.png&amp;t=a&amp;w=50&amp;h=50">
+                </a>
+            </div>
+            <div class="message-top">
+
+                <div class="message-menu" onclick="messageMenu(53, 1)"></div>
+                <div id="message-menu53" class="message-menu-container">
+
+                    <div class="message-menu-row" onclick="edit_message(53)" id="edit_text53">编辑</div>
+                    <div class="message-menu-row" onclick="deleteModal(53, 1)">删除</div>
+                    <div class="message-menu-divider"></div>
+                    <div class="message-menu-row" onclick="privacy(53, 1)">公开</div>
+                    <div class="message-menu-row" onclick="privacy(53, 2)">朋友</div>
+                    <div class="message-menu-row" onclick="privacy(53, 0)">私人</div>
+
+                </div>
+                <div class="message-author" id="author53">
+                    <a th:text="${message.username}" href="http://bishefront.com/index.php?a=profile&amp;u=123" rel="loadpage">123</a>
+                </div>
+                <div class="message-time">
+								<span id="time53"><a href="http://bishefront.com/index.php?a=post&amp;m=53" rel="loadpage">
+									<div class="timeago" title="2019-03-22T09:37:52+08:00">17 days ago</div>
+								</a></span><span id="privacy53"><div class="privacy-icons public-icon" title="公开"></div></span>
+                    <div id="message_loader53"></div>
+                </div>
+            </div>
+            <div class="message-message" id="message_text53">
+                <!--${message.message}-->
+            </div>
+
+        </div>
+        <div class="message-divider"></div>
+        <div class="message-type-map event-map"><div>这里加个位置图标</div>
+            <!--${message.value}-->
+        </div><div class="message-divider"></div>
+        <div class="message-replies">
+            <div class="message-actions"><div class="message-actions-content" id="message-action53"><a onclick="doLike(53, 0)" id="doLike53">喜欢</a> - <a onclick="focus_form(53)">评论</a> - <a onclick="share(53)">分享</a> <div class="like_btn" id="like_btn53"> <a title="查看所有喜欢" onclick="likesModal(53, 0)">0</a></div></div></div>
+            <div class="message-replies-content" id="comments-list53">
+
+            </div>
+        </div>
+        <div class="message-comment-box-container" id="comment_box_53">
+            <div class="message-reply-avatar">
+                <img src="http://bishefront.com/thumb.php?src=default.png&amp;t=a&amp;w=50&amp;h=50">
+            </div>
+            <div class="message-comment-box-form">
+                <textarea id="comment-form53" onclick="showButton(53)" placeholder="留下你的评论..." class="comment-reply-textarea"></textarea>
+            </div>
+            <div class="comment-btn button-active" id="comment_btn_53">
+                <a onclick="postComment(11)">帖子</a>
+            </div>
+            <div class="delete_preloader" id="post_comment_53"></div>
+        </div>
+    </div>
+</div>
+</html>

@@ -5,7 +5,8 @@ spring:
 
 #公共配置与profiles选择无关
 mybatis:
-  typeAliasesPackage: com.bishe.entity
+  #目的是给spring boot 扫描到这个包
+  typeAliasesPackage: com.bishe.dao
   mapperLocations: classpath:mapper/*.xml
 
 
@@ -14,9 +15,12 @@ mybatis:
 #开发配置
 spring:
   profiles: dev
-
+  thymeleaf:
+    content-type: text/html
+    mode: LEGACYHTML5
+    cache: false
   datasource:
-    url: jdbc:mysql://localhost:3306/bishe
+    url: jdbc:mysql://localhost:3306/facebook?serverTimezone=GMT
     username: root
     password: 123
     driver-class-name: com.mysql.jdbc.Driver

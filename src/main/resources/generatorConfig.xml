@@ -30,14 +30,16 @@
 
         <!-- 注释 -->
         <commentGenerator>
-            <property name="suppressAllComments" value="true"/><!-- 是否取消注释 -->
+            <property name="suppressAllComments" value="false"/><!-- 是否取消注释 -->
             <property name="suppressDate" value="false"/> <!-- 是否生成注释代时间戳-->
         </commentGenerator>
 
         <!-- jdbc连接-->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/bishe?serverTimezone=UTC" userId="root"
-                        password="123"/>
+                        connectionURL="jdbc:mysql://localhost:3306/facebook?serverTimezone=GMT" userId="root"
+                        password="123">
+            <property name="nullCatalogMeansCurrent" value="true"/>
+        </jdbcConnection>
 
         <!-- 类型转换 -->
         <javaTypeResolver>
@@ -64,43 +66,93 @@
         </javaClientGenerator>
 
         <!-- table可以有多个,每个数据库中的表都可以写一个table，tableName表示要匹配的数据库表,也可以在tableName属性中通过使用%通配符来匹配所有数据库表,只有匹配的表才会自动生成文件 enableSelectByPrimaryKey相应的配置表示是否生成相应的接口 -->
-        <table tableName="article" enableCountByExample="false" enableUpdateByExample="false"
+
+        <table tableName="settings" enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
                enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"
                enableDeleteByPrimaryKey="true">
             <property name="useActualColumnNames" value="true"/>
         </table>
-        <table tableName="article_tag" enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
-               enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"
-               enableDeleteByPrimaryKey="true">
-            <property name="useActualColumnNames" value="true"/>
-        </table>
-        <table tableName="comment" enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
-               enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"
-               enableDeleteByPrimaryKey="true">
-            <property name="useActualColumnNames" value="true"/>
-        </table>
-        <table tableName="comment_tag" enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
-               enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"
-               enableDeleteByPrimaryKey="true">
-            <property name="useActualColumnNames" value="true"/>
-        </table>
-        <table tableName="rating" enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
-               enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"
-               enableDeleteByPrimaryKey="true">
-            <property name="useActualColumnNames" value="true"/>
-        </table>
+        <!--我恨-->
         <table tableName="user" enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
                enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"
                enableDeleteByPrimaryKey="true">
             <property name="useActualColumnNames" value="true"/>
         </table>
-        <table tableName="user_log" enableCountByExample="false" enableUpdateByExample="false"
+        <table tableName="reports" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
+               enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"
+               enableDeleteByPrimaryKey="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="plugins" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
+               enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"
+               enableDeleteByPrimaryKey="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="pages" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
+               enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"
+               enableDeleteByPrimaryKey="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="notifications" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
+               enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"
+               enableDeleteByPrimaryKey="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="messages" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
+               enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"
+               enableDeleteByPrimaryKey="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="likes" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
+               enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"
+               enableDeleteByPrimaryKey="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="group_users" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
+               enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"
+               enableDeleteByPrimaryKey="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="groups" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
+               enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"
+               enableDeleteByPrimaryKey="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="friendships" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
+               enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"
+               enableDeleteByPrimaryKey="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="comments" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
+               enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"
+               enableDeleteByPrimaryKey="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="chat" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
+               enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"
+               enableDeleteByPrimaryKey="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="blocked" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
+               enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"
+               enableDeleteByPrimaryKey="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="admin" enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
                enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"
                enableDeleteByPrimaryKey="true">

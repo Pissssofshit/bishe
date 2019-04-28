@@ -12,4 +12,6 @@ public interface UsercommentviewMapper {
     List<Usercommentview> selectAll();
 
     List<Usercommentview> selectByMid(Integer mid);
+
+    Usercommentview selectById(Integer id);
 }

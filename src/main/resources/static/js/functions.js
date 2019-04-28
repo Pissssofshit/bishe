@@ -670,7 +670,7 @@ function manage_report(id, type, post, kind) {
 function doLike(id, type) {
 	// id = unique id of the message
 	// type = 0 for messages, 1 for comments, 2 for pages
-	type = 1;
+	// type = 1;
 	if(type == 1) {
 		$('#like_c_btn'+id).html('<div class="privacy_loader"></div>');
 		// Store the onclick attribute value and temporary remove it
@@ -688,10 +688,10 @@ function doLike(id, type) {
 	$.ajax({
 		type: "POST",
 		url: "/message/like",
-		data: "id="+id+"&type="+type+"&token_id="+token_id, 
+		data: "id="+id+"&type="+type,
 		cache: false,
 		success: function(html) {
-			// console.log(html);
+			console.log(html);
 			if(type !== 2) {
 			var result = jQuery.parseJSON(html);
 			}
@@ -701,6 +701,7 @@ function doLike(id, type) {
 				$('#doLikeC'+id).attr('onclick', attrVal);
 				$('#like_c_btn'+id).html(result.count);
 			} else if(type == 2) {
+				$("#comment"+id).load("/message/loadcomment",{"commentId":id});
 				$('#page-btn-'+id).html(html);
 				$('#page-card-'+id).html(html);
 			} else {

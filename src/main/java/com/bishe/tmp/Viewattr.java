@@ -4,7 +4,6 @@ public class Viewattr {
 
     public String fragment_path;
     public String fragment_id;
-
     public String getFragment_path() {
         return fragment_path;
     }

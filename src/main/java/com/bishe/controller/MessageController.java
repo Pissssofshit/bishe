@@ -61,6 +61,13 @@ public class MessageController {
         model.addAttribute("commentList",userCommentList);
         return "/messages/comment::comment";
     }
+    @RequestMapping("/loadcomment")
+    String loadcomment(Model model,int commentId, HttpServletRequest request){
+        Usercommentview usercommentview= commentService.getComment(commentId);
+        model.addAttribute("comment",usercommentview);
+        return "/messages/single-comment::singlecomment";
+    }
+
     @RequestMapping("/like")
     String like(Model model,int id,int type,HttpServletRequest request){
 //        List<UserComment> userCommentList= commentService.getMessageComments(messageId);

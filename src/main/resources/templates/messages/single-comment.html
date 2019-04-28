@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="singlecomment(comment)" class="message-reply-container" >
+    <div class="message-menu comment-menu" onclick="messageMenu(11, 4)"></div><div id="comment-menu11" class="message-menu-container"><div class="message-menu-row" onclick="deleteModal(11, 0)">删除</div></div>
+    <div class="message-reply-avatar">
+        <a href="http://bishefront.com/index.php?a=profile&amp;u=123" rel="loadpage"><img onmouseover="profileCard(1, 11, 1, 0, 0)" onmouseout="profileCard(0, 0, 1, 1, 0);" onclick="profileCard(0, 0, 1, 1, 0);" src="http://bishefront.com/thumb.php?src=default.png&amp;t=a"></a>
+    </div>
+    <div class="message-reply-message">
+        <span class="message-reply-author"><a th:text="${comment.username}" href="个人主页链接" rel="loadpage">123</a></span>: <span th:text="${comment.message}"></span>
+    </div>
+    <div class="message-reply-footer">
+        <div class="message-time">
+            <span class="like-comment"><a th:onclick="'doLike(' + ${comment.id}+ ',2);'" id="doLikeC11">喜欢</a> -&nbsp<span th:text="${comment.likes}"></span>;</span>
+            <!--<div class="timeago" title="2019-04-22T02:28:24+08:00">18 days ago</div>-->
+            <div class="timeago" th:title="${comment.time}"></div>
+            <div class="like_btn" id="like_c_btn11"> <a th:text="${comment.likes}" onclick="likesModal(11, 1)" title="查看所有喜欢">0</a></div>
+        </div>
+    </div>
+    <div class="delete_preloader" id="del_comment_11"></div>
+
+</div>
+</html>

@@ -28,4 +28,9 @@
     from usercommentview
     where mid = #{mid,jdbcType=INTEGER}
   </select>
+  <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select idu, id, `uid`, mid, `time`, likes, username, message
+    from usercommentview
+    where id = #{id,jdbcType=INTEGER}
+  </select>
 </mapper>

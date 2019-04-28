@@ -3,6 +3,7 @@ package com.bishe.service;
 import com.bishe.dao.LikesMapper;
 import com.bishe.model.Likes;
 import com.bishe.model.Messages;
+import com.bishe.tmp.MessageWithComments;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,6 +28,11 @@ public class MessageServiceTest {
     public void test(){
         List<Messages> tests = messageService.getMessageList(10,1,1);
         Assert.assertEquals(tests.size(),10);
+    }
+    @Test
+    public void testgetMessageWithComments(){
+        List<MessageWithComments> messageWithComments = messageService.getMessageWithComments(45);
+//        Assert.assertEquals(8,(long)messageWithComments.size());
     }
     @Test
     @Transactional

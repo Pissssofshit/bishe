@@ -30,8 +30,8 @@
 
         <!-- 注释 -->
         <commentGenerator>
-            <property name="suppressAllComments" value="false"/><!-- 是否取消注释 -->
-            <property name="suppressDate" value="false"/> <!-- 是否生成注释代时间戳-->
+            <property name="suppressAllComments" value="true"/><!-- 是否取消注释 -->
+            <property name="suppressDate" value="true"/> <!-- 是否生成注释代时间戳-->
         </commentGenerator>
 
         <!-- jdbc连接-->
@@ -116,7 +116,7 @@
                enableDeleteByPrimaryKey="true">
             <property name="useActualColumnNames" value="true"/>
         </table>
-        <table tableName="group_users" enableCountByExample="false" enableUpdateByExample="false"
+        <table tableName="groups_users" enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
                enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"
                enableDeleteByPrimaryKey="true">
@@ -140,6 +140,12 @@
                enableDeleteByPrimaryKey="true">
             <property name="useActualColumnNames" value="true"/>
         </table>
+        <table tableName="usermessagename" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
+               enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"
+               enableDeleteByPrimaryKey="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
         <table tableName="chat" enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
                enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"
@@ -153,6 +159,18 @@
             <property name="useActualColumnNames" value="true"/>
         </table>
         <table tableName="admin" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
+               enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"
+               enableDeleteByPrimaryKey="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="usermessageview" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
+               enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"
+               enableDeleteByPrimaryKey="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="usercommentview" enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
                enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"
                enableDeleteByPrimaryKey="true">

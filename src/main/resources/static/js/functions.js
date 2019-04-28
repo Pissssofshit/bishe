@@ -15,14 +15,9 @@ function getLocation() {
         });
         // map.addControl(geolocation);
         geolocation.getCurrentPosition(function(status,result){
-            // console.log(status);
-            // console.log(result);
         	if(status=='complete'){
-        		// console.log(4);
                 locationsss["lat"] = result.position.lat;
                 locationsss["lng"] = result.position.lng;
-                //todo i just cannot understand what the fuck it is;
-            	// onComplete(result);
             }else{
             	onError(result);
             }
@@ -246,8 +241,8 @@ function postComment(id) {
 	
 	$.ajax({
 		type: "POST",
-		url: baseUrl+"/requests/post_comment.php",
-		data: "id="+id+"&comment="+encodeURIComponent(comment)+"&token_id="+token_id, 
+		url: "/message/post_comment",
+		data: "mid="+id+"&message="+encodeURIComponent(comment)+"&token_id="+token_id,
 		cache: false,
 		success: function(html) {
 			// Remove the loader animation
@@ -261,9 +256,10 @@ function postComment(id) {
 			
 			// Reload the timeago plugin
 			jQuery("div.timeago").timeago();
-			
+
 			// Empty the text area
 			$('#comment-form'+id).val('');
+			$("#comments-list"+id).load("/message/loadcomments",{"messageId":id});
 		}
 	});
 }
@@ -674,6 +670,7 @@ function manage_report(id, type, post, kind) {
 function doLike(id, type) {
 	// id = unique id of the message
 	// type = 0 for messages, 1 for comments, 2 for pages
+	type = 1;
 	if(type == 1) {
 		$('#like_c_btn'+id).html('<div class="privacy_loader"></div>');
 		// Store the onclick attribute value and temporary remove it
@@ -690,10 +687,11 @@ function doLike(id, type) {
 	}
 	$.ajax({
 		type: "POST",
-		url: baseUrl+"/requests/like.php",
+		url: "/message/like",
 		data: "id="+id+"&type="+type+"&token_id="+token_id, 
 		cache: false,
 		success: function(html) {
+			// console.log(html);
 			if(type !== 2) {
 			var result = jQuery.parseJSON(html);
 			}
@@ -1115,9 +1113,26 @@ function cleanOldFid() {
 	}
 }
 function startUpload() {
-	document.getElementById("imageForm").target = "my_iframe"; //'my_iframe' is the name of the iframe
-	document.getElementById("imageForm").submit();
-	document.getElementById("post-loader9999999999").style.visibility = "visible";
+	console.log($('#post9999999999').val());
+	$.ajax({
+		type: "POST",   //提交的方法
+		url:"/message/post", //提交的地址
+		dataType: "json",
+		data:{"message":$('#post9999999999').val()},// 序列化表单值
+		async: false,
+		error: function(request) {  //失败的话
+			alert("Connection error");
+		},
+		success: function(data) {  //成功
+			console.log(data);
+			$("#content").load("/message/loadmessage");
+		}
+	});
+	// document.getElementById("imageForm").target = "my_iframe"; //'my_iframe' is the name of the iframe
+	// document.getElementById("imageForm").submit();
+
+	//todo 时间紧迫，之后处理 （表单上传改为ajax上传）
+	// document.getElementById("post-loader9999999999").style.visibility = "visible";
 }
 function stopUpload(success) {
 	document.getElementById("post-loader9999999999").style.visibility = "hidden";

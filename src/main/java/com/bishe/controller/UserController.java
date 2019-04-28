@@ -5,8 +5,11 @@ import com.bishe.Parameter.UserLogin;
 import com.bishe.Parameter.UserRegister;
 import com.bishe.model.Messages;
 import com.bishe.model.User;
+import com.bishe.model.Usercommentview;
+import com.bishe.model.Usermessageview;
 import com.bishe.service.MessageService;
 import com.bishe.service.UserService;
+import com.bishe.tmp.MessageWithComments;
 import com.bishe.tmp.UserMessage;
 import com.bishe.tmp.Viewattr;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +44,10 @@ public class UserController {
         }
         return false;
     }
+    int getUserId(HttpServletRequest request){
+        HttpSession httpSession = request.getSession();
+        return (int)httpSession.getAttribute("userid");
+    }
     void setSession(HttpServletRequest request,int userId){
         HttpSession httpSession = request.getSession();
         httpSession.setAttribute("userid",userId);
@@ -51,20 +58,19 @@ public class UserController {
     @RequestMapping("/register")
     String reg(@Valid UserRegister userRegister, BindingResult bindingResult, Model model, HttpServletRequest request){
 
-        if(bindingResult.hasErrors()){
-//            return null;
-            for(ObjectError error:bindingResult.getAllErrors()){
-                System.out.println(error.getDefaultMessage());
-            }
-            return null;
-        }
-
         Viewattr viewattr =new Viewattr();
         if(this.isLogin(request)){
             viewattr.setFragment_id("timeline");
             viewattr.setFragment_path("shared/timeline");
-            List<UserMessage> messagesList = messageService.getUserMessageList(10,1,(int)request.getSession().getAttribute("userid"));
+            List<Usermessageview> messagesList = messageService.getUserMessageList(10,1,(int)request.getSession().getAttribute("userid"));
         }else{
+            if(bindingResult.hasErrors()){
+//            return null;
+                for(ObjectError error:bindingResult.getAllErrors()){
+                    System.out.println(error.getDefaultMessage());
+                }
+                return null;
+            }
             if(userService.getUserByUsername(userRegister.getUsername())!=null){
                 viewattr.setFragment_id("content");
                 viewattr.setFragment_path("welcome/content");
@@ -77,7 +83,7 @@ public class UserController {
                 }else{
                     viewattr.setFragment_id("timeline");
                     viewattr.setFragment_path("shared/timeline");
-                    List<UserMessage> messagesList = messageService.getUserMessageList(10,1,userId);
+                    List<Usermessageview> messagesList = messageService.getUserMessageList(10,1,userId);
 
                     model.addAttribute("messages",messagesList);
                 }
@@ -90,14 +96,24 @@ public class UserController {
     String login(Model model,UserLogin userLogin,HttpServletRequest request){
         boolean result = userService.checkPwd(userLogin.getUsername(),userLogin.getPassword());
         Viewattr viewattr =new Viewattr();
-        if(result){
-            User user = userService.getUserByUsername(userLogin.getUsername());
-            this.setSession(request,user.getIdu());
-            viewattr.setFragment_id("content");
-            viewattr.setFragment_path("feed/content");
-        }else{
-            viewattr.setFragment_id("content");
-            viewattr.setFragment_path("welcome/content");
+        if(this.isLogin(request)){
+            viewattr.setFragment_id("timeline");
+            viewattr.setFragment_path("shared/timeline");
+            List<MessageWithComments> messageWithComments = messageService.getMessageWithComments(this.getUserId(request));
+            model.addAttribute("messages",messageWithComments);
+        }else {
+            if (result) {
+                User user = userService.getUserByUsername(userLogin.getUsername());
+                this.setSession(request, user.getIdu());
+                viewattr.setFragment_id("timeline");
+                viewattr.setFragment_path("shared/timeline");
+                List<MessageWithComments> messageWithComments = messageService.getMessageWithComments(user.getIdu());
+                model.addAttribute("messages",messageWithComments);
+
+            } else {
+                viewattr.setFragment_id("content");
+                viewattr.setFragment_path("welcome/content");
+            }
         }
         model.addAttribute("viewattr",viewattr);
         return "wrapper";

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div class="message-container" th:fragment="top">
-	<form id="imageForm" name="form" action="{$url}/requests/post_message.php" method="POST" enctype="multipart/form-data">
-	{$token_input}
+	<form id="imageForm" nameimageForm="form" action="/message/post " method="POST" enctype="multipart/form-data">
+
 		<div class="message-form-content">
 			<div class="message-form-header">
 				<div class="message-form-user"><img src="{$url}/thumb.php?src={$avatar}&t=a"></div>
@@ -12,18 +12,18 @@
 			</div>
 			
 			<div class="message-form-inner">
-				<textarea id="post9999999999" class="message-form" placeholder="{$lng->message_form}" name="message"></textarea>
+				<textarea id="post9999999999" class="message-form" placeholder="说点啥" name="message"></textarea>
 			</div>
 			<div id="plugins-forms" style="display: none;"></div>
 
 
-			<input type="hidden" name="message-lat" id="message-lat" >
-			<input type="hidden" name="message-long" id="message-long" >
+			<!--<input type="hidden" name="message-lat" id="message-lat" >-->
+			<!--<input type="hidden" name="message-long" id="message-long" >-->
 
-			<input type="hidden" name="privacy" id="message-privacy" value="{$private_message}">
-			<input type="hidden" name="group" id="message-group" value="{$group}">
-			<input type="hidden" name="page" id="message-page" value="{$page}">
-			<input type="hidden" name="push" id="message-push" value="{$push}">
+			<!--<input type="hidden" name="privacy" id="message-privacy" value="{$private_message}">-->
+			<!--<input type="hidden" name="group" id="message-group" value="{$group}">-->
+			<!--<input type="hidden" name="page" id="message-page" value="{$page}">-->
+			<!--<input type="hidden" name="push" id="message-push" value="{$push}">-->
 
 			<div class="selected-files"><span id="queued-files">0</span> {$lng->files_selected}</div>
 			<div class="message-form-input"><input type="text" name="value" id="form-value"></div>
@@ -40,7 +40,7 @@
 				{$plugins}
 			</div>
 			
-			<div type="button" name="action" class="message-btn button-active" value="Post"><a onclick="startUpload()">{$lng->post}</a></div>
+			<div type="button" name="action" class="message-btn button-active" value="Post"><a onclick="startUpload()">发表</a></div>
 			<div class="message-btn button-normal" onclick="messageMenu(9999999999, 1)" title="{$lng->change_privacy}" id="privacy-button"{$style}><a><div id="privacy-btn" class="privacy-icons {$privacy_class}-icon"></div></a></div>
 			<div id="message-menu9999999999" class="message-menu-container message-menu-privacy">
 				<div class="message-menu-row" onclick="postPrivacy(1)">{$lng->public}</div>

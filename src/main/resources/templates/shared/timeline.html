@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="timeline">
-{$ad1}
 <div class="row-body content-feed">
-	{$plugins}
-	{$cover}
 	<div class="nine columns" id="messages">
 		<!--{$top}-->
 		<div th:include="/shared/top :: top"></div>
@@ -12,13 +9,13 @@
 		<!--{$rows}-->
 
 		<div th:each="message : ${messages}" th:include="/messages/rows :: row(message = ${message})"></div>
-	<div id="profile-card"></div>
+		<div></div>
+		<div id="profile-card"></div>
 	</div>
 	<div class="three columns">
-		{$sidebar}
+		<div th:replace="feed/sidebar::sidebar"></div>
 	</div>
 </div>
-{$ad2}
 <div id="gallery">
 	<div id="gallery-close"></div>
 	<div class="image-container">

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
-<title>{$title}</title>
+<title>主页</title>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
 <link rel="shortcut icon" href="/favicon.ico">
 <link href="/style.css" rel="stylesheet" type="text/css">
@@ -19,7 +19,7 @@
 <div class="topbar">
 	<div class="header">
 		<a href="{$url_logo}" rel="loadpage"><div class="menu_btn logo-container"><div class="logo"></div></div></a>
-		<div class="search-input"><input type="text" id="search" placeholder="{$lng->search_for_people}" autocomplete="off" value="{$current_search}"></div>
+		<div class="search-input"><input type="text" id="search" placeholder="搜索" autocomplete="off" value="{$current_search}"></div>
 		<div th:include="shared/menu::menu"></div>
 	</div>
 	<div class="search-container"></div>
@@ -67,24 +67,24 @@
 </div>
 <div class="modal-background"></div>
 <div class="footer">
-	<div class="footer-container">
-		<div class="footer-links">
-			<a href="{$url}/index.php?a=info&b=tos" rel="loadpage">{$lng->terms_of_use}</a> - 
-			<a href="{$url}/index.php?a=info&b=privacy" rel="loadpage">{$lng->privacy_policy}</a> - 
-			<a href="{$url}/index.php?a=info&b=disclaimer" rel="loadpage">{$lng->disclaimer}</a> - 
-			<a href="{$url}/index.php?a=info&b=api" rel="loadpage">{$lng->developers}</a> - 
-			<a href="{$url}/index.php?a=info&b=contact" rel="loadpage">{$lng->contact}</a> - 
-			<a href="{$url}/index.php?a=info&b=about" rel="loadpage">{$lng->about}</a> - 
-			<a href="{$url}/index.php?a=admin" rel="loadpage">{$lng->title_admin}</a>
-		</div>
-		<div class="footer-languages">
-			{$lng->language}: {$language}
-		</div>
-		<div class="footer-languages">
-			Copyright &copy; {$year} {$footer}. {$lng->all_rights_reserved}. {$powered_by}
-		</div>
+	<!--<div class="footer-container">-->
+		<!--<div class="footer-links">-->
+			<!--<a href="{$url}/index.php?a=info&b=tos" rel="loadpage">{$lng->terms_of_use}</a> - -->
+			<!--<a href="{$url}/index.php?a=info&b=privacy" rel="loadpage">{$lng->privacy_policy}</a> - -->
+			<!--<a href="{$url}/index.php?a=info&b=disclaimer" rel="loadpage">{$lng->disclaimer}</a> - -->
+			<!--<a href="{$url}/index.php?a=info&b=api" rel="loadpage">{$lng->developers}</a> - -->
+			<!--<a href="{$url}/index.php?a=info&b=contact" rel="loadpage">{$lng->contact}</a> - -->
+			<!--<a href="{$url}/index.php?a=info&b=about" rel="loadpage">{$lng->about}</a> - -->
+			<!--<a href="{$url}/index.php?a=admin" rel="loadpage">{$lng->title_admin}</a>-->
+		<!--</div>-->
+		<!--<div class="footer-languages">-->
+			<!--{$lng->language}: {$language}-->
+		<!--</div>-->
+		<!--<div class="footer-languages">-->
+			<!--Copyright &copy; {$year} {$footer}. {$lng->all_rights_reserved}. {$powered_by}-->
+		<!--</div>-->
 	</div>
 </div>
-{$tracking_code}
+<!--{$tracking_code}-->
 </body>
 </html>

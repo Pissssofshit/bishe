@@ -17,11 +17,11 @@ public class UserService {
 
     public boolean checkPwd(String username,String password){
 
-        User user = userMapper.selectByUsername(username);
+        User user = userMapper.selectByUserName(username);
         if(user==null){
             return false;
         }
-        if(user.getUsername().equals(password)){
+        if(user.getPassword().equals(password)){
             return true;
         }
         return false;
@@ -38,7 +38,7 @@ public class UserService {
         return newUser.getIdu();
     }
     public User getUserByUsername(String username){
-        User user = userMapper.selectByUsername(username);
+        User user = userMapper.selectByUserName(username);
         return user;
     }
 }

@@ -4,8 +4,9 @@
     <div class="message-content">
 
         <div class="message-inner">
+            <div th:text="${message.usermessageviews.message}"></div>
             <div class="message-avatar" id="avatar53">
-                <a th:href="@{http://bishefront.com/index.php(u=${message.username})}" rel="loadpage">
+                <a th:href="@{http://bishefront.com/index.php(u=${message.usermessageviews.username})}" rel="loadpage">
                     <img onmouseover="profileCard(1, 53, 0, 0, 0);" onmouseout="profileCard(0, 0, 0, 1, 0);" onclick="profileCard(0, 0, 1, 1, 0);" src="http://bishefront.com/thumb.php?src=default.png&amp;t=a&amp;w=50&amp;h=50">
                 </a>
             </div>
@@ -23,7 +24,7 @@
 
                 </div>
                 <div class="message-author" id="author53">
-                    <a th:text="${message.username}" href="http://bishefront.com/index.php?a=profile&amp;u=123" rel="loadpage">123</a>
+                    <a th:text="${message.usermessageviews.username}" href="http://bishefront.com/index.php?a=profile&amp;u=123" rel="loadpage">123</a>
                 </div>
                 <div class="message-time">
 								<span id="time53"><a href="http://bishefront.com/index.php?a=post&amp;m=53" rel="loadpage">
@@ -42,8 +43,8 @@
             <!--${message.value}-->
         </div><div class="message-divider"></div>
         <div class="message-replies">
-            <div class="message-actions"><div class="message-actions-content" id="message-action53"><a onclick="doLike(53, 0)" id="doLike53">喜欢</a> - <a onclick="focus_form(53)">评论</a> - <a onclick="share(53)">分享</a> <div class="like_btn" id="like_btn53"> <a title="查看所有喜欢" onclick="likesModal(53, 0)">0</a></div></div></div>
-            <div class="message-replies-content" id="comments-list53">
+            <div class="message-actions"><div class="message-actions-content" th:id="message-action+${message.usermessageviews.id}"><a th:onclick="'doLike(' + ${message.usermessageviews.id} + ',1 );'" th:id="doLike+${message.usermessageviews.id}">喜欢</a> - <a onclick="focus_form(53)">评论</a> - <a onclick="share(53)">分享</a> <div class="like_btn" id="like_btn53"> <a title="查看所有喜欢" onclick="likesModal(53, 0)">0</a></div></div></div>
+            <div class="message-replies-content" th:id="comments-list+${message.usermessageviews.id}">
 
             </div>
         </div>
@@ -52,13 +53,16 @@
                 <img src="http://bishefront.com/thumb.php?src=default.png&amp;t=a&amp;w=50&amp;h=50">
             </div>
             <div class="message-comment-box-form">
-                <textarea id="comment-form53" onclick="showButton(53)" placeholder="留下你的评论..." class="comment-reply-textarea"></textarea>
+
+                <textarea th:id="comment-form+${message.usermessageviews.id}" th:onclick="'showButton(' + ${message.usermessageviews.id} + ');'" placeholder="留下你的评论..." class="comment-reply-textarea"></textarea>
             </div>
-            <div class="comment-btn button-active" id="comment_btn_53">
-                <a onclick="postComment(11)">帖子</a>
+            <div class="comment-btn button-active" th:id="comment_btn_+${message.usermessageviews.id}">
+                <a th:onclick="'postComment(' + ${message.usermessageviews.id} + ');'">帖子</a>
             </div>
             <div class="delete_preloader" id="post_comment_53"></div>
         </div>
+        <div  th:include="/messages/comment :: comment(commentList = ${message.userCommentList})"></div>
+
     </div>
 </div>
 </html>

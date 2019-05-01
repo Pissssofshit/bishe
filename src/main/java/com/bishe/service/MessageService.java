@@ -54,6 +54,9 @@ public class MessageService {
         messageWithComments.setUsermessageviews(usermessageview);
         return messageWithComments;
     }
+    public String getMessageUrl(int messageId){
+        return "http://localhost:8080/user/message?messageId="+messageId;
+    }
     public List<MessageWithComments> getMessageWithComments(int userId){
         List<Usermessageview> messageList = this.getMessageByUserId(userId);
         List<MessageWithComments> messageWithComments = new ArrayList<>();

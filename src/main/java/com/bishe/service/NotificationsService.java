@@ -65,9 +65,38 @@ public class NotificationsService {
         noticeMessage.setUsername(user.getUsername());
         int type = notifications.getType();
         noticeMessage.setOperate(this.getOperateByType(type));
+        int messageId;
+        if(this.isOperateMessage(type)){
+            messageId = notifications.getParent();
+        }else{
+            int commentId = notifications.getChild();
+            messageId = commentService.getMid(commentId);
+        }
+        noticeMessage.setOperateurl(messageService.getMessageUrl(messageId));
         noticeMessage.setId(notifications.getId());
         noticeMessage.setTime(notifications.getTime());
         return noticeMessage;
+    }
+    boolean isOperateMessage(int type){
+        boolean result;
+        switch (type){
+            case 1:
+                result = true;
+                break;
+            case 2:
+                result = false;
+                break;
+            case 3:
+                result = true;
+                break;
+            case 4:
+                result = false;
+                break;
+            default:
+                result = false;
+
+        }
+        return result;
     }
     String getOperateByType(int type){
         String result;

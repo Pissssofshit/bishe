@@ -51,6 +51,11 @@ public class CommentService {
     public Usercommentview getComment(Integer commentId){
         return usercommentviewMapper.selectById(commentId);
     }
+
+    public Integer getMid(Integer commentId){
+        Usercommentview comments =this.getComment(commentId);
+        return comments.getMid();
+    }
     public void likeComment(int commentId,int userId){
         Comments comments =commentsMapper.selectByPrimaryKey(commentId);
         comments.setLikes(comments.getLikes()+1);

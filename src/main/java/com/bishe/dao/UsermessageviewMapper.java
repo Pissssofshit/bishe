@@ -8,6 +8,8 @@ import java.util.List;
 public interface UsermessageviewMapper {
     int insert(Usermessageview record);
 
+    Usermessageview selectByUserIdAndMessageId(int userId,int messageId);
+
     List<Usermessageview> selectAll();
 
     List<Usermessageview> selectByUserId(Integer userId);

@@ -30,6 +30,14 @@
       #{likes,jdbcType=INTEGER}, #{longitude,jdbcType=DOUBLE}, #{latitude,jdbcType=DOUBLE}, 
       #{isPushed,jdbcType=TINYINT}, #{message,jdbcType=LONGVARCHAR})
   </insert>
+
+  <select id="selectByUserIdAndMessageId" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+    select username, id, `uid`, tag, `type`, `value`, `group`, page, `time`, public_state,
+    likes, longitude, latitude, isPushed, message
+    from usermessageview
+    where `uid` = #{userId,jdbcType=INTEGER}
+    and id = #{messageId,jdbcType=INTEGER}
+  </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select username, id, `uid`, tag, `type`, `value`, `group`, page, `time`, public_state, 
     likes, longitude, latitude, isPushed, message

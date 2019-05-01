@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="comment(commentList)">
+<div th:fragment="comment">
     <div th:each="comment : ${commentList}" th:include="/messages/single-comment :: singlecomment(comment = ${comment})" th:id="comment+${comment.id}"></div>
 </div>
 </html>

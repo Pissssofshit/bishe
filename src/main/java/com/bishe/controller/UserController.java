@@ -92,6 +92,17 @@ public class UserController {
         model.addAttribute("viewattr",viewattr);
         return "wrapper";
     }
+    @RequestMapping("/message")
+    String message(Model model,Integer messageId,HttpServletRequest request){
+        Viewattr viewattr =new Viewattr();
+        viewattr.setFragment_id("row");
+        viewattr.setFragment_path("messages/rows");
+        int userId = userService.getUserId(request);
+        MessageWithComments messageWithComments = messageService.getMessageWithComments(userId,messageId);
+        model.addAttribute("message",messageWithComments);
+        model.addAttribute("viewattr",viewattr);
+        return "wrapper";
+    }
     @RequestMapping("/login")
     String login(Model model,UserLogin userLogin,HttpServletRequest request){
         boolean result = userService.checkPwd(userLogin.getUsername(),userLogin.getPassword());

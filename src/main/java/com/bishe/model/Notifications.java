@@ -1,8 +1,11 @@
 package com.bishe.model;
 
+import org.springframework.stereotype.Component;
+
 import java.io.Serializable;
 import java.util.Date;
 
+@Component
 public class Notifications implements Serializable {
     private Integer id;
 

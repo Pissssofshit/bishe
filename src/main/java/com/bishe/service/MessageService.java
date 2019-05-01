@@ -27,6 +27,8 @@ public class MessageService {
     UsermessageviewMapper usermessageviewMapper;
     @Autowired
     LikesMapper likesMapper;
+    @Autowired
+    NotificationsService notificationsService;
 
     public List<Messages> getMessageList(int pagesize,int pagenum,int userId){
         return messagesMapper.getMessageList(pagesize*(pagenum-1),pagesize,userId);
@@ -70,6 +72,8 @@ public class MessageService {
         likes.setPost(messageId);
         likes.setTime(new Date());
         likesMapper.insert(likes);
+        notificationsService.setNotificationsByLike(likes);
+
 
     }
     public Messages getMessageById(int messageId){

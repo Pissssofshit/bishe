@@ -755,6 +755,8 @@ function showNotification(x, y) {
 	// Y1: Show the global notifications
 	// Y2: Show the messages notifications
 	// Y3: Show the friends notifications
+	console.log(1111);
+
 	$('#messages_btn').removeClass('menu_btn_hover');
 	$('#notifications_btn').removeClass('menu_btn_hover');
 	$('#friends_btn').removeClass('menu_btn_hover');
@@ -774,48 +776,48 @@ function showNotification(x, y) {
 		}
 	} else {
 		// Stop checking for new notifications while reading them
-		clearTimeout(stopNotifications);
+		// clearTimeout(stopNotifications);
 		notificationState = false;
 		
 		$('.notification-container').show();
-		if(y == 1) {
-			$('#notifications_btn').addClass('menu_btn_hover');
-			$('#notifications_btn').html(getNotificationImage());
-			
-			// Show or hide the divs from the notifications container header
-			$('#global_page_url').show();
-			$('#chat_page_url').hide();
-			$('#friends_page_url').hide();
-			var extra = "";
-		} else if(y == 2) {
-			$('#messages_btn').addClass('menu_btn_hover');
-			$('#messages_btn').html(getMessagesImageUrl(1));
-			
-			// Show or hide the divs from the notifications container header
-			$('#global_page_url').hide();
-			$('#chat_page_url').show();
-			$('#friends_page_url').hide();
-			
-			var extra = '&for=1';
-		} else if(y == 3) {
-			$('#friends_btn').addClass('menu_btn_hover');
-			$('#friends_btn').html(getFriendsImage());
-			
-			// Show or hide the divs from the notifications container header
-			$('#global_page_url').hide();
-			$('#chat_page_url').hide();
-			$('#friends_page_url').show();
-			
-			var extra = '&for=3';
-		}
+		// if(y == 1) {
+		// 	$('#notifications_btn').addClass('menu_btn_hover');
+		// 	$('#notifications_btn').html(getNotificationImage());
+		//
+		// 	// Show or hide the divs from the notifications container header
+		// 	$('#global_page_url').show();
+		// 	$('#chat_page_url').hide();
+		// 	$('#friends_page_url').hide();
+		// 	var extra = "";
+		// } else if(y == 2) {
+		// 	$('#messages_btn').addClass('menu_btn_hover');
+		// 	$('#messages_btn').html(getMessagesImageUrl(1));
+		//
+		// 	// Show or hide the divs from the notifications container header
+		// 	$('#global_page_url').hide();
+		// 	$('#chat_page_url').show();
+		// 	$('#friends_page_url').hide();
+		//
+		// 	var extra = '&for=1';
+		// } else if(y == 3) {
+		// 	$('#friends_btn').addClass('menu_btn_hover');
+		// 	$('#friends_btn').html(getFriendsImage());
+		//
+		// 	// Show or hide the divs from the notifications container header
+		// 	$('#global_page_url').hide();
+		// 	$('#chat_page_url').hide();
+		// 	$('#friends_page_url').show();
+		//
+		// 	var extra = '&for=3';
+		// }
 		$('#notifications-content').html('<div class="notification-inner"><div class="preloader"></div></div>');
 		
 		$.ajax({
 			type: "POST",
-			url: baseUrl+"/requests/check_notifications.php",
-			data: "type=1"+extra+"&token_id="+token_id,
+			url: "/notice/noticeList",
 			cache: false,
 			success: function(html) {
+				console.log(html);
 				if(html) {
 					$('#notifications-content').html(html);
 					jQuery("span.timeago").timeago();

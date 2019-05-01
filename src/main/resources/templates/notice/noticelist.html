@@ -1,0 +1,6 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="noticelist(noticelist)">
+    <div th:each="notice : ${noticelist}" th:include="/notice/noticeitem::noticeitem(notice = ${notice})"></div>
+</div>
+</html>

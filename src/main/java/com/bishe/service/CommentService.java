@@ -5,6 +5,7 @@ import com.bishe.dao.LikesMapper;
 import com.bishe.dao.UsercommentviewMapper;
 import com.bishe.model.Comments;
 import com.bishe.model.Likes;
+import com.bishe.model.Notifications;
 import com.bishe.model.Usercommentview;
 import com.bishe.tmp.UserComment;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,19 +23,24 @@ public class CommentService {
     UsercommentviewMapper usercommentviewMapper;
     @Autowired
     LikesMapper likesMapper;
+    @Autowired
+    NotificationsService notificationsService;
 
-    public Comments postComments(Comments comments){
-        if(comments.getTime()==null){
+    public Comments postComments(Comments comments) {
+
+        if (comments.getTime() == null) {
 //            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             comments.setTime(new Date());
         }
-        if(comments.getLikes()==null){
+        if (comments.getLikes() == null) {
             comments.setLikes(0);
         }
         int commentid = commentsMapper.insert(comments);
-        if(commentid >0)
+
+        if (commentid > 0){
+            notificationsService.setNotificationsByComment(comments);
             return comments;
-        else{
+        }else{
             return null;
         }
     }
@@ -51,9 +57,10 @@ public class CommentService {
         commentsMapper.updateByPrimaryKey(comments);
         Likes likes = new Likes();
         likes.setBy(userId);
-        likes.setType(1);
+        likes.setType(2);
         likes.setPost(commentId);
         likes.setTime(new Date());
         likesMapper.insert(likes);
+        notificationsService.setNotificationsByLike(likes);
     }
 }

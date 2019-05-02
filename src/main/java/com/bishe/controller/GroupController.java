@@ -6,6 +6,7 @@ import com.bishe.Parameter.UserRegister;
 import com.bishe.model.User;
 import com.bishe.service.MessageService;
 import com.bishe.service.UserService;
+import com.bishe.tmp.MessageWithComments;
 import com.bishe.tmp.UserMessage;
 import com.bishe.tmp.Viewattr;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,15 @@ public class GroupController {
     public Response createGroup(){
 
         return new Response();
+    }
+    @RequestMapping("group")
+    public String GroupView(Model model){
+        Viewattr viewattr =new Viewattr();
+        viewattr.setFragment_id("group");
+        viewattr.setFragment_path("group/content");
+//        model.addAttribute("messages",messageService.getMessageWithComments(45));
+        model.addAttribute("viewattr",viewattr);
+        return "wrapper";
     }
 
 }

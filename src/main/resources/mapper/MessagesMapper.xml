@@ -6,6 +6,7 @@
     <result column="uid" property="uid" jdbcType="INTEGER" />
     <result column="tag" property="tag" jdbcType="VARCHAR" />
     <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="imgurl" property="imgurl" jdbcType="VARCHAR"/>
     <result column="value" property="value" jdbcType="VARCHAR" />
     <result column="group" property="group" jdbcType="INTEGER" />
     <result column="page" property="page" jdbcType="INTEGER" />
@@ -26,12 +27,12 @@
       `type`, `value`, `group`, 
       page, `time`, public_state, 
       likes, longitude, latitude, 
-      isPushed, message)
+      isPushed, message, imgurl)
     values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{tag,jdbcType=VARCHAR}, 
       #{type,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, #{group,jdbcType=INTEGER}, 
       #{page,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, #{public_state,jdbcType=INTEGER}, 
       #{likes,jdbcType=INTEGER}, #{longitude,jdbcType=DOUBLE}, #{latitude,jdbcType=DOUBLE}, 
-      #{isPushed,jdbcType=TINYINT}, #{message,jdbcType=LONGVARCHAR})
+      #{isPushed,jdbcType=TINYINT}, #{message,jdbcType=LONGVARCHAR}, #{imgurl,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.bishe.model.Messages" >
     update messages
@@ -47,23 +48,24 @@
       longitude = #{longitude,jdbcType=DOUBLE},
       latitude = #{latitude,jdbcType=DOUBLE},
       isPushed = #{isPushed,jdbcType=TINYINT},
-      message = #{message,jdbcType=LONGVARCHAR}
+      message = #{message,jdbcType=LONGVARCHAR},
+      imgurl = #{imgurl,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select id, `uid`, tag, `type`, `value`, `group`, page, `time`, public_state, likes, 
-    longitude, latitude, isPushed, message
+    longitude, latitude, isPushed, message,imgurl
     from messages
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select id, `uid`, tag, `type`, `value`, `group`, page, `time`, public_state, likes,
-    longitude, latitude, isPushed, message
+    longitude, latitude, isPushed, message,imgurl
     from messages
   </select>
   <select id="getMessageList" resultMap="BaseResultMap" >
     select id, `uid`, tag, `type`, `value`, `group`, page, `time`, public_state, likes,
-    longitude, latitude, isPushed, message
+    longitude, latitude, isPushed, message,imgurl
     from messages
     where uid = #{userId,jdbcType=INTEGER}
     offset #{offset,jdbcType=INTEGER}

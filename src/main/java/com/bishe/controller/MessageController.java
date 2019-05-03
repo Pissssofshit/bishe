@@ -45,7 +45,7 @@ public class MessageController {
     Response postmessage(Messages messages, @RequestParam("fileName") MultipartFile file, HttpServletRequest request){
 
         String result_msg="";//上传结果信息
-
+        String imageUrl="";
         Map<String,Object> root=new HashMap<String, Object>();
 
         if (file.getSize() / 1000 > 1000){
@@ -67,6 +67,7 @@ public class MessageController {
                 String suffixName = fileName.substring(fileName.lastIndexOf("."));
                 //重新生成文件名
                 fileName = UUID.randomUUID()+suffixName;
+                imageUrl = "../images/"+fileName;
                 if (FileUtils.upload(file, localPath, fileName)) {
                     //文件存放的相对路径(一般存放在数据库用于img标签的src)
                     String relativePath="img/"+fileName;
@@ -85,6 +86,7 @@ public class MessageController {
         int userid = (int)httpSession.getAttribute("userid");
         messages.setUid(userid);
         messages.setLikes(0);
+        messages.setImgurl(imageUrl);
         messageService.postMessage(messages);
         return new Response();
     }

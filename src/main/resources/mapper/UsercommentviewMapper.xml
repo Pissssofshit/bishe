@@ -27,6 +27,7 @@
     select idu, id, `uid`, mid, `time`, likes, username, message
     from usercommentview
     where mid = #{mid,jdbcType=INTEGER}
+    order by id desc
   </select>
   <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select idu, id, `uid`, mid, `time`, likes, username, message

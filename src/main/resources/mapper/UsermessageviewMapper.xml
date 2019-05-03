@@ -23,35 +23,36 @@
       tag, `type`, `value`, `group`, 
       page, `time`, public_state, 
       likes, longitude, latitude, 
-      isPushed, message)
+      isPushed, message,imgurl)
     values (#{username,jdbcType=VARCHAR}, #{id,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, 
       #{tag,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, #{group,jdbcType=INTEGER}, 
       #{page,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, #{public_state,jdbcType=INTEGER}, 
       #{likes,jdbcType=INTEGER}, #{longitude,jdbcType=DOUBLE}, #{latitude,jdbcType=DOUBLE}, 
-      #{isPushed,jdbcType=TINYINT}, #{message,jdbcType=LONGVARCHAR})
+      #{isPushed,jdbcType=TINYINT}, #{message,jdbcType=LONGVARCHAR}, #{imgurl,jdbcType=VARCHAR})
   </insert>
 
   <select id="selectByUserIdAndMessageId" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
     select username, id, `uid`, tag, `type`, `value`, `group`, page, `time`, public_state,
-    likes, longitude, latitude, isPushed, message
+    likes, longitude, latitude, isPushed, message, imgurl
     from usermessageview
     where `uid` = #{userId,jdbcType=INTEGER}
     and id = #{messageId,jdbcType=INTEGER}
+    order by id desc
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select username, id, `uid`, tag, `type`, `value`, `group`, page, `time`, public_state, 
-    likes, longitude, latitude, isPushed, message
+    likes, longitude, latitude, isPushed, message,imgurl
     from usermessageview
   </select>
   <select id="selectByUserId" resultMap="BaseResultMap" >
     select username, id, `uid`, tag, `type`, `value`, `group`, page, `time`, public_state,
-    likes, longitude, latitude, isPushed, message
+    likes, longitude, latitude, isPushed, message,imgurl
     from usermessageview
     where uid = #{userid,jdbcType=INTEGER}
   </select>
   <select id="getUserMessageList" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
     select username, id, `uid`, tag, `type`, `value`, `group`, page, `time`, public_state,
-    likes, longitude, latitude, isPushed, message
+    likes, longitude, latitude, isPushed, message,imgurl
     from usermessageview
     where uid = #{userId,jdbcType=INTEGER}
     limit #{limit,jdbcType=INTEGER}

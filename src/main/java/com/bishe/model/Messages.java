@@ -32,6 +32,16 @@ public class Messages implements Serializable {
 
     private String message;
 
+    private String imgurl;
+
+    public String getImgurl() {
+        return imgurl;
+    }
+
+    public void setImgurl(String imgurl) {
+        this.imgurl = imgurl;
+    }
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {

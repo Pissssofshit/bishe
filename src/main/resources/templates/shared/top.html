@@ -31,6 +31,9 @@
 				<div class="button-image">
 					<input name="my_image[]" id="my_file" size="27" type="file" class="inputImage" title="{$lng->label_image}" multiple="multiple">
 				</div>
+				<input type="file" name="fileName" id="filename" accept="image/png, image/jpeg, image/jpg" onchange="checkImage()">
+				<input type="button" id="submitBtn" onclick="checkSubmit()" value="上传"/>
+
 				<input type="radio" name="type" value="video" id="video" class="input_hidden"><label for="video" title="{$lng->label_video}"><img src="/images/icons/events/video.png"></label>
 				<input type="radio" name="type" value="map" id="map" class="input_hidden"><label for="map" id="map-icon" title="{$lng->label_map}"><img src="/images/icons/events/map.png"></label>
 				<input type="radio" name="type" value="visited" id="visited" class="input_hidden"><label for="visited" title="{$lng->label_visited}"><img src="/images/icons/events/visited.png"></label>

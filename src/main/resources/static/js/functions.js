@@ -33,7 +33,7 @@ function onComplete(data) {
 //解析定位错误信息
 function onError(data) {
 	console.log(3);
-    alert('定位失败。失败原因排查信息:'+data.message````````````````````````````````````````````);
+    alert('定位失败。失败原因排查信息:'+data.message);
 }
 
 function autosize() {
@@ -1115,12 +1115,40 @@ function cleanOldFid() {
 		}
 	}
 }
+function checkSubmit() {
+	var formdata=new FormData();
+	formdata.append('fileName',$('#filename').get(0).files[0]);
+	$.ajax({
+		async: false,
+		type: 'POST',
+		url: "/message/post",
+		dataType: 'json',
+		data: formdata,
+		contentType:false,//ajax上传图片需要添加
+		processData:false,//ajax上传图片需要添加
+		success: function (data) {
+			if(data.hasOwnProperty("relativePath")){
+				$("#showImage").html("<img src='"+data.relativePath+"'/>");
+			}
+			else {
+				$("#showImage").html("上传失败");
+			}
+			alert(data.result_msg);
+		},
+		error: function (e) {
+			alert("error");
+		}
+	})
+}
 function startUpload() {
 	console.log($('#post9999999999').val());
+	var formdata = new FormData();
 	$.ajax({
 		type: "POST",   //提交的方法
 		url:"/message/post", //提交的地址
 		dataType: "json",
+		contentType:false,
+		processData:false,
 		data:{"message":$('#post9999999999').val()},// 序列化表单值
 		async: false,
 		error: function(request) {  //失败的话

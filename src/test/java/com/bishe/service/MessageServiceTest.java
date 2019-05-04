@@ -1,6 +1,8 @@
 package com.bishe.service;
 
+import com.bishe.dao.GroupsMapper;
 import com.bishe.dao.LikesMapper;
+import com.bishe.model.Groups;
 import com.bishe.model.Likes;
 import com.bishe.model.Messages;
 import com.bishe.tmp.MessageWithComments;
@@ -23,11 +25,16 @@ public class MessageServiceTest {
     private MessageService messageService;
     @Autowired
     private LikesMapper likesMapper;
+    @Autowired
+    private GroupsMapper groupsMapper;
 
     @Test
     public void test(){
-        List<Messages> tests = messageService.getMessageList(10,1,1);
-        Assert.assertEquals(tests.size(),10);
+        Groups groups = groupsMapper.selectByPrimaryKey(1);
+        groups.setId(null);
+        groupsMapper.insert(groups);
+//        List<Messages> tests = messageService.getMessageList(10,1,1);
+//        Assert.assertEquals(tests.size(),10);
     }
     @Test
     public void testgetMessageWithComments(){

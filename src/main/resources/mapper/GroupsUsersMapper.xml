@@ -37,6 +37,11 @@
     where `group` = #{group,jdbcType=INTEGER}
       and `user` = #{user,jdbcType=INTEGER}
   </select>
+  <select id="selectGroupUsers" resultMap="BaseResultMap" parameterType="map" >
+    select `group`, `user`, id, `status`, permissions, `time`
+    from groups_users
+    where `group` = #{groupId,jdbcType=INTEGER}
+  </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select `group`, `user`, id, `status`, permissions, `time`
     from groups_users

@@ -16,5 +16,7 @@ public interface GroupsUsersMapper {
 
     List<GroupsUsers> selectAll();
 
+    List<GroupsUsers> selectGroupUsers(int groupId);
+
     int updateByPrimaryKey(GroupsUsers record);
 }

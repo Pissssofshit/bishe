@@ -4,10 +4,14 @@ import com.bishe.Parameter.UserRegister;
 import com.bishe.dao.GroupsMapper;
 import com.bishe.dao.GroupsUsersMapper;
 import com.bishe.dao.UserMapper;
+import com.bishe.model.Groups;
 import com.bishe.model.GroupsUsers;
 import com.bishe.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 //import com.bishe.model.Users;
 
@@ -20,8 +24,33 @@ public class GroupService {
     GroupsUsersMapper groupsUsersMapper;
     @Autowired
     GroupsUsers groupsUsers;
+    @Autowired
+    UserMapper userMapper;
 
-    boolean joinGroup(int groupId,int userId,int level){
+    public List<User> getGroupUsersById(int groupId){
+
+        List<GroupsUsers> groupsUsersList = groupsUsersMapper.selectGroupUsers(groupId);
+        List<User> userList = new ArrayList<>();
+        for (GroupsUsers groupUsers:groupsUsersList
+             ) {
+            int userId = groupsUsers.getUser();
+            User user = userMapper.selectByPrimaryKey(userId);
+            userList.add(user);
+        }
+        return userList;
+    }
+    public Groups getGroupByGroupId(int groupId){
+        return groupsMapper.selectByPrimaryKey(groupId);
+    }
+
+    public Groups createGroup(Groups groups){
+        groupsMapper.insert(groups);
+        if(groups.getId()==null){
+            return null;
+        }
+        return groups;
+    }
+    public boolean joinGroup(int groupId,int userId,int level){
         groupsUsers.setGroup(groupId);
         groupsUsers.setPermissions(level);
         groupsUsers.setUser(userId);
@@ -31,7 +60,7 @@ public class GroupService {
         }
         return true;
     }
-    boolean setGroupUserLevel(int groupId,int userId,int level,int SetUserId){
+    public boolean setGroupUserLevel(int groupId,int userId,int level,int SetUserId){
         if(!this.isGroupAdmin(userId,groupId)){
             return false;
         }
@@ -44,7 +73,7 @@ public class GroupService {
         }
         return true;
     }
-    boolean isGroupAdmin(int userId,int groupId){
+    public boolean isGroupAdmin(int userId,int groupId){
         GroupsUsers groupsUsers1 = groupsUsersMapper.selectByPrimaryKey(groupId,userId);
         if(groupsUsers1.getPermissions()==1){
             return true;

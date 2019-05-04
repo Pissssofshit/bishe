@@ -16,12 +16,12 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.bishe.model.Groups" >
-    insert into groups (id, `name`, title, 
+    insert into `groups` (id, `name`, title,
       cover, privacy, posts, 
       `time`, description)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
       #{cover,jdbcType=VARCHAR}, #{privacy,jdbcType=INTEGER}, #{posts,jdbcType=INTEGER}, 
-      #{time,jdbcType=TIMESTAMP}, #{description,jdbcType=LONGVARCHAR})
+      #{time,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.bishe.model.Groups" >
     update groups
@@ -31,12 +31,12 @@
       privacy = #{privacy,jdbcType=INTEGER},
       posts = #{posts,jdbcType=INTEGER},
       `time` = #{time,jdbcType=TIMESTAMP},
-      description = #{description,jdbcType=LONGVARCHAR}
+      description = #{description,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select id, `name`, title, cover, privacy, posts, `time`, description
-    from groups
+    from `groups`
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >

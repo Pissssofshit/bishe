@@ -1,70 +1,54 @@
-<div class="page-container" id="edit_group">
-	<div class="page-content">
-		<div class="page-header">{$group_title}</div>
-		{$message}
-		<form action="{$url}/index.php?a=group{$edit_url}" method="POST" enctype="multipart/form-data">
-			{$token_input}
-			<div class="page-inner">
-				<div class="page-input-container">
-					<div class="page-input-title">{$lng->name}</div>
-					<div class="page-input-content">
-						<input type="text" name="group_name" value="{$current_name}"{$disabled}>
-						<div class="page-input-sub">{$lng->group_sub_name}</div>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="creategroup">
+	<div class="page-container" id="edit_group">
+		<div class="page-content">
+			<!--<div th:test="${group}==''">sssssss</div>-->
+			<div  class="page-header">群组</div>
+			<!--<div th:test="${group}!=''" class="page-header" th:text="${group.name}"></div>-->
+			<form action="{$url}/index.php?a=group{$edit_url}" method="POST" enctype="multipart/form-data">
+				<div class="page-inner">
+					<div class="page-input-container">
+						<div class="page-input-title">组名</div>
+						<div class="page-input-content">
+							<input type="text" id="group_name" name="group_name" placeholder="请输入组名">
+						</div>
+					</div>
+
+					<div class="page-input-container">
+						<div class="page-input-title">请选择组封面</div>
+						<div class="page-input-content">
+							<!--<input type="file" id="group_cover" name="group_cover[]">-->
+							<input type="file" name="group_cover" id="group_cover" accept="image/png, image/jpeg, image/jpg">
+
+							<div class="page-input-sub">组封面</div>
+						</div>
+					</div>
+
+					<div class="page-input-container">
+						<div class="page-input-title">请选择公开程度</div>
+						<div class="page-input-content">
+							<select id="group_privacy" name="group_privacy">
+								<option value="0">公开</option>
+								<option value="1">私人</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="page-input-container">
+						<div class="page-input-title">组描述</div>
+						<div class="page-input-content">
+							<textarea class="ads" name="group_desc" id="group_desc" placeholder="描述"></textarea>
+						</div>
 					</div>
 				</div>
-				
-				<div class="page-input-container">
-					<div class="page-input-title">{$lng->title}</div>
-					<div class="page-input-content">
-						<input type="text" name="group_title" value="{$current_title}">
-						<div class="page-input-sub">{$lng->group_sub_title}</div>
-					</div>
+
+				<div class="message-divider"></div>
+
+				<div class="page-inner">
+					<div class="page-input-title"></div><input type="submit" onclick="createGroup()" value="创建组"> <span class="sidebar-header-link delete-group"{$style}><a href="{$url}/index.php?a=group{$delete_url}" rel="loadpage">删除组</a></span>
 				</div>
-				
-				<div class="page-input-container">
-					<div class="page-input-title">{$lng->cover_image}</div>
-					<div class="page-input-content">
-						<input type="file" name="group_cover[]">
-						<div class="page-input-sub">{$lng->group_sub_cover}</div>
-					</div>
-				</div>
-				
-				<div class="page-input-container">
-					<div class="page-input-title">{$lng->privacy}</div>
-					<div class="page-input-content">
-					<select name="group_privacy">
-						<option value="0"{$privacy_public}>{$lng->public}</option>
-						<option value="1"{$privacy_private}>{$lng->private}</option>
-					</select>
-					<div class="page-input-sub">{$lng->group_sub_privacy}</div>
-					</div>
-				</div>
-				
-				<div class="page-input-container">
-					<div class="page-input-title">{$lng->posts}</div>
-					<div class="page-input-content">
-					<select name="group_posts">
-						<option value="0"{$posts_members}>{$lng->any_member}</option>
-						<option value="1"{$posts_admins}>{$lng->admins}</option>
-					</select>
-					<div class="page-input-sub">{$lng->group_sub_posts}</div>
-					</div>
-				</div>
-				
-				<div class="page-input-container">
-					<div class="page-input-title">{$lng->description}</div>
-					<div class="page-input-content">
-						<textarea class="ads" name="group_desc">{$current_desc}</textarea>
-						<div class="page-input-sub">{$lng->group_sub_description}</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="message-divider"></div>
-			
-			<div class="page-inner">
-				<div class="page-input-title"></div><input type="submit" value="{$group_btn}"> <span class="sidebar-header-link delete-group"{$style}><a href="{$url}/index.php?a=group{$delete_url}" rel="loadpage">{$lng->delete_group}</a></span>
-			</div>
-		</form>
+			</form>
+		</div>
 	</div>
 </div>

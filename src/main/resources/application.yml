@@ -8,6 +8,8 @@ mybatis:
   #目的是给spring boot 扫描到这个包
   typeAliasesPackage: com.bishe.dao
   mapperLocations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 
 ---

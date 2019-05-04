@@ -6,8 +6,7 @@
 			<div class="cover-container">
 				<div class="cover-content">
 					<a onclick="gallery('599816603_1051169603_453922967.jpg', '21222', 'covers')" id="599816603_1051169603_453922967.jpg">
-						<div class="cover-image" style="background-position: center; ">
-							<!--background-image: url()-->
+						<div class="cover-image" style="background-position: center; "  th:style="'background-image:url(' + ${group.groups.cover} + ');'" >
 						</div></a>
 					<div class="cover-description">
 						<div class="cover-buttons cover-buttons-group">
@@ -16,7 +15,7 @@
 
 						</div>
 						<div class="cover-description-content cover-group-content">
-							<div class="cover-username-container"><div class="cover-username"><a href="http://bishefront.com/index.php?a=group&amp;name=123" rel="loadpage">1222</a></div></div>
+							<div class="cover-username-container"><div class="cover-username"><a href="http://bishefront.com/index.php?a=group&amp;name=123" rel="loadpage" th:text="${group.groups.name}">1222</a></div></div>
 							<div class="cover-description-buttons"><div id="group-btn-2" class="friend-btn"></div></div>
 						</div>
 					</div>

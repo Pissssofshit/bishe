@@ -1115,9 +1115,36 @@ function cleanOldFid() {
 		}
 	}
 }
+function createGroup() {
+	var formdata=new FormData();
+	formdata.append('groupcover',$('#group_cover').get(0).files[0]);
+
+	formdata.append('name',$('#group_name').val());
+	formdata.append('description',$('#group_desc').val());
+	formdata.append('privacy',$('#group_privacy').val());
+
+
+	// formdata.append('message',$('#post9999999999').val());
+	$.ajax({
+		async: false,
+		type: 'POST',
+		url: "/group/creatGroup",
+		dataType: 'json',
+		data: formdata,
+		contentType:false,//ajax上传图片需要添加
+		processData:false,//ajax上传图片需要添加
+		success: function (data) {
+			window.location.href=data.url;
+		},
+		error: function (e) {
+			alert("error");
+		}
+	})
+}
 function checkSubmit() {
 	var formdata=new FormData();
 	formdata.append('fileName',$('#filename').get(0).files[0]);
+	formdata.append('message',$('#post9999999999').val());
 	$.ajax({
 		async: false,
 		type: 'POST',

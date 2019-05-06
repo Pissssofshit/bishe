@@ -1134,14 +1134,37 @@ function createGroup() {
 		contentType:false,//ajax上传图片需要添加
 		processData:false,//ajax上传图片需要添加
 		success: function (data) {
-			window.location.href=data.url;
+			console.log(222);
+			console.log(data);
+			// window.location.href=data.url;
 		},
 		error: function (e) {
-			alert("error");
+			console.log(333);
+			console.log("error");
 		}
 	})
 }
-function checkSubmit() {
+function loadGroupMember(groupId){
+	// var formdata=new FormData();
+	// formdata.append('fileName',$('#filename').get(0).files[0]);
+	// formdata.append('message',$('#post9999999999').val());
+	$("#messages").load("/group/loadGroupMember",{"groupId":groupId});
+	// $.ajax({
+	// 	async: false,
+	// 	type: 'POST',
+	// 	url: "/group/loadGroupMember",
+	// 	dataType: 'json',
+	// 	data: {"groupId":groupId},
+	// 	success: function (data) {
+	// 		console.log(data);
+	//
+	// 	},
+	// 	error: function (e) {
+	// 		alert("error");
+	// 	}
+	// })
+}
+function checkSubmit(lat,long) {
 	var formdata=new FormData();
 	formdata.append('fileName',$('#filename').get(0).files[0]);
 	formdata.append('message',$('#post9999999999').val());
@@ -1154,13 +1177,7 @@ function checkSubmit() {
 		contentType:false,//ajax上传图片需要添加
 		processData:false,//ajax上传图片需要添加
 		success: function (data) {
-			if(data.hasOwnProperty("relativePath")){
-				$("#showImage").html("<img src='"+data.relativePath+"'/>");
-			}
-			else {
-				$("#showImage").html("上传失败");
-			}
-			alert(data.result_msg);
+			$("#content").load("/message/loadmessage");
 		},
 		error: function (e) {
 			alert("error");
@@ -1192,6 +1209,35 @@ function startUpload() {
 	//todo 时间紧迫，之后处理 （表单上传改为ajax上传）
 	// document.getElementById("post-loader9999999999").style.visibility = "visible";
 }
+
+		function getLocation2(){
+	             if (navigator.geolocation){
+		                     navigator.geolocation.getCurrentPosition(showPosition,showError);
+		                 }else{
+		                     alert("浏览器不支持地理定位。");
+		             }
+		}
+         function showError(error){
+	             switch(error.code) {
+		                 case error.PERMISSION_DENIED:
+			                     console.log("定位失败,用户拒绝请求地理定位");
+			                     break;
+			                 case error.POSITION_UNAVAILABLE:
+			                     console.log("定位失败,位置信息是不可用");
+			                     break;
+			                 case error.TIMEOUT:
+			                     console.log("定位失败,请求获取用户位置超时");
+			                     break;
+			                 case error.UNKNOWN_ERROR:
+			                     console.log("定位失败,定位系统失效");
+			                     break;
+			             }
+	         };
+
+	function showPosition(position) {
+		latlon = position.coords.latitude + ',' + position.coords.longitude;
+		alert(latlon);
+	}
 function stopUpload(success) {
 	document.getElementById("post-loader9999999999").style.visibility = "hidden";
 	$('#load-content').after(success);
@@ -1213,6 +1259,17 @@ function stopUpload(success) {
 function focus_form(id) {
 	document.getElementById('comment-form'+id).focus();
 	showButton(id);
+}
+function  testLocation() {
+		url = "https://restapi.amap.com/v3/geocode/regeo?key=cdba47e109636c5c0526fc46d5ffe69b&location=";
+		url = url + locationsss.lng + "," + locationsss.lat;
+		$.get(url,
+			function (data) {
+				console.log(data);
+				$("#form-value").val(data.regeocode.formatted_address);
+				// alert("Data Loaded: " + data);
+			});
+
 }
 function resizeGallery() {
 	// image-container class
@@ -1652,8 +1709,8 @@ $(document).ready(function() {
 				} else {
 					$.ajax({
 						type: "POST",
-						url: baseUrl+"/requests/"+url+".php",
-						data: data+"&token_id="+token_id, // start is not used in this particular case, only needs to be set
+						url: "/user/loadPeopleAndGroup",
+						data: {"keyword":q}, // start is not used in this particular case, only needs to be set
 						cache: false,
 						success: function(html) {
 							$(".search-container").html(html).show();

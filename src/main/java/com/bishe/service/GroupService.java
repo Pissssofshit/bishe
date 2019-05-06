@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 //import com.bishe.model.Users;
@@ -27,13 +28,36 @@ public class GroupService {
     @Autowired
     UserMapper userMapper;
 
+    public List<Groups> loadGroupsByUserId(int userId){
+        List<GroupsUsers> groupsUsersList = groupsUsersMapper.selectGroupUsersByUserId(userId);
+        List<Groups> groupsList = new ArrayList<>();
+        for (GroupsUsers groupUsers:groupsUsersList
+             ) {
+            Groups groups = groupsMapper.selectByPrimaryKey(groupUsers.getGroup());
+            groupsList.add(groups);
+        }
+        return groupsList;
+    }
+
+    public boolean isGroupMember(Integer userId,Integer groupId){
+        GroupsUsers groupsUsers = groupsUsersMapper.selectByPrimaryKey(groupId,userId);
+        if(groupsUsers==null)
+            return false;
+        return true;
+    }
+
+    public List<Groups> selectByLikeGroupName(String groupName){
+        List<Groups> s= groupsMapper.selectByLikeGroupName(groupName);
+        return s;
+    }
+
     public List<User> getGroupUsersById(int groupId){
 
         List<GroupsUsers> groupsUsersList = groupsUsersMapper.selectGroupUsers(groupId);
         List<User> userList = new ArrayList<>();
         for (GroupsUsers groupUsers:groupsUsersList
              ) {
-            int userId = groupsUsers.getUser();
+            int userId = groupUsers.getUser();
             User user = userMapper.selectByPrimaryKey(userId);
             userList.add(user);
         }
@@ -51,10 +75,14 @@ public class GroupService {
         return groups;
     }
     public boolean joinGroup(int groupId,int userId,int level){
-        groupsUsers.setGroup(groupId);
-        groupsUsers.setPermissions(level);
-        groupsUsers.setUser(userId);
-        int result = groupsUsersMapper.insert(groupsUsers);
+        GroupsUsers groupsUsers1 = new GroupsUsers();
+        groupsUsers1.setGroup(groupId);
+        groupsUsers1.setPermissions(level);
+        groupsUsers1.setUser(userId);
+        groupsUsers1.setStatus(0);
+        groupsUsers1.setTime(new Date());
+        groupsUsers1.setPermissions(level);
+        int result = groupsUsersMapper.insert(groupsUsers1);
         if(result==0){
             return false;
         }

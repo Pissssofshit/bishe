@@ -37,6 +37,8 @@ public class MessageService {
         return usermessageviewMapper.getUserMessageList(pagesize*(pagenum-1),pagesize,userId);
     }
 
+
+
     public Messages postMessage(Messages messages){
         int messageid = messagesMapper.insert(messages);
         if(messageid >0)

@@ -13,7 +13,11 @@ public interface GroupsMapper {
 
     Groups selectByPrimaryKey(Integer id);
 
+    List<Groups> selectByLikeGroupName(String groupName);
+
     List<Groups> selectAll();
+
+
 
     int updateByPrimaryKey(Groups record);
 }

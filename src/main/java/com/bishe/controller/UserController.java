@@ -3,13 +3,12 @@ package com.bishe.controller;
 import com.bishe.Http.Response;
 import com.bishe.Parameter.UserLogin;
 import com.bishe.Parameter.UserRegister;
-import com.bishe.model.Messages;
-import com.bishe.model.User;
-import com.bishe.model.Usercommentview;
-import com.bishe.model.Usermessageview;
+import com.bishe.model.*;
+import com.bishe.service.GroupService;
 import com.bishe.service.MessageService;
 import com.bishe.service.UserService;
 import com.bishe.tmp.MessageWithComments;
+import com.bishe.tmp.SearchItem;
 import com.bishe.tmp.UserMessage;
 import com.bishe.tmp.Viewattr;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +35,8 @@ public class UserController {
     UserService userService;
     @Autowired
     MessageService messageService;
+    @Autowired
+    GroupService groupService;
 
     boolean isLogin(HttpServletRequest request){
         HttpSession httpSession = request.getSession();
@@ -103,6 +104,47 @@ public class UserController {
         model.addAttribute("viewattr",viewattr);
         return "wrapper";
     }
+
+
+    @RequestMapping("/loadPeopleAndGroup")
+    String loadPeopleAndGroup(Model model,String keyword,HttpServletRequest request){
+        List<User> userList = userService.getUserByLikeUsername(keyword);
+        List<Groups> groupsList = groupService.selectByLikeGroupName(keyword);
+        List<SearchItem> searchItemList = new ArrayList<>();
+        int userId = userService.getUserId(request);
+        for (Groups  groups:groupsList
+             ) {
+            SearchItem searchItem = new SearchItem();
+            searchItem.setId(groups.getId());
+            searchItem.setName(groups.getName());
+            searchItem.setType(1);
+            boolean isGroupMember = groupService.isGroupMember(userId,groups.getId());
+            if(isGroupMember){
+                searchItem.setRelationship(1);
+            }else{
+                searchItem.setRelationship(2);
+            }
+            searchItem.setLogoUrl(groups.getCover());
+            searchItemList.add(searchItem);
+        }
+        for(User user:userList){
+            SearchItem searchItem = new SearchItem();
+            searchItem.setId(user.getIdu());
+            searchItem.setName(user.getUsername());
+            searchItem.setType(2);
+            boolean isFriends = userService.isFriends(userId,user.getIdu());
+            if(isFriends){
+                searchItem.setRelationship(1);
+            }else{
+                searchItem.setRelationship(2);
+            }
+            searchItem.setLogoUrl(user.getCover());
+            searchItemList.add(searchItem);
+        }
+        model.addAttribute("itemList",searchItemList);
+        return "search/searchItem::searchitem";
+    }
+
     @RequestMapping("/login")
     String login(Model model,UserLogin userLogin,HttpServletRequest request){
         boolean result = userService.checkPwd(userLogin.getUsername(),userLogin.getPassword());
@@ -111,6 +153,9 @@ public class UserController {
             viewattr.setFragment_id("timeline");
             viewattr.setFragment_path("shared/timeline");
             List<MessageWithComments> messageWithComments = messageService.getMessageWithComments(this.getUserId(request));
+            int userId = this.getUserId(request);
+            List<Groups> groupsList = groupService.loadGroupsByUserId(userId);
+            model.addAttribute("groupsList",groupsList);
             model.addAttribute("messages",messageWithComments);
         }else {
             if (result) {
@@ -120,7 +165,9 @@ public class UserController {
                 viewattr.setFragment_path("shared/timeline");
                 List<MessageWithComments> messageWithComments = messageService.getMessageWithComments(user.getIdu());
                 model.addAttribute("messages",messageWithComments);
-
+                int userId = this.getUserId(request);
+                List<Groups> groupsList = groupService.loadGroupsByUserId(userId);
+                model.addAttribute("groupsList",groupsList);
             } else {
                 viewattr.setFragment_id("content");
                 viewattr.setFragment_path("welcome/content");

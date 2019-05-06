@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div class="message-container" th:fragment="searchitem">
+    <div class="search-results">
+        <div class="notification-inner"><a onclick="manageResults(1)"><strong>查看所有的结果</strong></a> <a onclick="manageResults(0)" title="接近的结果"><div class="delete_btn"></div></a></div>
+        <div th:each="item : ${itemList}" class="message-inner">
+            <div id="searchitem+${item.id}">
+                <div class="friend-button subslist" title="加为好友/加入群组" onclick="friend(4, 1, 1)"></div>
+            </div>
+            <a href="http://bishefront.com/index.php?a=messages&amp;u=122&amp;id=4" title="发送验证消息" rel="loadpage">
+                <div class="message_btn subslist_message"></div>
+            </a>
+            <div class="message-avatar" id="avatar4">
+                <a href="http://bishefront.com/index.php?a=profile&amp;u=122" rel="loadpage">
+                    <img src="http://bishefront.com/thumb.php?src=default.png&amp;t=a&amp;w=50&amp;h=50">
+                </a>
+            </div>
+            <div class="message-top">
+                <div class="message-author" id="author4">
+                    <a href="http://bishefront.com/index.php?a=profile&amp;u=122" rel="loadpage">122</a>
+                </div>
+                <div class="message-time">
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

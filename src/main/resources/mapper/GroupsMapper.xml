@@ -15,7 +15,7 @@
     delete from groups
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.bishe.model.Groups" >
+  <insert id="insert" parameterType="com.bishe.model.Groups" useGeneratedKeys="true" keyProperty="id">
     insert into `groups` (id, `name`, title,
       cover, privacy, posts, 
       `time`, description)
@@ -27,13 +27,20 @@
     update groups
     set `name` = #{name,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
-      cover = #{cover,jdbcType=VARCHAR},
+      cover = #{coelectByLikeGroupNaver,jdbcType=VARCHAR},
       privacy = #{privacy,jdbcType=INTEGER},
       posts = #{posts,jdbcType=INTEGER},
       `time` = #{time,jdbcType=TIMESTAMP},
       description = #{description,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <select id="selectByLikeGroupName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select id, `name`, title, cover, privacy, posts, `time`, description
+    from `groups`
+    where `name` like #{groupName,jdbcType=VARCHAR}
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select id, `name`, title, cover, privacy, posts, `time`, description
     from `groups`

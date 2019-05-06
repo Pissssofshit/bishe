@@ -22,6 +22,7 @@
       #{status,jdbcType=INTEGER}, #{permissions,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}
       )
   </insert>
+
   <update id="updateByPrimaryKey" parameterType="com.bishe.model.GroupsUsers" >
     update groups_users
     set id = #{id,jdbcType=INTEGER},
@@ -31,6 +32,12 @@
     where `group` = #{group,jdbcType=INTEGER}
       and `user` = #{user,jdbcType=INTEGER}
   </update>
+
+  <select id="selectGroupUsersByUserId" resultMap="BaseResultMap" parameterType="map" >
+    select `group`, `user`, id, `status`, permissions, `time`
+    from groups_users
+    where `user` = #{userId,jdbcType=INTEGER}
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
     select `group`, `user`, id, `status`, permissions, `time`
     from groups_users

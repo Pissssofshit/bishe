@@ -155,6 +155,19 @@
     from user
     where idu = #{idu,jdbcType=INTEGER}
   </select>
+
+  <select id="selectByLikeUserName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select idu, username, `password`, email, first_name, last_name, country, `location`,
+    address, `work`, school, website, bio, `date`, facebook, twitter, gplus, image, private_states,
+    suspended, salted, cover, verified, privacy, gender, interests, `online`, `offline`,
+    ip, user_group, notificationl, notificationc, notifications, notificationd, notificationf,
+    notificationg, notificationx, notificationp, email_comment, email_like, email_new_friend,
+    email_group_invite, email_page_invite, sound_new_notification, sound_new_chat, born,
+    lastloginlat, lastloginlong, push
+    from user
+    where username like #{userName,jdbcType=VARCHAR}
+  </select>
+
   <select id="selectByUserName" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select idu, username, `password`, email, first_name, last_name, country, `location`,
     address, `work`, school, website, bio, `date`, facebook, twitter, gplus, image, private_states,

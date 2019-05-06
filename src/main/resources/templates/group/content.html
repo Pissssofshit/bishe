@@ -1,87 +1,171 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="group">
-	<div class="row-body">
-		<div class="twelve columns">
-			<div class="cover-container">
-				<div class="cover-content">
-					<a onclick="gallery('599816603_1051169603_453922967.jpg', '21222', 'covers')" id="599816603_1051169603_453922967.jpg">
-						<div class="cover-image" style="background-position: center; "  th:style="'background-image:url(' + ${group.groups.cover} + ');'" >
-						</div></a>
-					<div class="cover-description">
-						<div class="cover-buttons cover-buttons-group">
-							<a class="cover-button cover-button-active" rel="loadpage" href="http://bishefront.com/index.php?a=group&amp;name=123">讨论</a><a class="cover-button" rel="loadpage" href="http://bishefront.com/index.php?a=group&amp;name=123&amp;r=members">成员 <span class="cover-button-value">(2)</span></a><a class="cover-button" rel="loadpage" href="http://bishefront.com/index.php?a=group&amp;name=123&amp;r=admins">管理员 <span class="cover-button-value">(1)</span></a><a class="cover-button" rel="loadpage" href="http://bishefront.com/index.php?a=group&amp;name=123&amp;r=requests">请求</a><a class="cover-button" rel="loadpage" href="http://bishefront.com/index.php?a=group&amp;name=123&amp;r=blocked">受阻</a><a class="cover-button" rel="loadpage" href="http://bishefront.com/index.php?a=group&amp;name=123&amp;r=edit">编辑</a><div class="message-btn button-normal" onclick="messageMenu('profile', 1)" id="profile-button"><div class="group-button menu-button" id="profile-btn"></div></div><div id="message-menuprofile" class="message-menu-container menu-profile-container"><a class=" profile-menu-active" rel="loadpage" href="http://bishefront.com/index.php?a=group&amp;name=123"><div class="message-menu-row">讨论</div></a><a class="" rel="loadpage" href="http://bishefront.com/index.php?a=group&amp;name=123&amp;r=members"><div class="message-menu-row">成员 <span class="profile-menu-value">(2)</span></div></a><a class="" rel="loadpage" href="http://bishefront.com/index.php?a=group&amp;name=123&amp;r=admins"><div class="message-menu-row">管理员 <span class="profile-menu-value">(1)</span></div></a><a class="" rel="loadpage" href="http://bishefront.com/index.php?a=group&amp;name=123&amp;r=requests"><div class="message-menu-row">请求</div></a><a class="" rel="loadpage" href="http://bishefront.com/index.php?a=group&amp;name=123&amp;r=blocked"><div class="message-menu-row">受阻</div></a><a class="" rel="loadpage" href="http://bishefront.com/index.php?a=group&amp;name=123&amp;r=edit"><div class="message-menu-row">编辑</div></a>
-						</div>
+    <div class="row-body">
+        <div class="twelve columns">
+            <div class="cover-container">
+                <div class="cover-content">
+                    <a onclick="gallery('599816603_1051169603_453922967.jpg', '21222', 'covers')"
+                       id="599816603_1051169603_453922967.jpg">
+                        <div class="cover-image" style="background-position: center; "
+                             th:style="'background-image:url(' + ${group.groups.cover} + ');'">
+                        </div>
+                    </a>
+                    <div class="cover-description">
+                        <div class="cover-buttons cover-buttons-group">
+                            <a class="cover-button cover-button-active" rel="loadpage"
+                               href="http://bishefront.com/index.php?a=group&amp;name=123">讨论</a>
+                            <a class="cover-button" th:onclick="'loadGroupMember('+${group.groups.id}+');'">成员
+                            <span class="cover-button-value">(2)</span></a><a class="cover-button" rel="loadpage"
+                                                                              href="http://bishefront.com/index.php?a=group&amp;name=123&amp;r=admins">管理员
+                            <span class="cover-button-value">(1)</span></a><a class="cover-button" rel="loadpage"
+                                                                              href="http://bishefront.com/index.php?a=group&amp;name=123&amp;r=requests">请求</a><a
+                                class="cover-button" rel="loadpage"
+                                href="http://bishefront.com/index.php?a=group&amp;name=123&amp;r=blocked">受阻</a><a
+                                class="cover-button" rel="loadpage"
+                                href="http://bishefront.com/index.php?a=group&amp;name=123&amp;r=edit">编辑</a>
+                            <div class="message-btn button-normal" onclick="messageMenu('profile', 1)"
+                                 id="profile-button">
+                                <div class="group-button menu-button" id="profile-btn"></div>
+                            </div>
+                            <div id="message-menuprofile" class="message-menu-container menu-profile-container"><a
+                                    class=" profile-menu-active" rel="loadpage"
+                                    href="http://bishefront.com/index.php?a=group&amp;name=123">
+                                <div class="message-menu-row">讨论</div>
+                            </a><a class="" rel="loadpage"
+                                   onclick="test111()">
+                                <div class="message-menu-row">成员 <span class="profile-menu-value">(29)</span></div>
+                            </a><a class="" rel="loadpage"
+                                   href="http://bishefront.com/index.php?a=group&amp;name=123&amp;r=admins">
+                                <div class="message-menu-row">管理员 <span class="profile-menu-value">(1)</span></div>
+                            </a><a class="" rel="loadpage"
+                                   href="http://bishefront.com/index.php?a=group&amp;name=123&amp;r=requests">
+                                <div class="message-menu-row">请求</div>
+                            </a><a class="" rel="loadpage"
+                                   href="http://bishefront.com/index.php?a=group&amp;name=123&amp;r=blocked">
+                                <div class="message-menu-row">受阻</div>
+                            </a><a class="" rel="loadpage"
+                                   href="http://bishefront.com/index.php?a=group&amp;name=123&amp;r=edit">
+                                <div class="message-menu-row">编辑</div>
+                            </a>
+                            </div>
 
-						</div>
-						<div class="cover-description-content cover-group-content">
-							<div class="cover-username-container"><div class="cover-username"><a href="http://bishefront.com/index.php?a=group&amp;name=123" rel="loadpage" th:text="${group.groups.name}">1222</a></div></div>
-							<div class="cover-description-buttons"><div id="group-btn-2" class="friend-btn"></div></div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="nine columns" id="messages">
-			<div th:include="/shared/top :: top"></div>
-			<div id="load-content"></div>
-			<!--{$rows}-->
-			<div th:if="${messages}" th:each="message : ${messages}" th:include="/messages/rows :: row(message = ${message})"></div>
-			<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.13&amp;key=cdba47e109636c5c0526fc46d5ffe69b"></script>
-			<script type="text/javascript">
-				AMap.plugin('AMap.Geolocation', function() {
-					var geolocation = new AMap.Geolocation({
-						enableHighAccuracy: true,//是否使用高精度定位，默认:true
-						timeout: 10000,          //超过10秒后停止定位，默认：5s
-						buttonPosition:'RB',    //定位按钮的停靠位置
-						buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
-						zoomToAccuracy: true,   //定位成功后是否自动调整地图视野到定位点
+                        </div>
+                        <div class="cover-description-content cover-group-content">
+                            <div class="cover-username-container">
+                                <div class="cover-username"><a
+                                        href="http://bishefront.com/index.php?a=group&amp;name=123" rel="loadpage"
+                                        th:text="${group.groups.name}">1222</a></div>
+                            </div>
+                            <div class="cover-description-buttons">
+                                <div id="group-btn-2" class="friend-btn"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nine columns" id="messages">
+            <div th:include="/shared/top :: top"></div>
+            <div id="load-content"></div>
+            <!--{$rows}-->
+            <div th:if="${messages}" th:each="message : ${messages}"
+                 th:include="/messages/rows :: row(message = ${message})"></div>
+            <script type="text/javascript"
+                    src="https://webapi.amap.com/maps?v=1.4.13&amp;key=cdba47e109636c5c0526fc46d5ffe69b"></script>
+            <script type="text/javascript">
+                AMap.plugin('AMap.Geolocation', function () {
+                    var geolocation = new AMap.Geolocation({
+                        enableHighAccuracy: true,//是否使用高精度定位，默认:true
+                        timeout: 10000,          //超过10秒后停止定位，默认：5s
+                        buttonPosition: 'RB',    //定位按钮的停靠位置
+                        buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+                        zoomToAccuracy: true,   //定位成功后是否自动调整地图视野到定位点
 
-					});
-					// map.addControl(geolocation);
-					geolocation.getCurrentPosition(function(status,result){
-						if(status=='complete'){
-							onComplete(result)
-						}else{
-							onError(result)
-						}
-					});
-				});
-				//解析定位结果
-				function onComplete(data) {
-					$("#message-lat").val(data.position.lat);
-					$("#message-long").val(data.position.lng);
-					return data.position;
-				}
-				//解析定位错误信息
-				function onError(data) {
-					// alert('定位失败。失败原因排查信息:'+data);
-				}
-				$("#map-icon").click(
+                    });
+                    // map.addControl(geolocation);
+                    geolocation.getCurrentPosition(function (status, result) {
+                        if (status == 'complete') {
+                            onComplete(result)
+                        } else {
+                            onError(result)
+                        }
+                    });
+                });
 
-						function () {
-							url = "https://restapi.amap.com/v3/geocode/regeo?key=cdba47e109636c5c0526fc46d5ffe69b&location=";
-							url = url + locationsss.lng+","+locationsss.lat;
-							$.get(url,
-									function(data){
-										$("#form-value").val(data.regeocode.formatted_address);
-										// alert("Data Loaded: " + data);
-									});
+                //解析定位结果
+                function onComplete(data) {
+                    $("#message-lat").val(data.position.lat);
+                    $("#message-long").val(data.position.lng);
+                    return data.position;
+                }
 
-						}
-				);
-			</script>
+                //解析定位错误信息
+                function onError(data) {
+                    // alert('定位失败。失败原因排查信息:'+data);
+                }
 
-			<div id="load-content"></div>
+                $("#map-icon").click(
+                    function () {
+                        url = "https://restapi.amap.com/v3/geocode/regeo?key=cdba47e109636c5c0526fc46d5ffe69b&location=";
+                        url = url + locationsss.lng + "," + locationsss.lat;
+                        $.get(url,
+                            function (data) {
+                                $("#form-value").val(data.regeocode.formatted_address);
+                                // alert("Data Loaded: " + data);
+                            });
 
-			<div id="profile-card"></div>
-		</div>
-		<div class="three columns">
+                    }
+                );
+            </script>
 
-			<div class="sidebar-container widget-search-group"><div class="sidebar-content"><div class="sidebar-header">搜索这组</div><div class="sidebar-inner"><input type="text" name="search-sidebar" id="search-group" class="search-sidebar" onkeydown="if(event.keyCode==13){searchFriends('index.php?a=group&amp;name=123&amp;search=', 1)}" placeholder="搜索这组" value=""><div id="search-sidebar-btn" onclick="searchFriends('index.php?a=group&amp;name=123&amp;search=', 1);"></div></div></div></div>
-			<div class="sidebar-container widget-invite-group"><div class="sidebar-content"><div class="sidebar-header">邀请朋友</div><div class="sidebar-inner"><input type="text" name="search-sidebar" id="invite-group" class="search-sidebar" onkeydown="if(event.keyCode==13){searchFriends('index.php?a=group&amp;name=123&amp;friends=', 0)}" placeholder="搜索朋友" value=""><div id="search-sidebar-btn" onclick="searchFriends('index.php?a=group&amp;name=123&amp;friends=', 0);"></div></div></div></div>
-			<div class="sidebar-container widget-group-info"><div class="sidebar-content"><div class="sidebar-header">关于 <span class="sidebar-header-link"><a href="http://bishefront.com/index.php?a=group&amp;name=123&amp;r=edit" rel="loadpage">编辑</a></span></div><div class="sidebar-list"><div class="about-icon about-calendar"></div>创建: <strong>三月 20, 2019</strong></div><div class="sidebar-list"><div class="about-icon about-privacy"></div>隐私: <strong>公开, 任何成员可以发布</strong></div><div class="sidebar-list"><div class="about-icon about-info"></div>描述: <strong>112</strong></div></div></div>
+            <div id="load-content"></div>
 
-		</div>
-	</div>
+            <div id="profile-card"></div>
+        </div>
+        <div class="three columns">
+
+            <div class="sidebar-container widget-search-group">
+                <div class="sidebar-content">
+                    <div class="sidebar-header">搜索这组</div>
+                    <div class="sidebar-inner"><input type="text" name="search-sidebar" id="search-group"
+                                                      class="search-sidebar"
+                                                      onkeydown="if(event.keyCode==13){searchFriends('index.php?a=group&amp;name=123&amp;search=', 1)}"
+                                                      placeholder="搜索这组" value="">
+                        <div id="search-sidebar-btn"
+                             onclick="searchFriends('index.php?a=group&amp;name=123&amp;search=', 1);"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-container widget-invite-group">
+                <div class="sidebar-content">
+                    <div class="sidebar-header">邀请朋友</div>
+                    <div class="sidebar-inner"><input type="text" name="search-sidebar" id="invite-group"
+                                                      class="search-sidebar"
+                                                      onkeydown="if(event.keyCode==13){searchFriends('index.php?a=group&amp;name=123&amp;friends=', 0)}"
+                                                      placeholder="搜索朋友" value="">
+                        <div id="search-sidebar-btn"
+                             onclick="searchFriends('index.php?a=group&amp;name=123&amp;friends=', 0);"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-container widget-group-info">
+                <div class="sidebar-content">
+                    <div class="sidebar-header">关于 <span class="sidebar-header-link"><a
+                            href="http://bishefront.com/index.php?a=group&amp;name=123&amp;r=edit" rel="loadpage">编辑</a></span>
+                    </div>
+                    <div class="sidebar-list">
+                        <div class="about-icon about-calendar"></div>
+                        创建: <strong>三月 20, 2019</strong></div>
+                    <div class="sidebar-list">
+                        <div class="about-icon about-privacy"></div>
+                        隐私: <strong>公开, 任何成员可以发布</strong></div>
+                    <div class="sidebar-list">
+                        <div class="about-icon about-info"></div>
+                        描述: <strong>112</strong></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>

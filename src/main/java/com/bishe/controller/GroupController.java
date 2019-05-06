@@ -15,11 +15,13 @@ import com.bishe.tmp.UserMessage;
 import com.bishe.tmp.Viewattr;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,8 +41,16 @@ public class GroupController {
     @Autowired
     GroupService groupService;
 
+    @RequestMapping("loadGroupMember")
+    public String loadGroupMember(Model model,HttpServletRequest request,Integer groupId){
+        List<User> userList = groupService.getGroupUsersById(groupId);
+        model.addAttribute("memberList",userList);
+        return "group/member::member";
+    }
+
+    @Transactional
     @RequestMapping("creatGroup")
-    public Response createGroup(HttpServletRequest request, @RequestParam(value = "groupcover",required = false) MultipartFile file, Groups groups){
+    public String createGroup(Model model,HttpServletRequest request, @RequestParam(value = "groupcover",required = false) MultipartFile file, Groups groups){
         String imgUrl = "";
         if(file!=null){
             imgUrl = FileUtils.saveImg(file);
@@ -50,7 +60,20 @@ public class GroupController {
         groupService.createGroup(groups);
         int userId = userService.getUserId(request);
         groupService.joinGroup(groups.getId(),userId,1);
-        return new Response();
+
+        return "redirect:/group/group?groupId="+groups.getId();
+//        //todo to fix it later
+//        Viewattr viewattr =new Viewattr();
+//        viewattr.setFragment_id("group");
+//        viewattr.setFragment_path("group/content");
+//        Groups groups1 = groupService.getGroupByGroupId(groups.getId());
+//        List<User> userList = groupService.getGroupUsersById(groups.getId());
+//        GroupWithMember groupWithMember = new GroupWithMember();
+//        groupWithMember.setGroups(groups1);
+//        groupWithMember.setUserList(userList);
+//        model.addAttribute("group",groupWithMember);
+//        model.addAttribute("viewattr",viewattr);
+//        return "wrapper";
     }
 
     @RequestMapping("CreateGroupView")
@@ -67,7 +90,6 @@ public class GroupController {
         viewattr.setFragment_id("group");
         viewattr.setFragment_path("group/content");
         Groups groups = groupService.getGroupByGroupId(groupId);
-//        model.addAttribute("messages",messageService.getMessageWithComments(45));
         List<User> userList = groupService.getGroupUsersById(groupId);
         GroupWithMember groupWithMember = new GroupWithMember();
         groupWithMember.setGroups(groups);

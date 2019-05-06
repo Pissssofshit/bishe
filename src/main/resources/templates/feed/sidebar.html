@@ -5,35 +5,209 @@
         <div class="sidebar-content">
             <div class="sidebar-header">欢迎</div>
             <div class="sidebar-inner">
-                <div class="sidebar-avatar"><a href="http://bishefront.com/index.php?a=profile&amp;u=123" rel="loadpage"><img src="http://bishefront.com/thumb.php?src=default.png&amp;t=a&amp;w=50&amp;h=50"></a></div>
+                <div class="sidebar-avatar"><a href="http://localhost:8080/index.php?a=profile&amp;u=123"
+                                               rel="loadpage"><img
+                        src="http://localhost:8080/thumb.php?src=default.png&amp;t=a&amp;w=50&amp;h=50"></a></div>
                 <div class="sidebar-avatar-desc">
-                    <a href="http://bishefront.com/index.php?a=profile&amp;u=123" rel="loadpage">123</a>
-                    <div class="sidebar-avatar-edit"><a href="http://bishefront.com/index.php?a=settings" rel="loadpage">编辑配置文件</a></div>
+                    <a href="http://localhost:8080/index.php?a=profile&amp;u=123" rel="loadpage">123</a>
+                    <div class="sidebar-avatar-edit"><a href="http://localhost:8080/index.php?a=settings"
+                                                        rel="loadpage">编辑配置文件</a></div>
                 </div>
             </div>
         </div>
     </div>
 
 
-    <div class="sidebar-container widget-pages"><div class="sidebar-content"><div class="sidebar-header"><a href="http://bishefront.com/index.php?a=page" rel="loadpage">页</a></div><div class="sidebar-link"><a href="http://bishefront.com/index.php?a=page" rel="loadpage"><img src="http://bishefront.com/themes/dolphin/images/icons/plus.png" width="24" height="24">创建页面</a></div><div class="sidebar-link sidebar-page" id="page-1"><a href="http://bishefront.com/index.php?a=page&amp;name=t113" rel="loadpage"><img src="http://bishefront.com/thumb.php?src=1787518004_1402850939_1972723855.png&amp;w=48&amp;h=48&amp;t=a" width="24" height="24">1323</a><div class="sidebar-settings-container" onclick="messageMenu(1, 3)"><div class="settings_btn sidebar-settings s-settings-hidden"></div></div></div>
-        <div id="page-menu1" class="message-menu-container sidebar-menu-container">
+    <div class="sidebar-container widget-pages">
+        <div class="sidebar-content">
+            <div class="sidebar-header"><a href="http://localhost:8080/index.php?a=page" rel="loadpage">页</a></div>
+            <div class="sidebar-link"><a href="http://localhost:8080/index.php?a=page" rel="loadpage"><img
+                    src="http://localhost:8080/images/icons/plus.png" width="24" height="24">创建页面</a>
+            </div>
+            <div class="sidebar-link sidebar-page" id="page-1"><a
+                    href="http://localhost:8080/index.php?a=page&amp;name=t113" rel="loadpage"><img
+                    src="http://localhost:8080/thumb.php?src=1787518004_1402850939_1972723855.png&amp;w=48&amp;h=48&amp;t=a"
+                    width="24" height="24">1323</a>
+                <div class="sidebar-settings-container" onclick="messageMenu(1, 3)">
+                    <div class="settings_btn sidebar-settings s-settings-hidden"></div>
+                </div>
+            </div>
+            <div id="page-menu1" class="message-menu-container sidebar-menu-container">
 
-            <a href="http://bishefront.com/index.php?a=page&amp;name=t113&amp;r=edit" rel="loadpage"><div class="message-menu-row">编辑</div></a>
-            <div class="message-menu-divider"></div>
-            <a href="http://bishefront.com/index.php?a=page&amp;name=t113&amp;r=delete" rel="loadpage"><div class="message-menu-row">删除</div></a>
-        </div></div></div>
-    <div class="sidebar-container widget-groups"><div class="sidebar-content"><div class="sidebar-header"><a href="http://bishefront.com/index.php?a=group" rel="loadpage">群组</a></div><div class="sidebar-link"><a href="http://bishefront.com/index.php?a=group" rel="loadpage"><img src="http://bishefront.com/themes/dolphin/images/icons/plus.png" width="24" height="24">创建组</a></div><div class="sidebar-link sidebar-group" id="group-2"><a href="http://bishefront.com/index.php?a=group&amp;name=123" rel="loadpage"><img src="http://bishefront.com/thumb.php?src=599816603_1051169603_453922967.jpg&amp;w=48&amp;h=48&amp;t=c" width="24" height="24">122222</a><div class="sidebar-settings-container" onclick="messageMenu(2, 2)"><div class="settings_btn sidebar-settings s-settings-hidden"></div></div></div>
-        <div id="group-menu2" class="message-menu-container sidebar-menu-container">
+                <a href="http://localhost:8080/index.php?a=page&amp;name=t113&amp;r=edit" rel="loadpage">
+                    <div class="message-menu-row">编辑</div>
+                </a>
+                <div class="message-menu-divider"></div>
+                <a href="http://localhost:8080/index.php?a=page&amp;name=t113&amp;r=delete" rel="loadpage">
+                    <div class="message-menu-row">删除</div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="sidebar-container widget-groups">
+        <div class="sidebar-content">
+            <div class="sidebar-header"><a href="http://localhost:8080/index.php?a=group" rel="loadpage">群组</a></div>
+            <div class="sidebar-link"><a href="http://localhost:8080/group/CreateGroupView"><img
+                    src="http://localhost:8080/images/icons/plus.png" width="24" height="24">创建组</a>
+            </div>
+            <div th:each="group : ${groupsList}" class="sidebar-link sidebar-group" th:id="group+${group.id}"><a
+                    th:href="'http://localhost:8080/group/group?groupId='+${group.id}"><img
+                    src="http://localhost:8080/thumb.php?src=599816603_1051169603_453922967.jpg&amp;w=48&amp;h=48&amp;t=c"
+                    width="24" height="24" th:text="${group.name}"></a>
+                <div class="sidebar-settings-container" onclick="messageMenu(2, 2)">
+                    <div class="settings_btn sidebar-settings s-settings-hidden"></div>
+                </div>
+            </div>
+            <div id="group-menu2" class="message-menu-container sidebar-menu-container">
 
-            <a href="http://bishefront.com/index.php?a=group&amp;name=123&amp;r=edit" rel="loadpage"><div class="message-menu-row">编辑</div></a>
-            <div class="message-menu-divider"></div>
-            <a href="http://bishefront.com/index.php?a=group&amp;name=123&amp;r=delete" rel="loadpage"><div class="message-menu-row">删除</div></a>
-        </div></div></div>
-    <div class="sidebar-container widget-types"><div class="sidebar-content"><div class="sidebar-header">活动</div><div class="sidebar-link sidebar-link-active"><a href="http://bishefront.com/index.php?a=feed" rel="loadpage"><img src="http://bishefront.com/themes/dolphin/images/icons/events/all.png">所有的活动</a></div><div class="sidebar-link sidebar-events"><a href="http://bishefront.com/index.php?a=feed&amp;filter=food" rel="loadpage"><img src="http://bishefront.com/themes/dolphin/images/icons/events/food.png">聚餐</a></div><div class="sidebar-link sidebar-events"><a href="http://bishefront.com/index.php?a=feed&amp;filter=map" rel="loadpage"><img src="http://bishefront.com/themes/dolphin/images/icons/events/map.png">地方</a></div><div class="sidebar-link sidebar-events"><a href="http://bishefront.com/index.php?a=feed&amp;filter=picture" rel="loadpage"><img src="http://bishefront.com/themes/dolphin/images/icons/events/picture.png">图片</a></div><div class="sidebar-link sidebar-events"><a href="http://bishefront.com/index.php?a=feed&amp;filter=shared" rel="loadpage"><img src="http://bishefront.com/themes/dolphin/images/icons/events/shared.png">分享</a></div><div class="sidebar-link sidebar-events"><a href="http://bishefront.com/index.php?a=feed&amp;filter=video" rel="loadpage"><img src="http://bishefront.com/themes/dolphin/images/icons/events/video.png">视频</a></div><div class="sidebar-link sidebar-more" id="show-more-btn-1"><a href="javascript:;" onclick="sidebarShow(1)"><div class="message-menu sidebar-arrow"></div></a></div><div class="sidebar-link sidebar-events" style="display: none;"><a href="http://bishefront.com/index.php?a=feed&amp;filter=visited" rel="loadpage"><img src="http://bishefront.com/themes/dolphin/images/icons/events/visited.png">访问</a></div></div></div>
-    <div class="sidebar-container widget-archive"><div class="sidebar-content"><div class="sidebar-header">档案</div><div class="sidebar-link sidebar-link-active"><a href="http://bishefront.com/index.php?a=feed" rel="loadpage">所有的时间</a></div><div class="sidebar-link sidebar-dates"><a href="http://bishefront.com/index.php?a=feed&amp;filter=201903" rel="loadpage">三月 - 2019</a></div></div></div>
-    <div class="sidebar-container widget-friends-activity"><div class="sidebar-content"><div class="sidebar-header">朋友的活动</div><div class="sidebar-fa-content scrollable"><div class="notification-row"><div class="notification-padding"><div class="sidebar-fa-image"><a href="http://bishefront.com/index.php?a=profile&amp;u=123444" rel="loadpage"><img class="notifications" src="http://bishefront.com/thumb.php?src=default.png&amp;t=a&amp;w=50&amp;h=50&quot;"></a></div><div class="sidebar-fa-text"><a href="http://bishefront.com/index.php?a=profile&amp;u=123444" rel="loadpage">123444</a> 喜欢一个 <a href="http://bishefront.com/index.php?a=post&amp;m=28" rel="loadpage">消息</a>. <span class="timeago" title="2019-03-20T07:46:56+08:00">20 days ago</span></div></div></div><div class="notification-row"><div class="notification-padding"><div class="sidebar-fa-image"><a href="http://bishefront.com/index.php?a=profile&amp;u=123444" rel="loadpage"><img class="notifications" src="http://bishefront.com/thumb.php?src=default.png&amp;t=a&amp;w=50&amp;h=50&quot;"></a></div><div class="sidebar-fa-text"><a href="http://bishefront.com/index.php?a=profile&amp;u=123444" rel="loadpage">123444</a> 喜欢一个 <a href="http://bishefront.com/index.php?a=post&amp;m=30" rel="loadpage">消息</a>. <span class="timeago" title="2019-03-20T07:46:54+08:00">20 days ago</span></div></div></div><div class="notification-row"><div class="notification-padding"><div class="sidebar-fa-image"><a href="http://bishefront.com/index.php?a=profile&amp;u=123444" rel="loadpage"><img class="notifications" src="http://bishefront.com/thumb.php?src=default.png&amp;t=a&amp;w=50&amp;h=50&quot;"></a></div><div class="sidebar-fa-text"><a href="http://bishefront.com/index.php?a=profile&amp;u=123444" rel="loadpage">123444</a> 发布了一个新的 <a href="http://bishefront.com/index.php?a=post&amp;m=9" rel="loadpage">消息</a>. <span class="timeago" title="2019-03-15T07:27:46+08:00">25 days ago</span></div></div></div><div class="notification-row"><div class="notification-padding"><div class="sidebar-fa-image"><a href="http://bishefront.com/index.php?a=profile&amp;u=123444" rel="loadpage"><img class="notifications" src="http://bishefront.com/thumb.php?src=default.png&amp;t=a&amp;w=50&amp;h=50&quot;"></a></div><div class="sidebar-fa-text"><a href="http://bishefront.com/index.php?a=profile&amp;u=123444" rel="loadpage">123444</a> 点评 <a href="http://bishefront.com/index.php?a=post&amp;m=8" rel="loadpage">消息</a>. <span class="timeago" title="2019-03-15T07:27:42+08:00">25 days ago</span></div></div></div><div class="notification-row"><div class="notification-padding"><div class="sidebar-fa-image"><a href="http://bishefront.com/index.php?a=profile&amp;u=123444" rel="loadpage"><img class="notifications" src="http://bishefront.com/thumb.php?src=default.png&amp;t=a&amp;w=50&amp;h=50&quot;"></a></div><div class="sidebar-fa-text"><a href="http://bishefront.com/index.php?a=profile&amp;u=123444" rel="loadpage">123444</a> 发布了一个新的 <a href="http://bishefront.com/index.php?a=post&amp;m=8" rel="loadpage">消息</a>. <span class="timeago" title="2019-03-15T07:27:23+08:00">25 days ago</span></div></div></div><div class="notification-row"><div class="notification-padding"><div class="sidebar-fa-image"><a href="http://bishefront.com/index.php?a=profile&amp;u=123444" rel="loadpage"><img class="notifications" src="http://bishefront.com/thumb.php?src=default.png&amp;t=a&amp;w=50&amp;h=50&quot;"></a></div><div class="sidebar-fa-text"><a href="http://bishefront.com/index.php?a=profile&amp;u=123444" rel="loadpage">123444</a> 喜欢一个 <a href="http://bishefront.com/index.php?a=post&amp;m=7" rel="loadpage">消息</a>. <span class="timeago" title="2019-03-15T07:00:02+08:00">25 days ago</span></div></div></div></div></div></div>
+                <a href="http://localhost:8080/index.php?a=group&amp;name=123&amp;r=edit" rel="loadpage">
+                    <div class="message-menu-row">编辑</div>
+                </a>
+                <div class="message-menu-divider"></div>
+                <a href="http://localhost:8080/index.php?a=group&amp;name=123&amp;r=delete" rel="loadpage">
+                    <div class="message-menu-row">删除</div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="sidebar-container widget-types">
+        <div class="sidebar-content">
+            <div class="sidebar-header">活动</div>
+            <div class="sidebar-link sidebar-link-active"><a href="http://localhost:8080/index.php?a=feed"
+                                                             rel="loadpage"><img
+                    src="http://localhost:8080/images/icons/events/all.png">所有的活动</a></div>
+            <div class="sidebar-link sidebar-events"><a href="http://localhost:8080/index.php?a=feed&amp;filter=food"
+                                                        rel="loadpage"><img
+                    src="http://localhost:8080/images/icons/events/food.png">聚餐</a></div>
+            <div class="sidebar-link sidebar-events"><a href="http://localhost:8080/index.php?a=feed&amp;filter=map"
+                                                        rel="loadpage"><img
+                    src="http://localhost:8080/images/icons/events/map.png">地方</a></div>
+            <div class="sidebar-link sidebar-events"><a href="http://localhost:8080/index.php?a=feed&amp;filter=picture"
+                                                        rel="loadpage"><img
+                    src="http://localhost:8080/images/icons/events/picture.png">图片</a></div>
+            <div class="sidebar-link sidebar-events"><a href="http://localhost:8080/index.php?a=feed&amp;filter=shared"
+                                                        rel="loadpage"><img
+                    src="http://localhost:8080/images/icons/events/shared.png">分享</a></div>
+            <div class="sidebar-link sidebar-events"><a href="http://localhost:8080/index.php?a=feed&amp;filter=video"
+                                                        rel="loadpage"><img
+                    src="http://localhost:8080/images/icons/events/video.png">视频</a></div>
+            <div class="sidebar-link sidebar-more" id="show-more-btn-1"><a href="javascript:;" onclick="sidebarShow(1)">
+                <div class="message-menu sidebar-arrow"></div>
+            </a></div>
+            <div class="sidebar-link sidebar-events" style="display: none;"><a
+                    href="http://localhost:8080/index.php?a=feed&amp;filter=visited" rel="loadpage"><img
+                    src="http://localhost:8080/images/icons/events/visited.png">访问</a></div>
+        </div>
+    </div>
+    <div class="sidebar-container widget-archive">
+        <div class="sidebar-content">
+            <div class="sidebar-header">档案</div>
+            <div class="sidebar-link sidebar-link-active"><a href="http://localhost:8080/index.php?a=feed"
+                                                             rel="loadpage">所有的时间</a></div>
+            <div class="sidebar-link sidebar-dates"><a href="http://localhost:8080/index.php?a=feed&amp;filter=201903"
+                                                       rel="loadpage">三月 - 2019</a></div>
+        </div>
+    </div>
+    <div class="sidebar-container widget-friends-activity">
+        <div class="sidebar-content">
+            <div class="sidebar-header">朋友的活动</div>
+            <div class="sidebar-fa-content scrollable">
+                <div class="notification-row">
+                    <div class="notification-padding">
+                        <div class="sidebar-fa-image"><a href="http://localhost:8080/index.php?a=profile&amp;u=123444"
+                                                         rel="loadpage"><img class="notifications"
+                                                                             src="http://localhost:8080/thumb.php?src=default.png&amp;t=a&amp;w=50&amp;h=50&quot;"></a>
+                        </div>
+                        <div class="sidebar-fa-text"><a href="http://localhost:8080/index.php?a=profile&amp;u=123444"
+                                                        rel="loadpage">123444</a> 喜欢一个 <a
+                                href="http://localhost:8080/index.php?a=post&amp;m=28" rel="loadpage">消息</a>. <span
+                                class="timeago" title="2019-03-20T07:46:56+08:00">20 days ago</span></div>
+                    </div>
+                </div>
+                <div class="notification-row">
+                    <div class="notification-padding">
+                        <div class="sidebar-fa-image"><a href="http://localhost:8080/index.php?a=profile&amp;u=123444"
+                                                         rel="loadpage"><img class="notifications"
+                                                                             src="http://localhost:8080/thumb.php?src=default.png&amp;t=a&amp;w=50&amp;h=50&quot;"></a>
+                        </div>
+                        <div class="sidebar-fa-text"><a href="http://localhost:8080/index.php?a=profile&amp;u=123444"
+                                                        rel="loadpage">123444</a> 喜欢一个 <a
+                                href="http://localhost:8080/index.php?a=post&amp;m=30" rel="loadpage">消息</a>. <span
+                                class="timeago" title="2019-03-20T07:46:54+08:00">20 days ago</span></div>
+                    </div>
+                </div>
+                <div class="notification-row">
+                    <div class="notification-padding">
+                        <div class="sidebar-fa-image"><a href="http://localhost:8080/index.php?a=profile&amp;u=123444"
+                                                         rel="loadpage"><img class="notifications"
+                                                                             src="http://localhost:8080/thumb.php?src=default.png&amp;t=a&amp;w=50&amp;h=50&quot;"></a>
+                        </div>
+                        <div class="sidebar-fa-text"><a href="http://localhost:8080/index.php?a=profile&amp;u=123444"
+                                                        rel="loadpage">123444</a> 发布了一个新的 <a
+                                href="http://localhost:8080/index.php?a=post&amp;m=9" rel="loadpage">消息</a>. <span
+                                class="timeago" title="2019-03-15T07:27:46+08:00">25 days ago</span></div>
+                    </div>
+                </div>
+                <div class="notification-row">
+                    <div class="notification-padding">
+                        <div class="sidebar-fa-image"><a href="http://localhost:8080/index.php?a=profile&amp;u=123444"
+                                                         rel="loadpage"><img class="notifications"
+                                                                             src="http://localhost:8080/thumb.php?src=default.png&amp;t=a&amp;w=50&amp;h=50&quot;"></a>
+                        </div>
+                        <div class="sidebar-fa-text"><a href="http://localhost:8080/index.php?a=profile&amp;u=123444"
+                                                        rel="loadpage">123444</a> 点评 <a
+                                href="http://localhost:8080/index.php?a=post&amp;m=8" rel="loadpage">消息</a>. <span
+                                class="timeago" title="2019-03-15T07:27:42+08:00">25 days ago</span></div>
+                    </div>
+                </div>
+                <div class="notification-row">
+                    <div class="notification-padding">
+                        <div class="sidebar-fa-image"><a href="http://localhost:8080/index.php?a=profile&amp;u=123444"
+                                                         rel="loadpage"><img class="notifications"
+                                                                             src="http://localhost:8080/thumb.php?src=default.png&amp;t=a&amp;w=50&amp;h=50&quot;"></a>
+                        </div>
+                        <div class="sidebar-fa-text"><a href="http://localhost:8080/index.php?a=profile&amp;u=123444"
+                                                        rel="loadpage">123444</a> 发布了一个新的 <a
+                                href="http://localhost:8080/index.php?a=post&amp;m=8" rel="loadpage">消息</a>. <span
+                                class="timeago" title="2019-03-15T07:27:23+08:00">25 days ago</span></div>
+                    </div>
+                </div>
+                <div class="notification-row">
+                    <div class="notification-padding">
+                        <div class="sidebar-fa-image"><a href="http://localhost:8080/index.php?a=profile&amp;u=123444"
+                                                         rel="loadpage"><img class="notifications"
+                                                                             src="http://localhost:8080/thumb.php?src=default.png&amp;t=a&amp;w=50&amp;h=50&quot;"></a>
+                        </div>
+                        <div class="sidebar-fa-text"><a href="http://localhost:8080/index.php?a=profile&amp;u=123444"
+                                                        rel="loadpage">123444</a> 喜欢一个 <a
+                                href="http://localhost:8080/index.php?a=post&amp;m=7" rel="loadpage">消息</a>. <span
+                                class="timeago" title="2019-03-15T07:00:02+08:00">25 days ago</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <div class="sidebar-container widget-friends"><div class="sidebar-content"><div class="sidebar-header"><a href="http://bishefront.com/index.php?a=profile&amp;u=123&amp;r=friends" rel="loadpage">朋友 <span class="sidebar-header-light">(2)</span></a></div><div class="sidebar-padding"><a href="http://bishefront.com/index.php?a=profile&amp;u=123444" rel="loadpage"><div class="sidebar-subscriptions"><div class="sidebar-title-container"><div class="sidebar-title-name">123444</div></div><img src="http://bishefront.com/thumb.php?src=default.png&amp;t=a&amp;w=112&amp;h=112"></div></a><a href="http://bishefront.com/index.php?a=profile&amp;u=123444555" rel="loadpage"><div class="sidebar-subscriptions"><div class="sidebar-title-container"><div class="sidebar-title-name">123444555</div></div><img src="http://bishefront.com/thumb.php?src=default.png&amp;t=a&amp;w=112&amp;h=112"></div></a></div></div></div>
+    <div class="sidebar-container widget-friends">
+        <div class="sidebar-content">
+            <div class="sidebar-header"><a href="http://localhost:8080/index.php?a=profile&amp;u=123&amp;r=friends"
+                                           rel="loadpage">朋友 <span class="sidebar-header-light">(2)</span></a></div>
+            <div class="sidebar-padding"><a href="http://localhost:8080/index.php?a=profile&amp;u=123444"
+                                            rel="loadpage">
+                <div class="sidebar-subscriptions">
+                    <div class="sidebar-title-container">
+                        <div class="sidebar-title-name">123444</div>
+                    </div>
+                    <img src="http://localhost:8080/thumb.php?src=default.png&amp;t=a&amp;w=112&amp;h=112"></div>
+            </a><a href="http://localhost:8080/index.php?a=profile&amp;u=123444555" rel="loadpage">
+                <div class="sidebar-subscriptions">
+                    <div class="sidebar-title-container">
+                        <div class="sidebar-title-name">123444555</div>
+                    </div>
+                    <img src="http://localhost:8080/thumb.php?src=default.png&amp;t=a&amp;w=112&amp;h=112"></div>
+            </a></div>
+        </div>
+    </div>
 
 
 </div>

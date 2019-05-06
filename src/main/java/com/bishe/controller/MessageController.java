@@ -56,7 +56,9 @@ public class MessageController {
         messages.setLikes(0);
         messages.setImgurl(imageUrl);
         messageService.postMessage(messages);
-        return new Response();
+        Response response = new Response();
+        response.setCode(200);
+        return response;
     }
     @RequestMapping("/loadmessage")
     String loadmessage(Model model,Messages messages, HttpServletRequest request){

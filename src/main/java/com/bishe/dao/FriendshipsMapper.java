@@ -18,4 +18,8 @@ public interface FriendshipsMapper {
     int updateByPrimaryKey(Friendships record);
 
     Friendships selectByUserIds(Integer userId1,Integer userId2);
+
+    List<Friendships> getUserApplyList(int userId);
+
+    Friendships getByUserId1AndUserId2(int userId1,int userId2);
 }

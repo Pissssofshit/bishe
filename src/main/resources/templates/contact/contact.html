@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="contact">
+    <div class="bc-friends-container bc-friends-user" id="chat-window-1" onclick="disableTitleAlert(1)"
+         data-state="maximized" style="">
+        <div class="bc-friends-header" id="chat-header-1" onclick="minimizeChatWindow(1)">
+            <div class="c-w-status" id="online-status-1"><img
+                    src="http://bishefront.com/themes/dolphin/images/icons/offline.png" class="sidebar-status-icon">
+            </div>
+            <div class="bc-friends-username"><a href="http://bishefront.com/index.php?a=profile&amp;u=123"
+                                                rel="loadpage" onclick="minimizeChatWindow(1)">123</a></div>
+            <a onclick="closeChatWindow('1')">
+                <div class="delete_btn"></div>
+            </a><a href="http://bishefront.com/index.php?a=messages&amp;u=123&amp;id=1" rel="loadpage"
+                   onclick="minimizeChatWindow(1)">
+            <div class="settings_btn c-s-icon"></div>
+        </a></div>
+        <div class="bc-friends-chat scrollable" id="bc-friends-chat-1"></div>
+        <div class="c-w-input"><input onkeydown="if(event.keyCode == 13) { postChat(1, 2)}" id="c-w-1">
+            <div class="c-w-icon" id="chat-smiles-1" onclick="openSmiles(1)"></div>
+            <div class="preloader preloader-center" id="c-w-p-1" style="display: none; margin-top: 4px;"></div>
+        </div>
+    </div>
+
+</div>

@@ -4,6 +4,7 @@ import com.bishe.Http.Response;
 import com.bishe.Parameter.UserLogin;
 import com.bishe.Parameter.UserRegister;
 import com.bishe.model.*;
+import com.bishe.service.FriendshipService;
 import com.bishe.service.GroupService;
 import com.bishe.service.MessageService;
 import com.bishe.service.UserService;
@@ -37,6 +38,8 @@ public class UserController {
     MessageService messageService;
     @Autowired
     GroupService groupService;
+    @Autowired
+    FriendshipService friendshipService;
 
     boolean isLogin(HttpServletRequest request){
         HttpSession httpSession = request.getSession();
@@ -105,6 +108,16 @@ public class UserController {
         return "wrapper";
     }
 
+    @RequestMapping("/logout")
+    String logout(Model model,HttpServletRequest httpServletRequest){
+        HttpSession httpSession = httpServletRequest.getSession();
+        httpSession.setAttribute("userid",null);
+        Viewattr viewattr =new Viewattr();
+        viewattr.setFragment_id("content");
+        viewattr.setFragment_path("welcome/content");
+        model.addAttribute("viewattr",viewattr);
+        return "wrapper";
+    }
 
     @RequestMapping("/loadPeopleAndGroup")
     String loadPeopleAndGroup(Model model,String keyword,HttpServletRequest request){
@@ -145,6 +158,38 @@ public class UserController {
         return "search/searchItem::searchitem";
     }
 
+
+    @ResponseBody
+    @RequestMapping("/dealFriends")
+    Response dealFriends(int applyId,int result){
+        int realResult = 1;
+        if(result==0){
+            realResult = 4;
+        }else{
+            realResult = 1;
+        }
+        friendshipService.dealFriends(applyId,realResult);
+        Response response = new Response();
+        return response;
+    }
+    @ResponseBody
+    @RequestMapping("/applyBeFriends")
+    Response applyBeFriends(Model model,int userId,HttpServletRequest httpServletRequest){
+
+        int userId1 = userService.getUserId(httpServletRequest);
+        friendshipService.applyBeFriends(userId1,userId);
+        Response response = new Response();
+        response.setCode(200);
+        return response;
+    }
+
+    @RequestMapping("/applyList")
+    String applyList(Model model,HttpServletRequest request){
+        int userId = userService.getUserId(request);
+        List<Friendships> friendshipsList = friendshipService.getUserApplyList(userId);
+        model.addAttribute("applyList",friendshipsList);
+        return "notice/apply::apply";
+    }
     @RequestMapping("/login")
     String login(Model model,UserLogin userLogin,HttpServletRequest request){
         boolean result = userService.checkPwd(userLogin.getUsername(),userLogin.getPassword());

@@ -33,6 +33,20 @@
       and `user` = #{user,jdbcType=INTEGER}
   </update>
 
+  <select id="getUserApply" resultMap="BaseResultMap" parameterType="map" >
+    select `group`, `user`, id, `status`, permissions, `time`
+    from groups_users
+    where `group` = #{groupId,jdbcType=INTEGER}
+    and `status` = 3
+  </select>
+
+  <select id="groupsAdmin" resultMap="java.lang.Integer" parameterType="map" >
+    select `group`
+    from groups_users
+    where `user` = #{userId,jdbcType=INTEGER}
+    and permissions = 1
+  </select>
+
   <select id="selectGroupUsersByUserId" resultMap="BaseResultMap" parameterType="map" >
     select `group`, `user`, id, `status`, permissions, `time`
     from groups_users

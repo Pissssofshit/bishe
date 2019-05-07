@@ -1,5 +1,6 @@
 package com.bishe.dao;
 
+import com.bishe.model.Groups;
 import com.bishe.model.GroupsUsers;
 import java.util.List;
 
@@ -21,4 +22,8 @@ public interface GroupsUsersMapper {
     List<GroupsUsers> selectGroupUsersByUserId(int userId);
 
     int updateByPrimaryKey(GroupsUsers record);
+
+    List<Integer> groupsAdmin(int userId);
+
+    List<GroupsUsers> getUserApply(int groupId);
 }

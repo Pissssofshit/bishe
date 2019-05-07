@@ -4,20 +4,25 @@
     <div class="search-results">
         <div class="notification-inner"><a onclick="manageResults(1)"><strong>查看所有的结果</strong></a> <a onclick="manageResults(0)" title="接近的结果"><div class="delete_btn"></div></a></div>
         <div th:each="item : ${itemList}" class="message-inner">
-            <div id="searchitem+${item.id}">
-                <div class="friend-button subslist" title="加为好友/加入群组" onclick="friend(4, 1, 1)"></div>
+            <div th:id="searchitem+${item.id}">
+                <div th:if="${item.relationship}!=1 and ${item.type}==1"  class="friend-button subslist" title="加入群组" th:onclick="'applyJoinGroup('+${item.id}+')'"></div>
+                <div th:if="${item.relationship}==1 and ${item.type}==1"  class="friend-button friend-remove subslist" title="离开群组" th:onclick="'applyJoinGroup('+${item.id}+')'"></div>
+
+                <div th:if="${item.type}==2 and ${item.relationship}!=1" class="friend-button subslist" title="加为好友" th:onclick="'applyBeFriends('+${item.id}+')'"></div>
+                <div th:if="${item.type}==2 and ${item.relationship} ==1" class="friend-button subslist" title="删除好友" th:onclick="'applyBeFriends('+${item.id}+')'"></div>
             </div>
             <a href="http://bishefront.com/index.php?a=messages&amp;u=122&amp;id=4" title="发送验证消息" rel="loadpage">
                 <div class="message_btn subslist_message"></div>
             </a>
             <div class="message-avatar" id="avatar4">
                 <a href="http://bishefront.com/index.php?a=profile&amp;u=122" rel="loadpage">
-                    <img src="http://bishefront.com/thumb.php?src=default.png&amp;t=a&amp;w=50&amp;h=50">
+                    <img th:src="${item.logoUrl}">
                 </a>
             </div>
             <div class="message-top">
                 <div class="message-author" id="author4">
-                    <a href="http://bishefront.com/index.php?a=profile&amp;u=122" rel="loadpage">122</a>
+                    <a href="个人主页" th:text="${item.name}"></a>
+                    <div th:if="${item.type}==1">群组</div>
                 </div>
                 <div class="message-time">
                     &nbsp;

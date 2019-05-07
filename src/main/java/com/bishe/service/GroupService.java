@@ -7,6 +7,7 @@ import com.bishe.dao.UserMapper;
 import com.bishe.model.Groups;
 import com.bishe.model.GroupsUsers;
 import com.bishe.model.User;
+import com.bishe.tmp.ApplyUsers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -73,6 +74,44 @@ public class GroupService {
             return null;
         }
         return groups;
+    }
+
+    List<Groups> groupsAdmin(int userId){
+        List<Integer> groupsIdList = groupsUsersMapper.groupsAdmin(userId);
+        List<Groups> groupsList = new ArrayList<>();
+        for (Integer groupId:
+             groupsIdList) {
+            Groups groups = groupsMapper.selectByPrimaryKey(groupId);
+            groupsList.add(groups);
+        }
+        return groupsList;
+    }
+    public List<GroupsUsers> getApplyList(int userId){
+        List<GroupsUsers> groupsUsersList = new ArrayList<>();
+
+        List<Groups> groupsList = this.groupsAdmin(userId);
+        for (Groups groups:groupsList
+             ) {
+            groupsUsersList.addAll(this.getUserApply(groups.getId()));
+        }
+        return groupsUsersList;
+    }
+
+    List<GroupsUsers> getUserApply(int groupId){
+        return groupsUsersMapper.getUserApply(groupId);
+    }
+    public boolean applyGroup(int groupId,int userId){
+        GroupsUsers groupsUsers1 = new GroupsUsers();
+        groupsUsers1.setGroup(groupId);
+        groupsUsers1.setPermissions(0);
+        groupsUsers1.setUser(userId);
+        groupsUsers1.setStatus(3);
+        groupsUsers1.setTime(new Date());
+        int result = groupsUsersMapper.insert(groupsUsers1);
+        if(result==0){
+            return false;
+        }
+        return true;
     }
     public boolean joinGroup(int groupId,int userId,int level){
         GroupsUsers groupsUsers1 = new GroupsUsers();

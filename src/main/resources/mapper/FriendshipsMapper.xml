@@ -28,6 +28,22 @@
   </update>
 
 
+
+  <select id="getByUserId1AndUserId2" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, user1, user2, `status`, `time`
+    from friendships
+    where ((user1 = #{userId1,jdbcType=INTEGER}
+    and user2 =  #{userId2,jdbcType=INTEGER})
+    or (user2 = #{userId1,jdbcType=INTEGER}
+    and user1 =  #{userId2,jdbcType=INTEGER}))
+  </select>
+  <select id="getUserApplyList" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, user1, user2, `status`, `time`
+    from friendships
+    where (user1 = #{userId,jdbcType=INTEGER}
+    and status = 3 )
+  </select>
+
   <select id="selectByUserIds" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select id, user1, user2, `status`, `time`
     from friendships

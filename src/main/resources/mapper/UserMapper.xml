@@ -165,7 +165,7 @@
     email_group_invite, email_page_invite, sound_new_notification, sound_new_chat, born,
     lastloginlat, lastloginlong, push
     from user
-    where username like #{userName,jdbcType=VARCHAR}
+    where username like CONCAT('%',#{userName,jdbcType=VARCHAR},'%')
   </select>
 
   <select id="selectByUserName" resultMap="BaseResultMap" parameterType="java.lang.String" >

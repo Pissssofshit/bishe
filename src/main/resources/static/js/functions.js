@@ -811,19 +811,48 @@ function showNotification(x, y) {
 		// 	var extra = '&for=3';
 		// }
 		$('#notifications-content').html('<div class="notification-inner"><div class="preloader"></div></div>');
-		
-		$.ajax({
-			type: "POST",
-			url: "/notice/noticeList",
-			cache: false,
-			success: function(html) {
-				console.log(html);
-				if(html) {
-					$('#notifications-content').html(html);
-					jQuery("span.timeago").timeago();
+
+		if(y==1){
+            $.ajax({
+                type: "POST",
+                url: "/notice/noticeList",
+                cache: false,
+                success: function(html) {
+                    console.log(html);
+                    if(html) {
+                        $('#notifications-content').html(html);
+                        jQuery("span.timeago").timeago();
+                    }
+                }
+            });
+        }else if(y==3){
+            $.ajax({
+                type: "POST",
+                url: "/user/applyList",
+                cache: false,
+                success: function(html) {
+                    console.log(html);
+                    if(html) {
+                        $('#notifications-content').html(html);
+                        jQuery("span.timeago").timeago();
+                    }
+                }
+            });
+        }else if(y==4){
+			$.ajax({
+				type: "POST",
+				url: "/group/applyList",
+				cache: false,
+				success: function(html) {
+					console.log(html);
+					if(html) {
+						$('#notifications-content').html(html);
+						jQuery("span.timeago").timeago();
+					}
 				}
-			}
-		});
+			});
+		}
+
 	}
 }
 function checkNewMessages() {
@@ -1800,6 +1829,42 @@ $(document).ready(function() {
 	
 	reload();
 });
+	function applyJoinGroup(groupId){
+		$.ajax({
+			type: "POST",
+			url: "/group/applyJoinGroup",
+			data: {"groupId":groupId}, // start is not used in this particular case, only needs to be set
+			cache: false,
+			success: function(data) {
+				$("#searchitem"+groupId+" div").addClass("friend-remove");
+			}
+		});
+	}
+	function dealFriends(applyId,result){
+		$.ajax({
+			type: "POST",
+			url: "/user/dealFriends",
+			data: {"applyId":applyId,"result":result}, // start is not used in this particular case, only needs to be set
+			cache: false,
+			success: function(data) {
+				// $("#searchitem"+groupId+" div").addClass("friend-remove");
+
+				$('#notifications-content').load("/user/applyList");
+				jQuery("span.timeago").timeago();
+			}
+		});
+	}
+	function applyBeFriends(userId){
+		$.ajax({
+			type: "POST",
+			url: "/user/applyBeFriends",
+			data: {"userId":userId}, // start is not used in this particular case, only needs to be set
+			cache: false,
+			success: function(data) {
+				$("#searchitem"+groupId+" div").addClass("friend-remove");
+			}
+		});
+	}
 function reload() {
 	jQuery(".timeago").timeago();
 	autosize();

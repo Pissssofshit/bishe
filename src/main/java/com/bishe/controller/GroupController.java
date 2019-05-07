@@ -4,7 +4,9 @@ import com.bishe.Http.Response;
 import com.bishe.Parameter.UserLogin;
 import com.bishe.Parameter.UserRegister;
 import com.bishe.Util.FileUtils;
+import com.bishe.model.Friendships;
 import com.bishe.model.Groups;
+import com.bishe.model.GroupsUsers;
 import com.bishe.model.User;
 import com.bishe.service.GroupService;
 import com.bishe.service.MessageService;
@@ -97,6 +99,31 @@ public class GroupController {
         model.addAttribute("group",groupWithMember);
         model.addAttribute("viewattr",viewattr);
         return "wrapper";
+    }
+    @RequestMapping("/applyList")
+    String applyList(Model model,HttpServletRequest request){
+        int userId = userService.getUserId(request);
+        List<GroupsUsers> groupsUsersList = groupService.getApplyList(userId);
+        for (GroupsUsers groupsUser:groupsUsersList
+             ) {
+            User user = userService.getUserById(groupsUser.getUser());
+//            Groups groups = groupService.getGroupByGroupId(group)
+        }
+//        List<Friendships> friendshipsList = grou.getUserApplyList(userId);
+//        model.addAttribute("applyList",friendshipsList);
+        return "notice/apply::apply";
+    }
+
+    @ResponseBody
+    @RequestMapping("applyJoinGroup")
+    Response applyJoinGroup(Integer groupId,HttpServletRequest request){
+
+        int userId = userService.getUserId(request);
+        groupService.applyGroup(groupId,userId);
+
+        Response response = new Response();
+        response.setCode(200);
+        return response;
     }
 
 }

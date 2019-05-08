@@ -3,9 +3,11 @@ package com.bishe.service;
 import com.bishe.Parameter.UserRegister;
 import com.bishe.dao.GroupsMapper;
 import com.bishe.dao.GroupsUsersMapper;
+import com.bishe.dao.GroupwithuserMapper;
 import com.bishe.dao.UserMapper;
 import com.bishe.model.Groups;
 import com.bishe.model.GroupsUsers;
+import com.bishe.model.Groupwithuser;
 import com.bishe.model.User;
 import com.bishe.tmp.ApplyUsers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +30,49 @@ public class GroupService {
     GroupsUsers groupsUsers;
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    GroupwithuserMapper groupwithuserMapper;
+
+    public List<Groupwithuser> getApplyList(int userId){
+        List<Groups> groupsList = this.groupsAdmin(userId);
+        List<Groupwithuser> groupwithuserList = new ArrayList<>();
+        for (Groups groups:groupsList
+        ) {
+            List<Groupwithuser> groupwithuserList1 = groupwithuserMapper.getApplyList(groups.getId());
+            groupwithuserList.addAll(groupwithuserList1);
+        }
+        return groupwithuserList;
+    }
+
+    public boolean agreeJoinGroup(int userId,int groupId){
+        GroupsUsers groupsUsers = groupsUsersMapper.selectByPrimaryKey(groupId,userId);
+        if(groupsUsers==null){
+            return false;
+        }
+        if(groupsUsers.getStatus()==1){
+            return false;
+        }
+        groupsUsers.setStatus(1);
+        groupsUsers.setPermissions(0);
+        groupsUsersMapper.updateByPrimaryKey(groupsUsers);
+        return true;
+    }
+
+    public boolean rejectJoinGroup(int userId,int groupId){
+        GroupsUsers groupsUsers = groupsUsersMapper.selectByPrimaryKey(groupId,userId);
+        if(groupsUsers==null){
+            return false;
+        }
+        if(groupsUsers.getStatus()==1){
+            return false;
+        }
+        groupsUsers.setStatus(4);
+        groupsUsersMapper.updateByPrimaryKey(groupsUsers);
+        return true;
+    }
 
     public List<Groups> loadGroupsByUserId(int userId){
-        List<GroupsUsers> groupsUsersList = groupsUsersMapper.selectGroupUsersByUserId(userId);
+        List<GroupsUsers> groupsUsersList = groupsUsersMapper.selectGroupUsersByUserIdAndNotBlock(userId);
         List<Groups> groupsList = new ArrayList<>();
         for (GroupsUsers groupUsers:groupsUsersList
              ) {
@@ -76,7 +118,7 @@ public class GroupService {
         return groups;
     }
 
-    List<Groups> groupsAdmin(int userId){
+    public List<Groups> groupsAdmin(int userId){
         List<Integer> groupsIdList = groupsUsersMapper.groupsAdmin(userId);
         List<Groups> groupsList = new ArrayList<>();
         for (Integer groupId:
@@ -85,20 +127,6 @@ public class GroupService {
             groupsList.add(groups);
         }
         return groupsList;
-    }
-    public List<GroupsUsers> getApplyList(int userId){
-        List<GroupsUsers> groupsUsersList = new ArrayList<>();
-
-        List<Groups> groupsList = this.groupsAdmin(userId);
-        for (Groups groups:groupsList
-             ) {
-            groupsUsersList.addAll(this.getUserApply(groups.getId()));
-        }
-        return groupsUsersList;
-    }
-
-    List<GroupsUsers> getUserApply(int groupId){
-        return groupsUsersMapper.getUserApply(groupId);
     }
     public boolean applyGroup(int groupId,int userId){
         GroupsUsers groupsUsers1 = new GroupsUsers();

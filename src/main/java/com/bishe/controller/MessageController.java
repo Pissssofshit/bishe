@@ -55,6 +55,7 @@ public class MessageController {
         messages.setUid(userid);
         messages.setLikes(0);
         messages.setImgurl(imageUrl);
+        messages.setTime(new Date());
         messageService.postMessage(messages);
         Response response = new Response();
         response.setCode(200);

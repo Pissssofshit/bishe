@@ -13,6 +13,8 @@ public interface FriendshipsMapper {
 
     Friendships selectByPrimaryKey(Integer id);
 
+    List<Friendships> selectFriendsId(int userId);
+
     List<Friendships> selectAll();
 
     int updateByPrimaryKey(Friendships record);

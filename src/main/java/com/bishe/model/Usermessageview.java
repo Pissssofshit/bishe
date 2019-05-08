@@ -34,7 +34,19 @@ public class Usermessageview implements Serializable {
 
     private String message;
 
+    private String cover;
+
+
     public String imgurl;
+
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
 
     public String getImgurl() {
         return imgurl;

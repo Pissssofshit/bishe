@@ -18,7 +18,7 @@
     </div>
     <div class="menu-image">
         <div class="menu_arrow"></div>
-        <div class="menu_img"><img src="{$url}/thumb.php?src={$avatar}&t=a&w=50&h=50" title=""/></div>
+        <div class="menu_img"><img th:src="${user.cover}" title=""/></div>
     </div>
     <a onclick="showNotification('', '1')">
         <div class="menu_btn" id="notifications_btn" title="{$lng->title_notifications}" rel="loadpage"><img
@@ -32,13 +32,13 @@
         <div class="menu_btn" id="friends_btn" title="{$lng->friends}"><img src="/images/icons/friends.png"></div>
     </a>
     <a onclick="showNotification('', '4')">
-        <div class="menu_btn" id="group_btn" title="群组"><img src="/images/n_group.png"></div>
+        <div class="menu_btn" id="group_btn" title="群组"><img src="/images/icons/n_group.png"></div>
     </a>
     <!--{$admin_url}-->
     <div id="menu-dd-container" class="menu-dd-container">
         <div class="menu-dd-content">
-            <a href="http://bishefront.com/index.php?a=profile&amp;u=122" rel="loadpage">
-                <div class="menu-dd-row">122</div>
+            <a  href="http://bishefront.com/index.php?a=profile&amp;u=122" rel="loadpage">
+                <div th:text="${user.username}" class="menu-dd-row">122</div>
             </a>
             <div class="menu-divider "></div>
             <a href="http://localhost:8080/user/logout">
@@ -50,17 +50,18 @@
     <div class="notification-container">
         <div class="notification-content">
             <div class="notification-inner n-i-extended">
-                <span id="global_page_url"><a href="{$url}/index.php?a=notifications" rel="loadpage"><strong>{$lng->view_all_notifications}</strong></a></span>
-                <span id="chat_page_url"><a href="{$url}/index.php?a=notifications&filter=chats" rel="loadpage"><strong>{$lng->view_chat_notifications}</strong></a></span>
-                <span id="friends_page_url"><a href="{$url}/index.php?a=notifications&filter=friendships"
-                                               rel="loadpage"><strong>{$lng->view_confirmed_friendships}</strong></a></span>
+                <!--<span id="global_page_url"><a href="{$url}/index.php?a=notifications" rel="loadpage"><strong>{$lng->view_all_notifications}</strong></a></span>-->
+                <!--<span id="chat_page_url"><a href="{$url}/index.php?a=notifications&filter=chats" rel="loadpage"><strong>{$lng->view_chat_notifications}</strong></a></span>-->
+                <!--<span id="friends_page_url"><a href="{$url}/index.php?a=notifications&filter=friendships"-->
+                                               <!--rel="loadpage"><strong>{$lng->view_confirmed_friendships}</strong></a></span>-->
+                <span>通知</span>
                 <a onclick="showNotification('close')" title="{$lng->close_notifications}">
                     <div class="delete_btn"></div>
                 </a>
             </div>
             <div id="notifications-content" class="scrollable"></div>
             <div class="notification-row">
-                <div class="notification-padding"><a href="{$url}/index.php?a=settings&b=notifications" rel="loadpage">{$lng->notifications_settings}</a>
+                <div class="notification-padding"><a href="{$url}/index.php?a=settings&b=notifications" rel="loadpage">设置</a>
                 </div>
             </div>
         </div>

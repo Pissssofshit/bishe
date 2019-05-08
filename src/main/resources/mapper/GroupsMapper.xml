@@ -38,6 +38,7 @@
 
 
 
+
   <select id="selectByLikeGroupName" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select id, `name`, title, cover, privacy, posts, `time`, description
     from `groups`

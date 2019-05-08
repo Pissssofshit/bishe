@@ -13,6 +13,8 @@ public interface GroupsMapper {
 
     Groups selectByPrimaryKey(Integer id);
 
+    Groups getNotBlock(Integer userId);
+
     List<Groups> selectByLikeGroupName(String groupName);
 
     List<Groups> selectAll();

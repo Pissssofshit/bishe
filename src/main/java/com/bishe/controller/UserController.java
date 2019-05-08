@@ -3,6 +3,7 @@ package com.bishe.controller;
 import com.bishe.Http.Response;
 import com.bishe.Parameter.UserLogin;
 import com.bishe.Parameter.UserRegister;
+import com.bishe.Util.FileUtils;
 import com.bishe.model.*;
 import com.bishe.service.FriendshipService;
 import com.bishe.service.GroupService;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -183,10 +185,35 @@ public class UserController {
         return response;
     }
 
+    @ResponseBody
+    @RequestMapping("/saveProfile")
+    public Response saveProfile(HttpServletRequest request,@RequestParam(value = "fileName",required = false) MultipartFile file,String userName){
+        int userId = userService.getUserId(request);
+        String urlcover = FileUtils.saveImg(file);
+        User user = userService.getUserById(userId);
+        user.setUsername(userName);
+        user.setCover(urlcover);
+        userService.updateUser(user);
+        Response response = new Response();
+        return response;
+    }
+
+    @RequestMapping("profile")
+    public String profile(Model model,HttpServletRequest request,Integer userId){
+//        int userId = userService.getUserId(request);
+        User user = userService.getUserById(userId);
+        model.addAttribute("user",user);
+        Viewattr viewattr =new Viewattr();
+        viewattr.setFragment_id("profile");
+        viewattr.setFragment_path("profile/content");
+        model.addAttribute("viewattr",viewattr);
+        return "wrapper";
+    }
+
     @RequestMapping("/applyList")
     String applyList(Model model,HttpServletRequest request){
         int userId = userService.getUserId(request);
-        List<Friendships> friendshipsList = friendshipService.getUserApplyList(userId);
+        List<Friendshipwithuser> friendshipsList = friendshipService.getUserApplyList(userId);
         model.addAttribute("applyList",friendshipsList);
         return "notice/apply::apply";
     }
@@ -200,6 +227,8 @@ public class UserController {
             List<MessageWithComments> messageWithComments = messageService.getMessageWithComments(this.getUserId(request));
             int userId = this.getUserId(request);
             List<Groups> groupsList = groupService.loadGroupsByUserId(userId);
+            User user = userService.getUserById(userId);
+            model.addAttribute("user",user);
             model.addAttribute("groupsList",groupsList);
             model.addAttribute("messages",messageWithComments);
         }else {
@@ -211,8 +240,11 @@ public class UserController {
                 List<MessageWithComments> messageWithComments = messageService.getMessageWithComments(user.getIdu());
                 model.addAttribute("messages",messageWithComments);
                 int userId = this.getUserId(request);
+                User user1 = userService.getUserById(userId);
+                model.addAttribute("user",user1);
                 List<Groups> groupsList = groupService.loadGroupsByUserId(userId);
                 model.addAttribute("groupsList",groupsList);
+
             } else {
                 viewattr.setFragment_id("content");
                 viewattr.setFragment_path("welcome/content");

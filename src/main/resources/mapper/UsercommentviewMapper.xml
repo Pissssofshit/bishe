@@ -10,27 +10,28 @@
     <result column="likes" property="likes" jdbcType="INTEGER" />
     <result column="username" property="username" jdbcType="VARCHAR" />
     <result column="message" property="message" jdbcType="LONGVARCHAR" />
+    <result column="cover" property="cover" jdbcType="VARCHAR" />
   </resultMap>
   <insert id="insert" parameterType="com.bishe.model.Usercommentview" >
     insert into usercommentview (idu, id, `uid`, 
       mid, `time`, likes, 
-      username, message)
+      username, message, cover)
     values (#{idu,jdbcType=INTEGER}, #{id,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, 
       #{mid,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, #{likes,jdbcType=INTEGER}, 
-      #{username,jdbcType=VARCHAR}, #{message,jdbcType=LONGVARCHAR})
+      #{username,jdbcType=VARCHAR}, #{message,jdbcType=LONGVARCHAR},#{cover,jdbcType=VARCHAR})
   </insert>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select idu, id, `uid`, mid, `time`, likes, username, message
+    select idu, id, `uid`, mid, `time`, likes, username, message, cover
     from usercommentview
   </select>
   <select id="selectByMid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select idu, id, `uid`, mid, `time`, likes, username, message
+    select idu, id, `uid`, mid, `time`, likes, username, message, cover
     from usercommentview
     where mid = #{mid,jdbcType=INTEGER}
-    order by id desc
+    order by mid desc
   </select>
   <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select idu, id, `uid`, mid, `time`, likes, username, message
+    select idu, id, `uid`, mid, `time`, likes, username, message, cover
     from usercommentview
     where id = #{id,jdbcType=INTEGER}
   </select>

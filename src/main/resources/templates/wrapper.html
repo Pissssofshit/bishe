@@ -21,9 +21,9 @@
 <div id="loading-bar"><dd></dd><dt></dt></div>
 <div class="topbar">
 	<div class="header">
-		<a href="http://localhost:8080/user/login"><div class="menu_btn logo-container"><div class="logo"></div></div></a>
-		<div class="search-input"><input type="text" id="search" placeholder="搜索" autocomplete="off" value="{$current_search}"></div>
-		<div id="menu" th:include="shared/menu::menu"></div>
+		<a  th:if="${user}" href="http://localhost:8080/user/login"><div class="menu_btn logo-container"><div class="logo"></div></div></a>
+		<div th:if="${user}" class="search-input"><input type="text" id="search" placeholder="搜索" autocomplete="off" value="{$current_search}"></div>
+		<div th:if="${user}" id="menu" th:include="shared/menu::menu"></div>
 	</div>
 	<div class="search-container"></div>
 </div>

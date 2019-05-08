@@ -12,9 +12,7 @@ import com.bishe.tmp.UserMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class MessageService {
@@ -29,6 +27,8 @@ public class MessageService {
     LikesMapper likesMapper;
     @Autowired
     NotificationsService notificationsService;
+    @Autowired
+    UserService userService;
 
     public List<Messages> getMessageList(int pagesize,int pagenum,int userId){
         return messagesMapper.getMessageList(pagesize*(pagenum-1),pagesize,userId);
@@ -59,17 +59,31 @@ public class MessageService {
     public String getMessageUrl(int messageId){
         return "http://localhost:8080/user/message?messageId="+messageId;
     }
-    public List<MessageWithComments> getMessageWithComments(int userId){
-        List<Usermessageview> messageList = this.getMessageByUserId(userId);
+
+
+    public List<MessageWithComments> getMessageWithComments(int userId1){
+        List<Integer> userIdList = userService.getFriendsId(userId1);
         List<MessageWithComments> messageWithComments = new ArrayList<>();
-        for (Usermessageview usermessageview:messageList
-        ) {
-            List<Usercommentview> userCommentList= commentService.getMessageComments(usermessageview.getId());
-            MessageWithComments messageWithComments1 = new MessageWithComments();
-            messageWithComments1.setUserCommentList(userCommentList);
-            messageWithComments1.setUsermessageviews(usermessageview);
-            messageWithComments.add(messageWithComments1);
+        userIdList.add(userId1);
+        for (Integer userId:userIdList
+             ) {
+            List<Usermessageview> messageList = this.getMessageByUserId(userId);
+            for (Usermessageview usermessageview:messageList
+            ) {
+                List<Usercommentview> userCommentList= commentService.getMessageComments(usermessageview.getId());
+                MessageWithComments messageWithComments1 = new MessageWithComments();
+                messageWithComments1.setUserCommentList(userCommentList);
+                messageWithComments1.setUsermessageviews(usermessageview);
+                messageWithComments.add(messageWithComments1);
+            }
         }
+        Collections.sort(messageWithComments, new Comparator() {
+            public int compare(Object a, Object b) {
+                int one = ((MessageWithComments) a).getUsermessageviews().getId();
+                int two = ((MessageWithComments) b).getUsermessageviews().getId();
+                return two - one;
+            }
+        });
         return messageWithComments;
     }
     public List<Usermessageview> getMessageByUserId(int userId){

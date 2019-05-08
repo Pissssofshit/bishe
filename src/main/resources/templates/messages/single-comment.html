@@ -3,7 +3,9 @@
 <div th:fragment="singlecomment(comment)" class="message-reply-container" >
     <div class="message-menu comment-menu" onclick="messageMenu(11, 4)"></div><div id="comment-menu11" class="message-menu-container"><div class="message-menu-row" onclick="deleteModal(11, 0)">删除</div></div>
     <div class="message-reply-avatar">
-        <a href="http://bishefront.com/index.php?a=profile&amp;u=123" rel="loadpage"><img onmouseover="profileCard(1, 11, 1, 0, 0)" onmouseout="profileCard(0, 0, 1, 1, 0);" onclick="profileCard(0, 0, 1, 1, 0);" src="http://bishefront.com/thumb.php?src=default.png&amp;t=a"></a>
+        <a href="http://bishefront.com/index.php?a=profile&amp;u=123" rel="loadpage">
+            <!--<img onmouseover="profileCard(1, 11, 1, 0, 0)" onmouseout="profileCard(0, 0, 1, 1, 0);" onclick="profileCard(0, 0, 1, 1, 0);" src="http://bishefront.com/thumb.php?src=default.png&amp;t=a"></a>-->
+            <img th:src="${comment.cover}"></a>
     </div>
     <div class="message-reply-message">
         <span class="message-reply-author"><a th:text="${comment.username}" href="个人主页链接" rel="loadpage">123</a></span>: <span th:text="${comment.message}"></span>

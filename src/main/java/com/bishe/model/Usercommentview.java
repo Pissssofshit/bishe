@@ -20,6 +20,16 @@ public class Usercommentview implements Serializable {
 
     private String message;
 
+    private String cover;
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
+
     private static final long serialVersionUID = 1L;
 
     public Integer getIdu() {

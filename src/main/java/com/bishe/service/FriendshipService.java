@@ -1,13 +1,7 @@
 package com.bishe.service;
 
-import com.bishe.dao.FriendshipsMapper;
-import com.bishe.dao.GroupsMapper;
-import com.bishe.dao.GroupsUsersMapper;
-import com.bishe.dao.UserMapper;
-import com.bishe.model.Friendships;
-import com.bishe.model.Groups;
-import com.bishe.model.GroupsUsers;
-import com.bishe.model.User;
+import com.bishe.dao.*;
+import com.bishe.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +16,8 @@ public class FriendshipService {
 
     @Autowired
     FriendshipsMapper friendshipsMapper;
+    @Autowired
+    FriendshipwithuserMapper friendshipwithuserMapper;
 
 
     public boolean dealFriends(int applyId,int dealType){
@@ -48,7 +44,10 @@ public class FriendshipService {
         return false;
     }
 
-    public List<Friendships> getUserApplyList(int userId){
-        return friendshipsMapper.getUserApplyList(userId);
+//    public List<Friendships> getUserApplyList(int userId){
+//        return friendshipsMapper.getUserApplyList(userId);
+//    }
+    public List<Friendshipwithuser> getUserApplyList(int userId){
+        return friendshipwithuserMapper.getUserApplyList(userId);
     }
 }

@@ -7,9 +7,10 @@
                     class="notifications"
                     src="http://bishefront.com/thumb.php?src=default.png&amp;t=a&amp;w=50&amp;h=50&quot;"></a></div>
             <div class="notification-text notification-friendships"><a
-                    href="http://bishefront.com/index.php?a=profile&amp;u=123" rel="loadpage">123</a><br><span
-                    class="timeago" title="2019-05-07T03:33:04+08:00">8 hours ago</span></div>
-            <div class="notification-buttons" id="notification-buttons41">
+                    th:text="${apply.applyusername}"
+                    href="http://bishefront.com/index.php?a=profile&amp;u=123" rel="loadpage"></a><br><span
+                    class="timeago" th:title="${apply.time}">8 hours ago</span></div>
+            <div class="notification-buttons" >
                 <div class="notification-button button-normal"><a th:onclick="'dealFriends('+${apply.id}+',0)'">拒绝</a></div>
                 <div class="notification-button button-active"><a th:onclick="'dealFriends('+${apply.id}+',1)'">接受</a></div>
             </div>

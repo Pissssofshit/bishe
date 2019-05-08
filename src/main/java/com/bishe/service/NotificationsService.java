@@ -34,6 +34,7 @@ public class NotificationsService {
     public void setNotifications(Notifications notifications){
            notificationsMapper.insert(notifications);
     }
+
     public Notifications setNotificationsByComment(Comments comments){
         notifications.setChild(comments.getId());
         notifications.setParent(comments.getMid());

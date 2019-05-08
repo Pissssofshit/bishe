@@ -1193,6 +1193,27 @@ function loadGroupMember(groupId){
 	// 	}
 	// })
 }
+function saveProfile(){
+	var formdata=new FormData();
+	formdata.append('fileName',$('#filename').get(0).files[0]);
+	formdata.append('userName',$('#userName').val());
+	$.ajax({
+		async: false,
+		type: 'POST',
+		url: "/user/saveProfile",
+		dataType: 'json',
+		data: formdata,
+		contentType:false,//ajax上传图片需要添加
+		processData:false,//ajax上传图片需要添加
+		success: function (data) {
+			// $("#content").load("/message/loadmessage");
+			window.location.href="localhost:8080/user/login";
+		},
+		error: function (e) {
+			alert("error");
+		}
+	})
+}
 function checkSubmit(lat,long) {
 	var formdata=new FormData();
 	formdata.append('fileName',$('#filename').get(0).files[0]);
@@ -1658,7 +1679,7 @@ $(document).ready(function() {
 			manageResults(0);
 			dropdownMenu(1);
 			messageMenu(0, 0, 1);
-			showNotification('close', 1);
+			// showNotification('close', 1);
 			hideModal();
 			openSmiles(0, 1);
 		}
@@ -1689,7 +1710,7 @@ $(document).ready(function() {
 		
 		// Check the notification state
 		if(typeof notificationState != 'undefined') {
-			showNotification('close');
+			// showNotification('close');
 		}
 		
 		// Search
@@ -1837,6 +1858,20 @@ $(document).ready(function() {
 			cache: false,
 			success: function(data) {
 				$("#searchitem"+groupId+" div").addClass("friend-remove");
+			}
+		});
+	}
+ 	function dealGroupApply(groupId,userId,result){
+		$.ajax({
+			type: "POST",
+			url: "/group/dealGroupApply",
+			data: {"groupId":groupId,"userId":userId,"result":result}, // start is not used in this particular case, only needs to be set
+			cache: false,
+			success: function(data) {
+				// $("#searchitem"+groupId+" div").addClass("friend-remove");
+
+				$('#notifications-content').load("/group/applyList");
+				jQuery("span.timeago").timeago();
 			}
 		});
 	}

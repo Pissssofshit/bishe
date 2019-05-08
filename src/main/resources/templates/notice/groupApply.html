@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="apply">
+    <div th:each="apply : ${applyList}" class="notification-row" >
+        <div class="notification-padding">
+            <div class="notification-image"><a href="http://bishefront.com/index.php?a=profile&amp;u=123"><img
+                    class="notifications"
+                    th:src="${apply.cover}"></a></div>
+            <div class="notification-text notification-friendships"><a
+                    th:text="${apply.username}"
+                    href="http://bishefront.com/index.php?a=profile&amp;u=123" rel="loadpage"></a><br></div>
+            <div class="notification-text notification-friendships"><a
+                    th:text="'向您的群组'+${apply.groupName}+'发出申请'"
+                    href="http://bishefront.com/index.php?a=profile&amp;u=123" rel="loadpage"></a><br><span
+                    class="timeago" th:title="${apply.time}">8 hours ago</span></div>
+            <div class="notification-buttons" >
+
+                <div class="notification-button button-normal"><a th:onclick="|javascript:dealGroupApply(${apply.groupId},${apply.idu},0)|">拒绝</a></div>
+                <div class="notification-button button-active"><a th:onclick="|javascript:dealGroupApply(${apply.groupId},${apply.idu},1)|">接受</a></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</html>

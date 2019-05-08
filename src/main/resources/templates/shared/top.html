@@ -5,8 +5,8 @@
 
 		<div class="message-form-content">
 			<div class="message-form-header">
-				<div class="message-form-user"><img src="{$url}/thumb.php?src={$avatar}&t=a"></div>
-				{$lng->form_title}
+				<div class="message-form-user"></div>
+				发表说说
 				<div class="message-form-private"></div>
 				<div class="message-loader" id="post-loader9999999999" style="visibility: hidden"><div class="preloader"></div></div>
 			</div>
@@ -29,10 +29,10 @@
 			<div class="message-form-input"><input type="text" name="value" id="form-value"></div>
 			<div id="values">
 				<div class="button-image">
-					<input name="my_image[]" id="my_file" size="27" type="file" class="inputImage" title="{$lng->label_image}" multiple="multiple">
+					<input name="my_image[]" id="my_file" size="27" type="file" class="inputImage" title="点击添加图片" multiple="multiple">
 				</div>
 				<input type="file" name="fileName" id="filename" accept="image/png, image/jpeg, image/jpg" onchange="checkImage()">
-				<input type="button" id="submitBtn" onclick="checkSubmit()" value="上传"/>
+				<input type="button" id="submitBtn" onclick="checkSubmit()" value="发表"/>
 
 				<input type="radio" name="type" value="video" id="video" class="input_hidden"><label for="video" title="{$lng->label_video}"><img src="/images/icons/events/video.png"></label>
 				<input type="radio" name="type" value="map" id="map" class="input_hidden"><label for="map" id="map-icon" onclick="testLocation()" title="{$lng->label_map}"><img src="/images/icons/events/map.png"></label>
@@ -40,7 +40,6 @@
 				<input type="radio" name="type" value="music" id="music" class="input_hidden"><label for="music" title="{$lng->label_music}"><img src="/images/icons/events/music.png"></label>
 				<input type="radio" name="type" value="game" id="game" class="input_hidden"><label for="game" title="{$lng->label_game}"><img src="/images/icons/events/game.png"></label>
 				<input type="radio" name="type" value="food" id="food" class="input_hidden"><label for="food" title="{$lng->label_food}"><img src="/images/icons/events/food.png"></label>
-				{$plugins}
 			</div>
 			
 			<div type="button" name="action" class="message-btn button-active" value="Post"><a onclick="startUpload()">发表</a></div>

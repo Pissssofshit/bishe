@@ -7,7 +7,9 @@
             <!--<div th:text="${message.usermessageviews.message}"></div>-->
             <div class="message-avatar" id="avatar53">
                 <a th:href="@{http://bishefront.com/index.php(u=${message.usermessageviews.username})}" rel="loadpage">
-                    <img onmouseover="profileCard(1, 53, 0, 0, 0);" onmouseout="profileCard(0, 0, 0, 1, 0);" onclick="profileCard(0, 0, 1, 1, 0);" src="http://bishefront.com/thumb.php?src=default.png&amp;t=a&amp;w=50&amp;h=50">
+                    <!--鼠标移到放大 鼠标移开缩小-->
+                    <!--<img onmouseover="profileCard(1, 53, 0, 0, 0);" onmouseout="profileCard(0, 0, 0, 1, 0);" onclick="profileCard(0, 0, 1, 1, 0);" src="http://bishefront.com/thumb.php?src=default.png&amp;t=a&amp;w=50&amp;h=50">-->
+                    <img width="42px" height="42px" th:src="${message.usermessageviews.cover}">
                 </a>
             </div>
             <div class="message-top">

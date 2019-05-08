@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -33,6 +34,32 @@ public class UserService {
             return true;
         }
         return false;
+    }
+
+    public List<Integer> getFriendsId(int userId){
+        //for shame sheldon
+        List<Friendships> friendshipsList =  friendshipsMapper.selectFriendsId(userId);
+        List<Integer> userIdList = new ArrayList<>();
+        for (Friendships friendships:friendshipsList
+             ) {
+            if(friendships.getUser1()==userId){
+                userIdList.add(friendships.getUser2());
+            }else{
+                userIdList.add(friendships.getUser1());
+            }
+        }
+        return userIdList;
+    }
+    public boolean updateUser(User user){
+        User user1 = this.getUserById(user.getIdu());
+        if(user1==null){
+            return false;
+        }
+        user1.setCover(user.getCover());
+        user1.setUsername(user.getUsername());
+        //为啥不给我写成动态sql
+        userMapper.updateByPrimaryKey(user1);
+        return true;
     }
     public int getUserId(HttpServletRequest request){
         HttpSession httpSession = request.getSession();

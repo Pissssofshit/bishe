@@ -27,7 +27,15 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-
+  <select id="selectFriendsId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+      *
+    from friendships
+    where ((user1 = #{userId,jdbcType=INTEGER})
+    or (user2 = #{userId,jdbcType=INTEGER}
+    ))
+    and `status` = 1
+  </select>
 
   <select id="getByUserId1AndUserId2" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select id, user1, user2, `status`, `time`

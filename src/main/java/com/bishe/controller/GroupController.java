@@ -4,10 +4,7 @@ import com.bishe.Http.Response;
 import com.bishe.Parameter.UserLogin;
 import com.bishe.Parameter.UserRegister;
 import com.bishe.Util.FileUtils;
-import com.bishe.model.Friendships;
-import com.bishe.model.Groups;
-import com.bishe.model.GroupsUsers;
-import com.bishe.model.User;
+import com.bishe.model.*;
 import com.bishe.service.GroupService;
 import com.bishe.service.MessageService;
 import com.bishe.service.UserService;
@@ -42,6 +39,7 @@ public class GroupController {
     MessageService messageService;
     @Autowired
     GroupService groupService;
+
 
     @RequestMapping("loadGroupMember")
     public String loadGroupMember(Model model,HttpServletRequest request,Integer groupId){
@@ -103,15 +101,23 @@ public class GroupController {
     @RequestMapping("/applyList")
     String applyList(Model model,HttpServletRequest request){
         int userId = userService.getUserId(request);
-        List<GroupsUsers> groupsUsersList = groupService.getApplyList(userId);
-        for (GroupsUsers groupsUser:groupsUsersList
-             ) {
-            User user = userService.getUserById(groupsUser.getUser());
-//            Groups groups = groupService.getGroupByGroupId(group)
+        List<Groupwithuser> groupwithuserList = groupService.getApplyList(userId);
+        model.addAttribute("applyList",groupwithuserList);
+        return "notice/groupApply::apply";
+    }
+
+    @ResponseBody
+    @RequestMapping("/dealGroupApply")
+    Response dealGroupApply(int groupId,int userId,int result){
+        int realResult = 0;
+        if(result ==0){
+            groupService.rejectJoinGroup(userId,groupId);
+        }else{
+            groupService.agreeJoinGroup(userId,groupId);
         }
-//        List<Friendships> friendshipsList = grou.getUserApplyList(userId);
-//        model.addAttribute("applyList",friendshipsList);
-        return "notice/apply::apply";
+        Response response = new Response();
+        return response;
+
     }
 
     @ResponseBody

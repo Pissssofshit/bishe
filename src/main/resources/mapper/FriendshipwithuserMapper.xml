@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bishe.dao.FriendshipwithuserMapper">
+  <resultMap id="BaseResultMap" type="com.bishe.model.Friendshipwithuser">
+    <result column="Applyidu" jdbcType="INTEGER" property="applyidu" />
+    <result column="Applyusername" jdbcType="VARCHAR" property="applyusername" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="beApplyId" jdbcType="INTEGER" property="beApplyId" />
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="cover" jdbcType="VARCHAR" property="cover"/>
+    <result column="time" jdbcType="TIMESTAMP" property="time"/>
+  </resultMap>
+  <insert id="insert" parameterType="com.bishe.model.Friendshipwithuser">
+    insert into friendshipwithuser (Applyidu, Applyusername, `status`, 
+      beApplyId)
+    values (#{applyidu,jdbcType=INTEGER}, #{applyusername,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{beApplyId,jdbcType=INTEGER})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select Applyidu, Applyusername, `status`, beApplyId,id
+    from friendshipwithuser
+  </select>
+
+  <select id="getUserApplyList" resultMap="BaseResultMap" parameterType="map">
+    select Applyidu, Applyusername, `status`, beApplyId,id
+    from friendshipwithuser
+    where beApplyId = #{userId,jdbcType=INTEGER}
+    and `status` = 3
+  </select>
+
+</mapper>

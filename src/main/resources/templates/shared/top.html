@@ -20,7 +20,7 @@
 			<!--<input type="hidden" name="message-lat" id="message-lat" >-->
 			<!--<input type="hidden" name="message-long" id="message-long" >-->
 
-			<!--<input type="hidden" name="privacy" id="message-privacy" value="{$private_message}">-->
+			<input type="hidden" name="privacy" id="message-privacy" value="2">
 			<!--<input type="hidden" name="group" id="message-group" value="{$group}">-->
 			<!--<input type="hidden" name="page" id="message-page" value="{$page}">-->
 			<!--<input type="hidden" name="push" id="message-push" value="{$push}">-->
@@ -32,7 +32,7 @@
 					<input name="my_image[]" id="my_file" size="27" type="file" class="inputImage" title="点击添加图片" multiple="multiple">
 				</div>
 				<input type="file" name="fileName" id="filename" accept="image/png, image/jpeg, image/jpg" onchange="checkImage()">
-				<input type="button" id="submitBtn" onclick="checkSubmit()" value="发表"/>
+				<!--<input type="button" class="message-btn button-active" id="submitBtn" onclick="checkSubmit()" value="发表"/>-->
 
 				<input type="radio" name="type" value="video" id="video" class="input_hidden"><label for="video" title="{$lng->label_video}"><img src="/images/icons/events/video.png"></label>
 				<input type="radio" name="type" value="map" id="map" class="input_hidden"><label for="map" id="map-icon" onclick="testLocation()" title="{$lng->label_map}"><img src="/images/icons/events/map.png"></label>
@@ -42,13 +42,13 @@
 				<input type="radio" name="type" value="food" id="food" class="input_hidden"><label for="food" title="{$lng->label_food}"><img src="/images/icons/events/food.png"></label>
 			</div>
 			
-			<div type="button" name="action" class="message-btn button-active" value="Post"><a onclick="startUpload()">发表</a></div>
-			<div class="message-btn button-normal" onclick="messageMenu(9999999999, 1)" title="{$lng->change_privacy}" id="privacy-button"{$style}><a><div id="privacy-btn" class="privacy-icons {$privacy_class}-icon"></div></a></div>
+			<div type="button" name="action" class="message-btn button-active" value="Post"><a onclick="checkSubmit()">发表</a></div>
+			<div class="message-btn button-normal" onclick="messageMenu(9999999999, 1)" title="选择说说公开程度" id="privacy-button"{$style}><a><div id="privacy-btn" class="privacy-icons friends-icon"></div></a></div>
 			<div id="message-menu9999999999" class="message-menu-container message-menu-privacy">
-				<div class="message-menu-row" onclick="postPrivacy(1)">{$lng->public}</div>
-				<div class="message-menu-row" onclick="postPrivacy(2)">{$lng->friends}</div>
-				<div class="message-menu-row" onclick="postPrivacy(0)">{$lng->private}</div>
-				<div class="message-menu-row" onclick="postPrivacy(3)">{$lng->push}</div>
+				<div class="message-menu-row" onclick="postPrivacy(1)">公开</div>
+				<div class="message-menu-row" onclick="postPrivacy(2)">朋友</div>
+				<!--<div class="message-menu-row" onclick="postPrivacy(0)">{$lng->private}</div>-->
+				<!--<div class="message-menu-row" onclick="postPrivacy(3)">{$lng->push}</div>-->
 			</div>
 		</div>
 		<iframe id="my_iframe" name="my_iframe" src="" style="display: none"></iframe>

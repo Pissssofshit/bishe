@@ -1216,6 +1216,7 @@ function saveProfile(){
 }
 function checkSubmit(lat,long) {
 	var formdata=new FormData();
+	formdata.append('public_state',$("#message-privacy").val());
 	formdata.append('fileName',$('#filename').get(0).files[0]);
 	formdata.append('message',$('#post9999999999').val());
 	$.ajax({
@@ -1227,7 +1228,7 @@ function checkSubmit(lat,long) {
 		contentType:false,//ajax上传图片需要添加
 		processData:false,//ajax上传图片需要添加
 		success: function (data) {
-			$("#content").load("/message/loadmessage");
+			$(".nine.columns").load("/message/loadmessage");
 		},
 		error: function (e) {
 			alert("error");

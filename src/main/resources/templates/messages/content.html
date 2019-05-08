@@ -1,17 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="content">
-{$ad1}
 <div class="row-body{$content_class}">
-	<div class="nine columns" id="messages">
-		<div th:include="/shared/top:: top"></div>
-		<div th:include="/messages/rows::row"></div>
-	</div>
-	<div class="three columns">
-		{$sidebar}
-	</div>
+	<div th:include="/shared/top:: top"></div>
+	<div th:each="message : ${messages}" th:include="/messages/rows :: row(message = ${message})"></div>
+
 </div>
-{$ad2}
 </div>
 </html>
 <!--<script type="text/javascript">-->

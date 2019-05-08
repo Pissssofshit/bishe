@@ -56,6 +56,7 @@ public class MessageController {
         messages.setLikes(0);
         messages.setImgurl(imageUrl);
         messages.setTime(new Date());
+
         messageService.postMessage(messages);
         Response response = new Response();
         response.setCode(200);
@@ -67,7 +68,7 @@ public class MessageController {
         int userId = (int) httpSession.getAttribute("userid");
         List<MessageWithComments> messageWithComments = messageService.getMessageWithComments(userId);
         model.addAttribute("messages",messageWithComments);
-        return "/shared/timeline::timeline";
+        return "/messages/content::content";
     }
     @RequestMapping("/loadcomments")
     String loadcomments(Model model,int messageId, HttpServletRequest request){

@@ -121,21 +121,36 @@ public class NotificationsService {
             case 4:
                 result = "给说说评论";
                 break;
-                default:
+            case 5:
+                result = "发表了附近的说说推送";
+                break;
+            default:
                     result = "我也不知道干了啥";
 
         }
         return result;
     }
-    public void setNotificationsByMessage(Messages messages){
+    public void setNotificationsByMessage(Messages messages,int publicLevel){
         List<Integer> userIds = userService.getFriendsId(messages.getUid());
+        if(publicLevel==1){
+            List<User> userList = userService.getAroundUser(messages.getUid());
+            for (User tmp:userList
+                 ) {
+                userIds.add(tmp.getIdu());
+            }
+        }
         for (Integer userId:userIds
              ) {
             Notifications notifications = new Notifications();
             notifications.setFrom(messages.getUid());
             notifications.setTo(userId);
             notifications.setTime(new Date());
-            notifications.setType(3);
+            if(publicLevel==1){
+                notifications.setType(5);
+            }else{
+                notifications.setType(3);
+            }
+
             notifications.setParent(messages.getId());
             notifications.setChild(0);
             this.setNotifications(notifications);

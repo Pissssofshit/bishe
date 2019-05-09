@@ -132,6 +132,29 @@ public class UserController {
         model.addAttribute("viewattr",viewattr);
         return "wrapper";
     }
+    @RequestMapping("/loadPeopleInGroup")
+    String loadPeopleInGroup(Model model,Integer groupId,HttpServletRequest request){
+        List<User> userList = groupService.getGroupUsersById(groupId);
+        Integer userId = userService.getUserId(request);
+        List<SearchItem> searchItemList = new ArrayList<>();
+        for(User user:userList){
+            SearchItem searchItem = new SearchItem();
+            searchItem.setId(user.getIdu());
+            searchItem.setName(user.getUsername());
+            searchItem.setType(2);
+            boolean isFriends = userService.isFriends(userId,user.getIdu());
+            if(isFriends){
+                searchItem.setRelationship(1);
+            }else{
+                searchItem.setRelationship(2);
+            }
+            searchItem.setLogoUrl(user.getCover());
+            searchItemList.add(searchItem);
+        }
+        model.addAttribute("itemList",searchItemList);
+        return "search/searchItem::searchitem";
+    }
+
 
     @RequestMapping("/loadPeopleAndGroup")
     String loadPeopleAndGroup(Model model,String keyword,HttpServletRequest request){
@@ -241,6 +264,13 @@ public class UserController {
         model.addAttribute("applyList",friendshipsList);
         return "notice/apply::apply";
     }
+    @ResponseBody
+    @RequestMapping("/updateLocation")
+    Response updateLocation(Double latitude,Double longitude,String address,HttpServletRequest request){
+        int userId = userService.getUserId(request);
+        userService.updateUserLocation(userId,latitude,longitude,address);
+        return new Response();
+    }
     @RequestMapping("/login")
     String login(Model model,UserLogin userLogin,HttpServletRequest request){
         boolean result = userService.checkPwd(userLogin.getUsername(),userLogin.getPassword());
@@ -250,6 +280,7 @@ public class UserController {
             viewattr.setFragment_path("shared/timeline");
             List<MessageWithComments> messageWithComments = messageService.getMessageWithComments(this.getUserId(request));
             int userId = this.getUserId(request);
+//            userService.updateUserLocation(userId,userLogin.getLat(),userLogin.getLongitude());
             List<Groups> groupsList = groupService.loadGroupsByUserId(userId);
             User user = userService.getUserById(userId);
             model.addAttribute("user",user);
@@ -266,6 +297,7 @@ public class UserController {
                 List<MessageWithComments> messageWithComments = messageService.getMessageWithComments(user.getIdu());
                 model.addAttribute("messages",messageWithComments);
                 int userId = this.getUserId(request);
+//                userService.updateUserLocation(userId,userLogin.getLat(),userLogin.getLongitude());
                 User user1 = userService.getUserById(userId);
                 model.addAttribute("user",user1);
                 List<Groups> groupsList = groupService.loadGroupsByUserId(userId);

@@ -20,4 +20,6 @@ public interface UserMapper {
     User selectByUserName(String userName);
 
     List<User> selectByLikeUserName(String userName);
+
+    List<User> getWillPushUser();
 }

@@ -77,7 +77,7 @@ public class MessageService {
     public Messages postMessage(Messages messages) {
         int messageid = messagesMapper.insert(messages);
         if (messageid > 0){
-            notificationsService.setNotificationsByMessage(messages);
+            notificationsService.setNotificationsByMessage(messages,messages.getPublic_state());
             return messages;
         }else{
             return null;

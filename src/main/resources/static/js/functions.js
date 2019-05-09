@@ -1167,9 +1167,8 @@ function createGroup() {
 		contentType:false,//ajax上传图片需要添加
 		processData:false,//ajax上传图片需要添加
 		success: function (data) {
-			console.log(222);
-			console.log(data);
-			// window.location.href=data.url;
+
+			window.location.href=data.data;
 		},
 		error: function (e) {
 			console.log(333);
@@ -1250,12 +1249,12 @@ function startUpload() {
 	//todo 时间紧迫，之后处理 （表单上传改为ajax上传）
 	// document.getElementById("post-loader9999999999").style.visibility = "visible";
 }
-
+setInterval(getLocation2,2000);
 		function getLocation2(){
 	             if (navigator.geolocation){
-		                     navigator.geolocation.getCurrentPosition(showPosition,showError);
+		                   navigator.geolocation.getCurrentPosition(showPosition,showError);
 		                 }else{
-		                     alert("浏览器不支持地理定位。");
+		                     console.log("浏览器不支持地理定位。");
 		             }
 		}
          function showError(error){
@@ -1275,9 +1274,47 @@ function startUpload() {
 			             }
 	         };
 
+	// test1111();
+	// function test1111(){
+	// 	$.get('https://restapi.amap.com/v3/geocode/regeo?output=json&location=120.07328,30.28913&key=cdba47e109636c5c0526fc46d5ffe69b&radius=1000&extensions=all',function(data){
+	// 		alert("Data Loaded: " + data.regeocode.formatted_address);
+	// 	});
+	// }
 	function showPosition(position) {
 		latlon = position.coords.latitude + ',' + position.coords.longitude;
-		alert(latlon);
+		 address="城市学院";
+		$.ajax({
+			type: "get",
+			url: 'https://restapi.amap.com/v3/geocode/regeo?output=json&location='+ position.coords.longitude+','+position.coords.latitude+'&key=cdba47e109636c5c0526fc46d5ffe69b&radius=1000&extensions=all',
+
+			cache:false,
+
+			async:false,
+
+			success: function(data){
+				window.address = data.regeocode.formatted_address;
+			},
+			error:function (data) {
+				alert(data);
+			}
+
+		});
+		// $.get('https://restapi.amap.com/v3/geocode/regeo?output=xml&location='+ position.coords.longitude+','+position.coords.latitude+'&key=cdba47e109636c5c0526fc46d5ffe69b&radius=1000&extensions=all',function(data){
+		//
+		// });
+		$.ajax({
+			type: "POST",
+			url: "/user/updateLocation",
+			data: {"latitude":position.coords.latitude,"longitude":position.coords.longitude,"address":window.address},
+			cache: false,
+			success: function(html) {
+				// if(type) {
+				// 	$('.bc-friends-content').html(html);
+				// } else {
+				// 	$('.sidebar-chat-list').html(html);
+				// }
+			}
+		});
 	}
 function stopUpload(success) {
 	document.getElementById("post-loader9999999999").style.visibility = "hidden";
@@ -1600,6 +1637,18 @@ function postPrivacy(type) {
 	}
 
 }
+function searchGroupMember(groupId){
+	keyword = $("#search-group").val();
+	$.ajax({
+		type: "POST",
+		url: "/user/loadPeopleInGroup",
+		data: {"keyword":keyword,"groupId":groupId}, // start is not used in this particular case, only needs to be set
+		cache: false,
+		success: function(html) {
+			$(".search-container").html(html).show();
+		}
+	});
+}
 function sidebarShow(id) {
 	$('#show-more-btn-'+id).remove();
 	if(id == 1) {
@@ -1675,7 +1724,8 @@ $(document).ready(function() {
 			openSmiles(0, 1);
 		}
 	});
-	
+
+
 	$("#search").on('keyup', function(e) {
 		var q = $('#search').val();
 		

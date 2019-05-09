@@ -7,9 +7,8 @@
             <div th:id="searchitem+${item.id}">
                 <div th:if="${item.relationship}!=1 and ${item.type}==1"  class="friend-button subslist" title="加入群组" th:onclick="'applyJoinGroup('+${item.id}+')'"></div>
                 <div th:if="${item.relationship}==1 and ${item.type}==1"  class="friend-button friend-remove subslist" title="离开群组" th:onclick="'applyJoinGroup('+${item.id}+')'"></div>
-
                 <div th:if="${item.type}==2 and ${item.relationship}!=1" class="friend-button subslist" title="加为好友" th:onclick="'applyBeFriends('+${item.id}+')'"></div>
-                <div th:if="${item.type}==2 and ${item.relationship} ==1" class="friend-button subslist" title="删除好友" th:onclick="'applyBeFriends('+${item.id}+')'"></div>
+                <div th:if="${item.type}==2 and ${item.relationship} ==1" class="friend-button friend-remove subslist" title="删除好友" th:onclick="'applyBeFriends('+${item.id}+')'"></div>
             </div>
             <a href="http://bishefront.com/index.php?a=messages&amp;u=122&amp;id=4" title="发送验证消息" rel="loadpage">
                 <div class="message_btn subslist_message"></div>

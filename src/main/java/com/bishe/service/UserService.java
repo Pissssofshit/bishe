@@ -1,6 +1,7 @@
 package com.bishe.service;
 
 import com.bishe.Parameter.UserRegister;
+import com.bishe.Util.LocationUtil;
 import com.bishe.dao.FriendshipsMapper;
 import com.bishe.dao.UserMapper;
 //import com.bishe.model.Users;
@@ -36,6 +37,44 @@ public class UserService {
         return false;
     }
 
+    public double distanceBetweenUsers(User user1,User user2){
+        double lat1 = user1.getLastloginlat();
+        double long1 = user1.getLastloginlong();
+        double lat2 = user2.getLastloginlat();
+        double long2 = user2.getLastloginlong();
+        return LocationUtil.getDistance(lat1,long1,lat2,long2);
+    }
+    public void updateUserLocation(int userId,Double latitude,Double longitude,String address){
+        if(latitude==null || longitude ==null){
+            return;
+        }
+        User user = this.getUserById(userId);
+        user.setLastloginlat(latitude);
+        user.setLastloginlong(longitude);
+        user.setAddress(address);
+        userMapper.updateByPrimaryKey(user);
+    }
+    public List<User> getAroundUser(int userId){
+        User user= this.getUserById(userId);
+
+        List<User> resultList = new ArrayList<>();
+        List<User> userList = this.getWillPushUser();
+        for (User tmp:
+             userList) {
+            if(user.getIdu()==tmp.getIdu()){
+                continue;
+            }
+            double distance = this.distanceBetweenUsers(user,tmp);
+            if(distance>500){
+                continue;
+            }
+            resultList.add(tmp);
+        }
+        return resultList;
+    }
+    List<User> getWillPushUser(){
+        return userMapper.getWillPushUser();
+    }
     public List<Integer> getFriendsId(int userId){
         //for shame sheldon
         List<Friendships> friendshipsList =  friendshipsMapper.selectFriendsId(userId);

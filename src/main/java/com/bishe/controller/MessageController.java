@@ -56,11 +56,15 @@ public class MessageController {
 
         HttpSession httpSession = request.getSession();
         int userid = (int)httpSession.getAttribute("userid");
+
         messages.setUid(userid);
         messages.setLikes(0);
         messages.setImgurl(imageUrl);
         messages.setTime(new Date());
-
+        User user = userService.getUserById(userid);
+        messages.setLatitude(user.getLastloginlat());
+        messages.setLongitude(user.getLastloginlong());
+        messages.setValue(user.getAddress());
         messageService.postMessage(messages);
         Response response = new Response();
         response.setCode(200);

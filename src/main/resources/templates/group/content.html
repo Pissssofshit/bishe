@@ -131,8 +131,9 @@
                                                       class="search-sidebar"
                                                       onkeydown="if(event.keyCode==13){searchFriends('index.php?a=group&amp;name=123&amp;search=', 1)}"
                                                       placeholder="搜索这组" value="">
+                        <div class="search-container" ></div>
                         <div id="search-sidebar-btn"
-                             onclick="searchFriends('index.php?a=group&amp;name=123&amp;search=', 1);"></div>
+                             th:onclick="'searchGroupMember('+${group.groups.id}+');'"></div>
                     </div>
                 </div>
             </div>
@@ -143,27 +144,27 @@
                                                       class="search-sidebar"
                                                       onkeydown="if(event.keyCode==13){searchFriends('index.php?a=group&amp;name=123&amp;friends=', 0)}"
                                                       placeholder="搜索朋友" value="">
-                        <div id="search-sidebar-btn"
+                        <div id="search-sidebar-btn2"
                              onclick="searchFriends('index.php?a=group&amp;name=123&amp;friends=', 0);"></div>
                     </div>
                 </div>
             </div>
-            <div class="sidebar-container widget-group-info">
-                <div class="sidebar-content">
-                    <div class="sidebar-header">关于 <span class="sidebar-header-link"><a
-                            href="http://bishefront.com/index.php?a=group&amp;name=123&amp;r=edit" rel="loadpage">编辑</a></span>
-                    </div>
-                    <div class="sidebar-list">
-                        <div class="about-icon about-calendar"></div>
-                        创建: <strong>三月 20, 2019</strong></div>
-                    <div class="sidebar-list">
-                        <div class="about-icon about-privacy"></div>
-                        隐私: <strong>公开, 任何成员可以发布</strong></div>
-                    <div class="sidebar-list">
-                        <div class="about-icon about-info"></div>
-                        描述: <strong>112</strong></div>
-                </div>
-            </div>
+            <!--<div class="sidebar-container widget-group-info">-->
+                <!--<div class="sidebar-content">-->
+                    <!--<div class="sidebar-header">关于 <span class="sidebar-header-link"><a-->
+                            <!--href="http://bishefront.com/index.php?a=group&amp;name=123&amp;r=edit" rel="loadpage">编辑</a></span>-->
+                    <!--</div>-->
+                    <!--<div class="sidebar-list">-->
+                        <!--<div class="about-icon about-calendar"></div>-->
+                        <!--创建: <strong>三月 20, 2019</strong></div>-->
+                    <!--<div class="sidebar-list">-->
+                        <!--<div class="about-icon about-privacy"></div>-->
+                        <!--隐私: <strong>公开, 任何成员可以发布</strong></div>-->
+                    <!--<div class="sidebar-list">-->
+                        <!--<div class="about-icon about-info"></div>-->
+                        <!--描述: <strong>112</strong></div>-->
+                <!--</div>-->
+            <!--</div>-->
 
         </div>
     </div>

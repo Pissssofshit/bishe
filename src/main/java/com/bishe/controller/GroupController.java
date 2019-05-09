@@ -55,8 +55,9 @@ public class GroupController {
     }
 
     @Transactional
+    @ResponseBody
     @RequestMapping("creatGroup")
-    public String createGroup(Model model,HttpServletRequest request, @RequestParam(value = "groupcover",required = false) MultipartFile file, Groups groups){
+    public Response createGroup(Model model,HttpServletRequest request, @RequestParam(value = "groupcover",required = false) MultipartFile file, Groups groups){
         String imgUrl = "";
         if(file!=null){
             imgUrl = FileUtils.saveImg(file);
@@ -67,7 +68,9 @@ public class GroupController {
         int userId = userService.getUserId(request);
         groupService.joinGroup(groups.getId(),userId,1);
 
-        return "redirect:/group/group?groupId="+groups.getId();
+        Response response = new Response();
+        response.setData("http:localhost:8080/group/group?groupId="+groups.getId());
+        return response;
 //        //todo to fix it later
 //        Viewattr viewattr =new Viewattr();
 //        viewattr.setFragment_id("group");

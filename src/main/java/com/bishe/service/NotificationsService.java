@@ -27,6 +27,7 @@ public class NotificationsService {
     @Autowired
     CommentService commentService;
 
+
     public List<Notifications> getNotificationsByUserId(int userId){
         return notificationsMapper.selectByUserIdandUnread(userId);
     }
@@ -73,7 +74,7 @@ public class NotificationsService {
             int commentId = notifications.getChild();
             messageId = commentService.getMid(commentId);
         }
-        noticeMessage.setOperateurl(messageService.getMessageUrl(messageId));
+        noticeMessage.setOperateurl(messageService.getMessageUrl(messageId)+"&noticeId="+notifications.getId());
         noticeMessage.setId(notifications.getId());
         noticeMessage.setTime(notifications.getTime());
         return noticeMessage;
@@ -120,6 +121,31 @@ public class NotificationsService {
         }
         return result;
     }
+    public void setNotificationsByMessage(Messages messages){
+        List<Integer> userIds = userService.getFriendsId(messages.getUid());
+        for (Integer userId:userIds
+             ) {
+            Notifications notifications = new Notifications();
+            notifications.setFrom(messages.getUid());
+            notifications.setTo(userId);
+            notifications.setTime(new Date());
+            notifications.setType(3);
+            notifications.setParent(messages.getId());
+            notifications.setChild(0);
+            this.setNotifications(notifications);
+        }
+    }
+    public Integer loadUnreadNotificationCount(int userId){
+        List<Notifications> notificationsList = notificationsMapper.selectByUserIdandUnread(userId);
+        return notificationsList.size();
+    }
+    public boolean setNoticeRead(int noticeId){
+        Notifications notifications = notificationsMapper.selectByPrimaryKey(noticeId);
+        notifications.setRead(1);
+        notificationsMapper.updateByPrimaryKey(notifications);
+        return true;
+    }
+
     public Notifications setNotificationsByLike(Likes likes){
         notifications.setFrom(likes.getBy());
         if(likes.getType()==2){

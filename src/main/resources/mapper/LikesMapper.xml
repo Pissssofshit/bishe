@@ -26,6 +26,12 @@
       `time` = #{time,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByBy" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, post, `by`, `type`, `time`
+    from likes
+    where `by` = #{userId,jdbcType=INTEGER}
+  </select>
   <select id="selectByUserIdandPostId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select id, post, `by`, `type`, `time`
     from likes

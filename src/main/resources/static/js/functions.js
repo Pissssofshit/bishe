@@ -93,6 +93,10 @@ function loadFeed(start, filter) {
 		}
 	});
 }
+
+function messageAround(){
+	$(".nine.columns").load("/message/loadmessageAround");
+}
 function loadPage(start, page) {
 	$('#more_messages').html('<div class="load_more"><div class="preloader preloader-center"></div></div>');
 

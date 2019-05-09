@@ -5,10 +5,7 @@ import com.bishe.Parameter.UserLogin;
 import com.bishe.Parameter.UserRegister;
 import com.bishe.Util.FileUtils;
 import com.bishe.model.*;
-import com.bishe.service.FriendshipService;
-import com.bishe.service.GroupService;
-import com.bishe.service.MessageService;
-import com.bishe.service.UserService;
+import com.bishe.service.*;
 import com.bishe.tmp.MessageWithComments;
 import com.bishe.tmp.SearchItem;
 import com.bishe.tmp.UserMessage;
@@ -42,8 +39,10 @@ public class UserController {
     GroupService groupService;
     @Autowired
     FriendshipService friendshipService;
+    @Autowired
+    NotificationsService notificationsService;
 
-    boolean isLogin(HttpServletRequest request){
+    public boolean isLogin(HttpServletRequest request){
         HttpSession httpSession = request.getSession();
         if(httpSession.getAttribute("userid")!=null){
             return true;
@@ -60,6 +59,16 @@ public class UserController {
 //        if(httpSession.getAttribute("userid")!=null){
 //            return true;
 //        }
+    }
+
+
+    @RequestMapping("/setting")
+    public String  Setting(Model model){
+        Viewattr viewattr =new Viewattr();
+        viewattr.setFragment_id("setting");
+        viewattr.setFragment_path("settings/setting");
+        model.addAttribute("viewattr",viewattr);
+        return "wrapper";
     }
     @RequestMapping("/register")
     String reg(@Valid UserRegister userRegister, BindingResult bindingResult, Model model, HttpServletRequest request){
@@ -99,10 +108,13 @@ public class UserController {
         return "wrapper";
     }
     @RequestMapping("/message")
-    String message(Model model,Integer messageId,HttpServletRequest request){
+    String message(Model model,Integer messageId, @RequestParam(value = "noticeId",required = false) Integer noticeId,HttpServletRequest request){
         Viewattr viewattr =new Viewattr();
         viewattr.setFragment_id("row");
         viewattr.setFragment_path("messages/rows");
+        if(noticeId!=null){
+            notificationsService.setNoticeRead(noticeId);
+        }
         int userId = userService.getUserId(request);
         MessageWithComments messageWithComments = messageService.getMessageWithComments(userId,messageId);
         model.addAttribute("message",messageWithComments);
@@ -198,6 +210,18 @@ public class UserController {
         return response;
     }
 
+    @RequestMapping("person")
+    public String person(Model model,HttpServletRequest request,Integer userId){
+//        int userId = userService.getUserId(request);
+        User user = userService.getUserById(userId);
+        model.addAttribute("user",user);
+        Viewattr viewattr =new Viewattr();
+        viewattr.setFragment_id("profile");
+        viewattr.setFragment_path("profile/profile");
+        model.addAttribute("viewattr",viewattr);
+        return "wrapper";
+    }
+
     @RequestMapping("profile")
     public String profile(Model model,HttpServletRequest request,Integer userId){
 //        int userId = userService.getUserId(request);
@@ -231,6 +255,8 @@ public class UserController {
             model.addAttribute("user",user);
             model.addAttribute("groupsList",groupsList);
             model.addAttribute("messages",messageWithComments);
+            int count = notificationsService.loadUnreadNotificationCount(userId);
+            model.addAttribute("noticeCount1",count);
         }else {
             if (result) {
                 User user = userService.getUserByUsername(userLogin.getUsername());
@@ -244,8 +270,11 @@ public class UserController {
                 model.addAttribute("user",user1);
                 List<Groups> groupsList = groupService.loadGroupsByUserId(userId);
                 model.addAttribute("groupsList",groupsList);
-
+                int count = notificationsService.loadUnreadNotificationCount(userId);
+                model.addAttribute("noticeCount1",count);
             } else {
+
+                model.addAttribute("errormsg","用户名或密码不对");
                 viewattr.setFragment_id("content");
                 viewattr.setFragment_path("welcome/content");
             }

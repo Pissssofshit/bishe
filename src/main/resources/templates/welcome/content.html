@@ -28,11 +28,15 @@
 						<button type="submit" name="register"  class="register-button">注册</button>
 					</form>
 					<br>
+
 					<form action="/user/login" method="POST" autocomplete="off">
+						<div  th:text="${errormsg}" style="color:red;font-size:20px"></div>
 						<input type="text" id="short" name="username" placeholder="用户名或邮箱">
 						<input type="password" id="short" name="password" placeholder="密码">
 						<!--<input type="checkbox" name="remember" value="1">-->
-						<button type="submit" name="login" class="login-button">登录</button><span class="forgot-password"><a href="{$url}/index.php?a=recover" rel="loadpage">忘记密码</a></span>
+						<button type="submit" name="login" class="login-button">登录</button><span class="forgot-password">
+						<!--<a href="{$url}/index.php?a=recover" rel="loadpage">忘记密码</a></span>-->
+
 					</form>
 				</div>
 			</div>

@@ -22,7 +22,9 @@
     </div>
     <a onclick="showNotification('', '1')">
         <div class="menu_btn" id="notifications_btn" title="{$lng->title_notifications}" rel="loadpage"><img
-                src="/images/icons/notification.png" id="notifications_img"></div>
+                src="/images/icons/notification.png" id="notifications_img">
+            <span class="notificatons-number-container"><span class="notifications-number" th:test="${noticeCount1!=0}" th:text="${noticeCount1}">1</span></span>
+        </div>
     </a>
     <a onclick="showNotification('', '2')" id="messages_url">
         <div class="menu_btn" id="messages_btn" title="{$lng->title_messages}"><img src="/images/icons/message.png">

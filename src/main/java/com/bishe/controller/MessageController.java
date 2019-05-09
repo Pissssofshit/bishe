@@ -3,9 +3,11 @@ package com.bishe.controller;
 import com.bishe.Http.Response;
 import com.bishe.Parameter.UserLogin;
 import com.bishe.Util.FileUtils;
+import com.bishe.Util.LocationUtil;
 import com.bishe.model.*;
 import com.bishe.service.CommentService;
 import com.bishe.service.MessageService;
+import com.bishe.service.UserService;
 import com.bishe.tmp.MessageWithComments;
 import com.bishe.tmp.UserComment;
 import com.bishe.tmp.UserMessage;
@@ -30,6 +32,8 @@ public class MessageController {
     MessageService messageService;
     @Autowired
     CommentService commentService;
+    @Autowired
+    UserService userService;
 
     @ResponseBody
     @RequestMapping("/post_comment")
@@ -62,8 +66,40 @@ public class MessageController {
         response.setCode(200);
         return response;
     }
+    @RequestMapping("/loadmessageAround")
+    String loadmessageAround(Model model, HttpServletRequest request){
+        HttpSession httpSession = request.getSession();
+        int userId = (int) httpSession.getAttribute("userid");
+        List<MessageWithComments> messageWithComments = messageService.getMessageWithComments(userId);
+        User user = userService.getUserById(userId);
+        double lat1 = 0;
+        double long1 = 0;
+        if(user.getLastloginlong() == null || user.getLastloginlat()==null){
+            messageWithComments=null;
+        }else{
+            lat1 = user.getLastloginlat();
+            long1 = user.getLastloginlong();
+        }
+        for (int i=0;i<messageWithComments.size();i++
+             ) {
+            if(messageWithComments.get(i).getUsermessageviews().getLatitude()==null || messageWithComments.get(i).getUsermessageviews().getLongitude()==null){
+                messageWithComments.remove(i);
+                i--;
+                continue;
+            }
+            double lat2 = messageWithComments.get(i).getUsermessageviews().getLatitude();
+            double long2 = messageWithComments.get(i).getUsermessageviews().getLongitude();
+            double distance = LocationUtil.getDistance(lat1,long1,lat2,long2);
+            if(distance>1000){
+                messageWithComments.remove(i);
+                i--;
+            }
+        }
+        model.addAttribute("messages",messageWithComments);
+        return "/messages/content::content";
+    }
     @RequestMapping("/loadmessage")
-    String loadmessage(Model model,Messages messages, HttpServletRequest request){
+    String loadmessage(Model model, HttpServletRequest request){
         HttpSession httpSession = request.getSession();
         int userId = (int) httpSession.getAttribute("userid");
         List<MessageWithComments> messageWithComments = messageService.getMessageWithComments(userId);

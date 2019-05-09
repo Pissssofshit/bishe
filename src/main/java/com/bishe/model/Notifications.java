@@ -19,7 +19,7 @@ public class Notifications implements Serializable {
 
     private Integer type;
 
-    private Integer read;
+    private Integer read =0;
 
     private Date time;
 

@@ -25,9 +25,9 @@ public class test {
         // recommender configuration
         Configuration conf = new Configuration();
         Configuration.Resource resource = new Configuration.Resource("rec/cf/userknn-test.properties");
-
-        conf.set("dfs.data.dir","F:\\project\\backend\\demo\\src");
-        conf.set("data.input.path","123");
+//        conf.set("dfs.data.dir","F:\\project\\backend\\demo\\src");
+        conf.set("dfs.data.dir","F:\\project\\backend\\bishe\\src\\main\\java\\com\\bishe\\data");
+        conf.set("data.input.path","userdate");
         conf.set("data.column.format","UIRT");
         conf.set("data.conver.binariza.threshold","-1.0");
         conf.addResource(resource);

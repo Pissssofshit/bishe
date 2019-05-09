@@ -1,13 +1,9 @@
 package com.bishe.service;
 
-import com.bishe.dao.LikesMapper;
-import com.bishe.dao.MessagesMapper;
-import com.bishe.dao.UsermessageviewMapper;
-import com.bishe.model.Likes;
-import com.bishe.model.Messages;
-import com.bishe.model.Usercommentview;
-import com.bishe.model.Usermessageview;
+import com.bishe.dao.*;
+import com.bishe.model.*;
 import com.bishe.tmp.MessageWithComments;
+import com.bishe.tmp.UserCount;
 import com.bishe.tmp.UserMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,6 +25,10 @@ public class MessageService {
     NotificationsService notificationsService;
     @Autowired
     UserService userService;
+    @Autowired
+    UserMapper userMapper;
+    @Autowired
+    CommentsMapper commentsMapper;
 
     public List<Messages> getMessageList(int pagesize,int pagenum,int userId){
         return messagesMapper.getMessageList(pagesize*(pagenum-1),pagesize,userId);
@@ -38,12 +38,48 @@ public class MessageService {
     }
 
 
-
-    public Messages postMessage(Messages messages){
+    public void test(){
+        List<User> userList = userMapper.selectAll();
+        List<UserCount> userCountList = new ArrayList<>();
+        for (User user:userList
+             ) {
+            List<Likes> likesList = likesMapper.selectByBy(user.getIdu());
+            for (Likes like:likesList
+                 ) {
+                int uid;
+                if(like.getType()==1){
+                    Messages messages = messagesMapper.selectByPrimaryKey(like.getPost());
+                    uid = messages.getUid();
+                }else{
+                    Comments comments = commentsMapper.selectByPrimaryKey(like.getPost());
+                    uid = comments.getUid();
+                }
+                if(HasU2(userCountList,user.getIdu(),uid)){
+                    for (int i =0; i< userCountList.size();i++
+                    ) {
+                        if(userCountList.get(i).getUserId1()==user.getIdu() && userCountList.get(i).getUserId2()==uid){
+                            userCountList.get(i).setCount(userCountList.get(i).getCount()+1);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    boolean HasU2(List<UserCount> userCountList,int userId1, int userId2){
+        for (UserCount userCount:userCountList
+             ) {
+            if(userCount.getUserId1()==userId1 && userCount.getUserId2()==userId2){
+                return true;
+            }
+        }
+        return false;
+    }
+    public Messages postMessage(Messages messages) {
         int messageid = messagesMapper.insert(messages);
-        if(messageid >0)
+        if (messageid > 0){
+            notificationsService.setNotificationsByMessage(messages);
             return messages;
-        else{
+        }else{
             return null;
         }
     }

@@ -46,7 +46,7 @@ public class User implements Serializable {
 
     private String salted;
 
-    private String cover;
+    private String cover = "../images/icons/whoami.png";
 
     private Integer verified;
 

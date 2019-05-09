@@ -19,7 +19,9 @@ public interface GroupsUsersMapper {
 
     List<GroupsUsers> selectGroupUsers(int groupId);
 
+    List<GroupsUsers> selectGroupUsersAndPermission(int groupId,int level);
     List<GroupsUsers> selectGroupUsersByUserId(int userId);
+
     List<GroupsUsers> selectGroupUsersByUserIdAndNotBlock(int userId);
 
     int updateByPrimaryKey(GroupsUsers record);

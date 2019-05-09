@@ -16,12 +16,11 @@
                             <a class="cover-button cover-button-active" rel="loadpage"
                                href="http://bishefront.com/index.php?a=group&amp;name=123">讨论</a>
                             <a class="cover-button" th:onclick="'loadGroupMember('+${group.groups.id}+');'">成员
-                            <span class="cover-button-value">(2)</span></a><a class="cover-button" rel="loadpage"
-                                                                              href="http://bishefront.com/index.php?a=group&amp;name=123&amp;r=admins">管理员
-                            <span class="cover-button-value">(1)</span></a><a class="cover-button" rel="loadpage"
+                            <span class="cover-button-value"></span></a><a class="cover-button" th:onclick="'loadGroupAdmin('+${group.groups.id}+');'">管理员
+                            <span class="cover-button-value"></span></a><a class="cover-button" rel="loadpage"
                                                                               href="http://bishefront.com/index.php?a=group&amp;name=123&amp;r=requests">请求</a><a
                                 class="cover-button" rel="loadpage"
-                                href="http://bishefront.com/index.php?a=group&amp;name=123&amp;r=blocked">受阻</a><a
+                                href="http://bishefront.com/index.php?a=group&amp;name=123&amp;r=blocked">请求列表</a><a
                                 class="cover-button" rel="loadpage"
                                 href="http://bishefront.com/index.php?a=group&amp;name=123&amp;r=edit">编辑</a>
                             <div class="message-btn button-normal" onclick="messageMenu('profile', 1)"

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="member">
     <div class="message-container" id="group-request-2">
-        <div th:each="memeber : ${memberList}" class="message-content">
+        <div th:each="member : ${memberList}" class="message-content">
             <div class="message-inner">
                 <div class="message-avatar" id="avatar1">
                     <a href="http://bishefront.com/index.php?a=profile&amp;u=123" rel="loadpage">
@@ -11,7 +11,7 @@
                 </div>
                 <div class="message-top">
                     <div class="message-author" id="author1">
-                        <a th:text="${memeber.username}" href="http://bishefront.com/index.php?a=profile&amp;u=123">123</a>
+                        <a th:text="${member.username}" th:href="'http://localhost:8080/user/person?userId='+${member.idu}">123</a>
                     </div>
                     <div class="message-time">
                         &nbsp;

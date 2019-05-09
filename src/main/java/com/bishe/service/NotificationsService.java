@@ -5,13 +5,12 @@ import com.bishe.dao.LikesMapper;
 import com.bishe.dao.NotificationsMapper;
 import com.bishe.dao.UsercommentviewMapper;
 import com.bishe.model.*;
+import com.bishe.tmp.MessageWithComments;
 import com.bishe.tmp.NoticeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class NotificationsService {
@@ -58,6 +57,13 @@ public class NotificationsService {
             NoticeMessage noticeMessage = this.noticeMessage(notifications);
             noticeMessageList.add(noticeMessage);
         }
+        Collections.sort(noticeMessageList, new Comparator() {
+            public int compare(Object a, Object b) {
+                int one = ((NoticeMessage) a).getId();
+                int two = ((NoticeMessage) b).getId();
+                return two - one;
+            }
+        });
         return noticeMessageList;
     }
     public NoticeMessage noticeMessage(Notifications notifications){

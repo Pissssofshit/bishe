@@ -1178,24 +1178,10 @@ function createGroup() {
 	})
 }
 function loadGroupMember(groupId){
-	// var formdata=new FormData();
-	// formdata.append('fileName',$('#filename').get(0).files[0]);
-	// formdata.append('message',$('#post9999999999').val());
 	$("#messages").load("/group/loadGroupMember",{"groupId":groupId});
-	// $.ajax({
-	// 	async: false,
-	// 	type: 'POST',
-	// 	url: "/group/loadGroupMember",
-	// 	dataType: 'json',
-	// 	data: {"groupId":groupId},
-	// 	success: function (data) {
-	// 		console.log(data);
-	//
-	// 	},
-	// 	error: function (e) {
-	// 		alert("error");
-	// 	}
-	// })
+}
+function loadGroupAdmin(groupId){
+	$("#messages").load("/group/loadGroupAdmin",{"groupId":groupId});
 }
 function saveProfile(){
 	var formdata=new FormData();
@@ -1775,7 +1761,91 @@ $(document).ready(function() {
 			}
 		}, ms);
 	});
-	
+	$("#search-group").on('keyup', function(e) {
+		var q = $('#search').val();
+
+		if(typeof last_search != 'undefined') {
+			if(q == last_search && e.which != 13) {
+				return false;
+			}
+		}
+
+		last_search = q;
+
+		// If the query is empty, don't do anything
+		if(q.length < 1) {
+			hideSearch();
+			return false;
+		}
+
+		// If the query starts with #, do not execute anything
+		if(q == '#' || q == '!' || q == '@') {
+			hideSearch();
+			return false;
+		}
+
+		// Check the notification state
+		if(typeof notificationState != 'undefined') {
+			// showNotification('close');
+		}
+
+		// Search
+		if(q.substring(0, 1) == '#') {
+			var y = 'tag';
+			var url = 'load_tags';
+			var full_url = 'index.php?a=search&'+y+'='+q.replace('#','');
+			var data = 'q='+q+'&start=1&live=1';
+		} else if(q.substring(0, 1) == '!') {
+			var y = 'groups';
+			var url = 'group';
+			var full_url = 'index.php?a=search&'+y+'='+q.replace('!', '');
+			var data = 'type=4&value='+q+'&group=1&user=1';
+		} else if(q.substring(0, 1) == '@') {
+			var y = 'pages';
+			var url = 'page';
+			var full_url = 'index.php?a=search&'+y+'='+q.replace('@', '');
+			var data = 'live=1&value='+q;
+		} else {
+			var y = 'q';
+			var url = 'load_people';
+			var full_url = 'index.php?a=search&'+y+'='+q.replace(' ','+');
+			var data = 'q='+q+'&start=1&live=1';
+		}
+
+		// If the text input is 0, remove everything instantly by setting the MS to 1
+		if(q == 0) {
+			var ms = 0;
+		} else {
+			$('.search-container').show();
+			$('.search-container').html('<div class="search-content"><div class="search-results"><div class="retrieving-results"><div class="preloader preloader-left"></div></div></div></div>');
+			var ms = 200;
+		}
+
+		if(e.which == 13) {
+			liveLoad(full_url);
+			hideSearch();
+			return false;
+		}
+
+		// Start the delay (to prevent some useless queries)
+		setTimeout(function() {
+			if(q == $('#search').val()) {
+				if(q == 0) {
+					hideSearch();
+				} else {
+					$.ajax({
+						type: "POST",
+						url: "/user/loadPeopleAndGroup",
+						data: {"keyword":q}, // start is not used in this particular case, only needs to be set
+						cache: false,
+						success: function(html) {
+							$(".search-container").html(html).show();
+						}
+					});
+				}
+			}
+		}, ms);
+	});
 	$(document).on('keyup', '#search-list', function() { chatLiveSearch(0); });
 	$(document).on('keyup', '#search-window', function() { chatLiveSearch(1); });
 	

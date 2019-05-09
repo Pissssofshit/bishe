@@ -116,7 +116,7 @@ public class UserController {
             notificationsService.setNoticeRead(noticeId);
         }
         int userId = userService.getUserId(request);
-        MessageWithComments messageWithComments = messageService.getMessageWithComments(userId,messageId);
+        MessageWithComments messageWithComments = messageService.getSingelMessageWithComments(messageId);
         model.addAttribute("message",messageWithComments);
         model.addAttribute("viewattr",viewattr);
         return "wrapper";

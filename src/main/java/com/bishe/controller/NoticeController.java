@@ -30,6 +30,7 @@ public class NoticeController {
         int userId = userService.getUserId(httpServletRequest);
         List<Notifications> notificationsList = notificationsService.getNotificationsByUserId(userId);
         List<NoticeMessage> noticeMessageList = notificationsService.noticeToMessage(notificationsList);
+
         model.addAttribute("noticelist",noticeMessageList);
         return "/notice/noticelist::noticelist";
     }

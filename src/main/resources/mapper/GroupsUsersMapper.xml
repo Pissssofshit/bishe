@@ -47,6 +47,13 @@
     and permissions = 1
   </select>
 
+
+  <select id="selectGroupUsersAndPermission" resultMap="BaseResultMap" parameterType="map" >
+    select `group`, `user`, id, `status`, permissions, `time`
+    from groups_users
+    where permissions = 1
+      and `group` = #{groupId,jdbcType=INTEGER}
+  </select>
   <select id="selectGroupUsersByUserId" resultMap="BaseResultMap" parameterType="map" >
     select `group`, `user`, id, `status`, permissions, `time`
     from groups_users

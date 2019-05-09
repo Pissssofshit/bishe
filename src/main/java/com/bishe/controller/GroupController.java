@@ -47,6 +47,12 @@ public class GroupController {
         model.addAttribute("memberList",userList);
         return "group/member::member";
     }
+    @RequestMapping("loadGroupAdmin")
+    public String loadGroupAdmin(Model model,HttpServletRequest request,Integer groupId){
+        List<User> userList = groupService.getGroupAdminById(groupId);
+        model.addAttribute("memberList",userList);
+        return "group/member::member";
+    }
 
     @Transactional
     @RequestMapping("creatGroup")

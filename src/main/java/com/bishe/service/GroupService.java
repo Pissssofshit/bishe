@@ -94,6 +94,18 @@ public class GroupService {
         return s;
     }
 
+    public List<User> getGroupAdminById(int groupId){
+
+        List<GroupsUsers> groupsUsersList = groupsUsersMapper.selectGroupUsersAndPermission(groupId,1);
+        List<User> userList = new ArrayList<>();
+        for (GroupsUsers groupUsers:groupsUsersList
+        ) {
+            int userId = groupUsers.getUser();
+            User user = userMapper.selectByPrimaryKey(userId);
+            userList.add(user);
+        }
+        return userList;
+    }
     public List<User> getGroupUsersById(int groupId){
 
         List<GroupsUsers> groupsUsersList = groupsUsersMapper.selectGroupUsers(groupId);

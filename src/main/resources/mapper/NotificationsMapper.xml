@@ -40,14 +40,17 @@
     from notifications
     where `to` = #{userId,jdbcType=INTEGER}
     and `read` = 0
+    order by id desc
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select id, `from`, `to`, parent, child, `type`, `read`, `time`
     from notifications
     where id = #{id,jdbcType=INTEGER}
+    order by id desc
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select id, `from`, `to`, parent, child, `type`, `read`, `time`
     from notifications
+    order by id desc
   </select>
 </mapper>

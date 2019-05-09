@@ -9,9 +9,9 @@
                                                rel="loadpage"><img
                         width="42px" height="42px" th:src="${user.cover}"></a></div>
                 <div class="sidebar-avatar-desc">
-                    <a href="http://localhost:8080/index.php?a=profile&amp;u=123" rel="loadpage" th:text="${user.username}"></a>
+                    <a th:href="'http://localhost:8080/user/person?userId='+${user.idu}" th:text="${user.username}"></a>
                     <div class="sidebar-avatar-edit"><a th:href="'http://localhost:8080/user/profile?userId='+${user.idu}"
-                                                        rel="loadpage">编辑配置文件</a></div>
+                                                        >编辑配置文件</a></div>
                 </div>
             </div>
         </div>

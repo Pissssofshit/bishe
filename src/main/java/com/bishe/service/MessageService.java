@@ -83,9 +83,9 @@ public class MessageService {
             return null;
         }
     }
-    public MessageWithComments getMessageWithComments(int userId,int messageId){
+    public MessageWithComments getSingelMessageWithComments(int messageId){
 //        List<Usermessageview> messageList = this.getMessageByUserId(userId);
-        Usermessageview usermessageview = usermessageviewMapper.selectByUserIdAndMessageId(userId,messageId);
+        Usermessageview usermessageview = usermessageviewMapper.selectByMessageId(messageId);
         List<Usercommentview> userCommentList= commentService.getMessageComments(usermessageview.getId());
         MessageWithComments messageWithComments = new MessageWithComments();
         messageWithComments.setUserCommentList(userCommentList);

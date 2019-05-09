@@ -32,12 +32,11 @@
       #{isPushed,jdbcType=TINYINT}, #{message,jdbcType=LONGVARCHAR}, #{imgurl,jdbcType=VARCHAR},#{cover,jdbcType=VARCHAR})
   </insert>
 
-  <select id="selectByUserIdAndMessageId" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+  <select id="selectByMessageId" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
     select username, id, `uid`, tag, `type`, `value`, `group`, page, `time`, public_state,
     likes, longitude, latitude, isPushed, message, imgurl, cover
     from usermessageview
-    where `uid` = #{userId,jdbcType=INTEGER}
-    and id = #{messageId,jdbcType=INTEGER}
+    where id = #{messageId,jdbcType=INTEGER}
     order by id desc
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >

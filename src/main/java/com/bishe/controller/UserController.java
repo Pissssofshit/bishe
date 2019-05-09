@@ -96,10 +96,10 @@ public class UserController {
                     viewattr.setFragment_id("content");
                     viewattr.setFragment_path("welcome/content");
                 }else{
-                    viewattr.setFragment_id("timeline");
-                    viewattr.setFragment_path("shared/timeline");
+                    viewattr.setFragment_id("content");
+                    viewattr.setFragment_path("welcome/content");
                     List<Usermessageview> messagesList = messageService.getUserMessageList(10,1,userId);
-
+                    model.addAttribute("succmsg","注册成功请登录");
                     model.addAttribute("messages",messagesList);
                 }
             }

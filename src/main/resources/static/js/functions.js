@@ -1295,7 +1295,7 @@ setInterval(getLocation2,2000);
 				window.address = data.regeocode.formatted_address;
 			},
 			error:function (data) {
-				alert(data);
+				console.log(data);
 			}
 
 		});

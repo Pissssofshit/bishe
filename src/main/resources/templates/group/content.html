@@ -66,7 +66,7 @@
         </div>
         <div class="nine columns" id="messages">
             <div th:include="/shared/top :: top"></div>
-            <div id="load-content"></div>
+<!--            <div id="load-content"></div>-->
             <!--{$rows}-->
             <div th:if="${messages}" th:each="message : ${messages}"
                  th:include="/messages/rows :: row(message = ${message})"></div>
@@ -130,8 +130,8 @@
                     <div class="sidebar-inner"><input type="text" name="search-sidebar" id="search-group"
                                                       class="search-sidebar"
                                                       onkeydown="if(event.keyCode==13){searchFriends('index.php?a=group&amp;name=123&amp;search=', 1)}"
-                                                      placeholder="搜索这组" value="">
-                        <div class="search-container" ></div>
+                                                      placeholder="组内搜索" value="">
+                        <div class="search-container group" ></div>
                         <div id="search-sidebar-btn"
                              th:onclick="'searchGroupMember('+${group.groups.id}+');'"></div>
                     </div>

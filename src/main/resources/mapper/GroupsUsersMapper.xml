@@ -53,6 +53,7 @@
     from groups_users
     where permissions = 1
       and `group` = #{groupId,jdbcType=INTEGER}
+      and `status` != 3
   </select>
   <select id="selectGroupUsersByUserId" resultMap="BaseResultMap" parameterType="map" >
     select `group`, `user`, id, `status`, permissions, `time`

@@ -28,10 +28,10 @@
 						<button type="submit" name="register"  class="register-button">注册</button>
 					</form>
 					<br>
-
+					<div  th:text="${succmsg}" style="color:red;font-size:20px"></div>
+					<div  th:text="${errormsg}" style="color:red;font-size:20px"></div>
 					<form action="/user/login" method="POST" autocomplete="off">
-						<div  th:text="${succmsg}" style="color:red;font-size:20px"></div>
-						<div  th:text="${errormsg}" style="color:red;font-size:20px"></div>
+
 						<input type="text" id="short" name="username" placeholder="用户名或邮箱">
 						<input type="password" id="short" name="password" placeholder="密码">
 						<!--<input type="checkbox" name="remember" value="1">-->

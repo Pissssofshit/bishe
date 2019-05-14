@@ -43,7 +43,7 @@ public class GroupController {
 
     @RequestMapping("loadGroupMember")
     public String loadGroupMember(Model model,HttpServletRequest request,Integer groupId){
-        List<User> userList = groupService.getGroupUsersById(groupId);
+        List<User> userList = groupService.getGroupUsersById(groupId,null);
         model.addAttribute("memberList",userList);
         return "group/member::member";
     }
@@ -69,7 +69,7 @@ public class GroupController {
         groupService.joinGroup(groups.getId(),userId,1);
 
         Response response = new Response();
-        response.setData("http:localhost:8080/group/group?groupId="+groups.getId());
+        response.setData("/group/group?groupId="+groups.getId());
         return response;
 //        //todo to fix it later
 //        Viewattr viewattr =new Viewattr();
@@ -94,17 +94,23 @@ public class GroupController {
         return "wrapper";
     }
     @RequestMapping("group")
-    public String GroupView(Model model,Integer groupId){
+    public String GroupView(Model model,Integer groupId,HttpServletRequest request){
         Viewattr viewattr =new Viewattr();
         viewattr.setFragment_id("group");
         viewattr.setFragment_path("group/content");
         Groups groups = groupService.getGroupByGroupId(groupId);
-        List<User> userList = groupService.getGroupUsersById(groupId);
+        List<User> userList = groupService.getGroupUsersById(groupId,null);
         GroupWithMember groupWithMember = new GroupWithMember();
         groupWithMember.setGroups(groups);
         groupWithMember.setUserList(userList);
         model.addAttribute("group",groupWithMember);
         model.addAttribute("viewattr",viewattr);
+        model.addAttribute("isGroupPost",true);
+        List<MessageWithComments> messageWithCommentsList = messageService.getMessageWithCommentsGroup(groups.getId());
+        model.addAttribute("messages",messageWithCommentsList);
+        HttpSession httpSession = request.getSession();
+        User user = userService.getUserById((Integer) httpSession.getAttribute("userid"));
+        model.addAttribute("user",user);
         return "wrapper";
     }
     @RequestMapping("/applyList")

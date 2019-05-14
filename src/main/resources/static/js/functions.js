@@ -66,6 +66,9 @@ function loadComments(id, cid, start) {
 		}
 	});
 }
+function init(){
+	jQuery("div.timeago").timeago();
+}
 function loadFeed(start, filter) {
 	$('#more_messages').html('<div class="load_more"><div class="preloader preloader-center"></div></div>');
 	
@@ -96,6 +99,7 @@ function loadFeed(start, filter) {
 
 function messageAround(){
 	$(".nine.columns").load("/message/loadmessageAround");
+	jQuery("div.timeago").timeago();
 }
 function loadPage(start, page) {
 	$('#more_messages').html('<div class="load_more"><div class="preloader preloader-center"></div></div>');
@@ -696,23 +700,24 @@ function doLike(id, type) {
 		cache: false,
 		success: function(html) {
 			console.log(html);
-			if(type !== 2) {
-			var result = jQuery.parseJSON(html);
-			}
+			// if(type !== 2) {
+			// var result = jQuery.parseJSON(html);
+			// }
 			if(type == 1) {
-				$('#doLikeC'+id).html(result.value);
-				// Add the onclick event to the Like button
-				$('#doLikeC'+id).attr('onclick', attrVal);
-				$('#like_c_btn'+id).html(result.count);
+				$("#messageId"+id).load("/message/loadSingelmessage",{"messageId":id})
+				// $('#doLikeC'+id).html(result.value);
+				// // Add the onclick event to the Like button
+				// $('#doLikeC'+id).attr('onclick', attrVal);
+				// $('#like_c_btn'+id).html(result.count);
 			} else if(type == 2) {
 				$("#comment"+id).load("/message/loadcomment",{"commentId":id});
 				$('#page-btn-'+id).html(html);
 				$('#page-card-'+id).html(html);
 			} else {
-				$('#doLike'+id).html(result.value);
-				// Add the onclick event to the Like button
-				$('#doLike'+id).attr('onclick', attrVal);
-				$('#like_btn'+id).html(result.count);
+				// $('#doLike'+id).html(result.value);
+				// // Add the onclick event to the Like button
+				// $('#doLike'+id).attr('onclick', attrVal);
+				// $('#like_btn'+id).html(result.count);
 			}
 		}
 	});
@@ -1203,11 +1208,14 @@ function saveProfile(){
 		}
 	})
 }
-function checkSubmit(lat,long) {
+function checkSubmit(groupId) {
 	var formdata=new FormData();
 	formdata.append('public_state',$("#message-privacy").val());
 	formdata.append('fileName',$('#filename').get(0).files[0]);
 	formdata.append('message',$('#post9999999999').val());
+	if(groupId!=undefined){
+		formdata.append('group',groupId);
+	}
 	$.ajax({
 		async: false,
 		type: 'POST',
@@ -1217,7 +1225,13 @@ function checkSubmit(lat,long) {
 		contentType:false,//ajax上传图片需要添加
 		processData:false,//ajax上传图片需要添加
 		success: function (data) {
-			$(".nine.columns").load("/message/loadmessage");
+			if(groupId!=undefined){
+				$(".nine.columns").load("/message/loadmessageGroup",{"groupId":groupId});
+			}else{
+				$(".nine.columns").load("/message/loadmessage");
+			}
+			jQuery("div.timeago").timeago();
+
 		},
 		error: function (e) {
 			alert("error");
@@ -1645,7 +1659,7 @@ function searchGroupMember(groupId){
 		data: {"keyword":keyword,"groupId":groupId}, // start is not used in this particular case, only needs to be set
 		cache: false,
 		success: function(html) {
-			$(".search-container").html(html).show();
+			$(".search-container.group").html(html).show();
 		}
 	});
 }

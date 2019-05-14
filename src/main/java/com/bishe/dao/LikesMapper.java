@@ -17,6 +17,8 @@ public interface LikesMapper {
 
     List<Likes> selectByBy(int userId);
 
+    Likes selectByPostByType(int post,int by, int type);
+
     int updateByPrimaryKey(Likes record);
 
     Likes selectByUserIdandPostId(Integer userId,Integer postId);

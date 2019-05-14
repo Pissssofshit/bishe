@@ -83,6 +83,9 @@ public class MessageService {
             return null;
         }
     }
+    /*
+    根据messageId得到单独的message
+     */
     public MessageWithComments getSingelMessageWithComments(int messageId){
 //        List<Usermessageview> messageList = this.getMessageByUserId(userId);
         Usermessageview usermessageview = usermessageviewMapper.selectByMessageId(messageId);
@@ -97,36 +100,73 @@ public class MessageService {
     }
 
 
-    public List<MessageWithComments> getMessageWithComments(int userId1){
-        List<Integer> userIdList = userService.getFriendsId(userId1);
-        List<MessageWithComments> messageWithComments = new ArrayList<>();
-        userIdList.add(userId1);
-        for (Integer userId:userIdList
-             ) {
-            List<Usermessageview> messageList = this.getMessageByUserId(userId);
-            for (Usermessageview usermessageview:messageList
-            ) {
-                List<Usercommentview> userCommentList= commentService.getMessageComments(usermessageview.getId());
-                MessageWithComments messageWithComments1 = new MessageWithComments();
-                messageWithComments1.setUserCommentList(userCommentList);
-                messageWithComments1.setUsermessageviews(usermessageview);
-                messageWithComments.add(messageWithComments1);
-            }
-        }
-        Collections.sort(messageWithComments, new Comparator() {
+    public List<MessageWithComments> getMessageWithCommentsGroup(int groupId){
+
+        List<Usermessageview> messageList = this.getMessageByGroupId(groupId);
+        List<MessageWithComments> messageWithCommentsList = this.setMessageWithCommentsList(messageList);
+
+        messageWithCommentsList = this.sortMessageWithCommentsList(messageWithCommentsList);
+        return messageWithCommentsList;
+    }
+    List<MessageWithComments> sortMessageWithCommentsList(List<MessageWithComments> messageWithCommentsList){
+        Collections.sort(messageWithCommentsList, new Comparator() {
             public int compare(Object a, Object b) {
                 int one = ((MessageWithComments) a).getUsermessageviews().getId();
                 int two = ((MessageWithComments) b).getUsermessageviews().getId();
                 return two - one;
             }
         });
+        return messageWithCommentsList;
+    }
+    List<MessageWithComments> setMessageWithCommentsList(List<Usermessageview> messageList){
+        List<MessageWithComments> messageWithComments = new ArrayList<>();
+        for (Usermessageview usermessageview:messageList
+        ) {
+            List<Usercommentview> userCommentList= commentService.getMessageComments(usermessageview.getId());
+            MessageWithComments messageWithComments1 = new MessageWithComments();
+            messageWithComments1.setUserCommentList(userCommentList);
+            messageWithComments1.setUsermessageviews(usermessageview);
+            messageWithComments.add(messageWithComments1);
+        }
+        return messageWithComments;
+    }
+
+    /*
+    不包括组内说说
+     */
+    public List<MessageWithComments> getMessageWithComments(int userId1){
+        List<Integer> userIdList = userService.getFriendsId(userId1);
+        List<MessageWithComments> messageWithComments = new ArrayList<>();
+        userIdList.add(userId1);
+        for (Integer userId:userIdList
+             ) {
+            List<Usermessageview> messageList = this.getMessageByUserIdWithoutGroup(userId);
+            messageWithComments.addAll(this.setMessageWithCommentsList(messageList));
+        }
+        messageWithComments = this.sortMessageWithCommentsList(messageWithComments);
         return messageWithComments;
     }
     public List<Usermessageview> getMessageByUserId(int userId){
         return usermessageviewMapper.selectByUserId(userId);
     }
+    public List<Usermessageview> getMessageByUserIdWithoutGroup(int userId){
+        return usermessageviewMapper.selectByUserIdWithoutGroup(userId);
+    }
 
+    public List<Usermessageview> getMessageByGroupId(int groupId){
+        return usermessageviewMapper.selectByGroupId(groupId);
+    }
+
+    boolean haslike(int post,int type,int userId){
+        Likes likes = likesMapper.selectByPostByType(post,userId,type);
+        if(likes==null){
+            return false;
+        }
+        return true;
+    }
     public void likeMessage(int messageId,int userId){
+        if(haslike(messageId,1,userId))
+            return;
         Messages messages = messagesMapper.selectByPrimaryKey(messageId);
         messages.setLikes(messages.getLikes()+1);
         messagesMapper.updateByPrimaryKey(messages);

@@ -25,6 +25,8 @@ public class CommentService {
     LikesMapper likesMapper;
     @Autowired
     NotificationsService notificationsService;
+    @Autowired
+    MessageService messageService;
 
     public Comments postComments(Comments comments) {
 
@@ -57,6 +59,8 @@ public class CommentService {
         return comments.getMid();
     }
     public void likeComment(int commentId,int userId){
+        if(messageService.haslike(commentId,2,userId))
+            return;
         Comments comments =commentsMapper.selectByPrimaryKey(commentId);
         comments.setLikes(comments.getLikes()+1);
         commentsMapper.updateByPrimaryKey(comments);

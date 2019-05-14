@@ -9,7 +9,7 @@
 			<div id="load-content"></div>
 			<!--{$rows}-->
 
-			<div th:each="message : ${messages}" th:include="/messages/rows :: row(message = ${message})"></div>
+			<div th:each="message : ${messages}" th:include="/messages/rows :: row(message = ${message})" th:id="messageId+${message.usermessageviews.id}"></div>
 			<div></div>
 			<div id="profile-card"></div>
 		</div>

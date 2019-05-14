@@ -34,17 +34,22 @@
 				<input type="file" name="fileName" id="filename" accept="image/png, image/jpeg, image/jpg" onchange="checkImage()">
 				<!--<input type="button" class="message-btn button-active" id="submitBtn" onclick="checkSubmit()" value="发表"/>-->
 
-				<input type="radio" name="type" value="video" id="video" class="input_hidden"><label for="video" title="{$lng->label_video}"><img src="/images/icons/events/video.png"></label>
+				<input type="radio" name="type" value="video" id="video" class="input_hidden"><label for="video" title=""><img src="/images/icons/events/video.png"></label>
 				<input type="radio" name="type" value="map" id="map" class="input_hidden"><label for="map" id="map-icon" onclick="testLocation()" title="{$lng->label_map}"><img src="/images/icons/events/map.png"></label>
-				<input type="radio" name="type" value="visited" id="visited" class="input_hidden"><label for="visited" title="{$lng->label_visited}"><img src="/images/icons/events/visited.png"></label>
-				<input type="radio" name="type" value="music" id="music" class="input_hidden"><label for="music" title="{$lng->label_music}"><img src="/images/icons/events/music.png"></label>
-				<input type="radio" name="type" value="game" id="game" class="input_hidden"><label for="game" title="{$lng->label_game}"><img src="/images/icons/events/game.png"></label>
-				<input type="radio" name="type" value="food" id="food" class="input_hidden"><label for="food" title="{$lng->label_food}"><img src="/images/icons/events/food.png"></label>
+				<input type="radio" name="type" value="visited" id="visited" class="input_hidden"><label for="visited" title=""><img src="/images/icons/events/visited.png"></label>
+				<input type="radio" name="type" value="music" id="music" class="input_hidden"><label for="music" title=""><img src="/images/icons/events/music.png"></label>
+				<input type="radio" name="type" value="game" id="game" class="input_hidden"><label for="game" title=""><img src="/images/icons/events/game.png"></label>
+				<input type="radio" name="type" value="food" id="food" class="input_hidden"><label for="food" title=""><img src="/images/icons/events/food.png"></label>
 			</div>
-			
-			<div type="button" name="action" class="message-btn button-active" value="Post"><a onclick="checkSubmit()">发表</a></div>
-			<div class="message-btn button-normal" onclick="messageMenu(9999999999, 1)" title="选择说说公开程度" id="privacy-button"{$style}><a><div id="privacy-btn" class="privacy-icons friends-icon"></div></a></div>
-			<div id="message-menu9999999999" class="message-menu-container message-menu-privacy">
+
+			<div th:if="${isGroupPost}" type="button" name="action" class="message-btn button-active" value="Post">
+				<a th:onclick="'checkSubmit('+${group.groups.id}+')'">组内发表</a>
+			</div>
+			<div th:unless="${isGroupPost}" type="button" name="action" class="message-btn button-active" value="Post">
+				<a onclick="checkSubmit()">发表</a>
+			</div>
+			<div th:unless="${isGroupPost}" class="message-btn button-normal" onclick="messageMenu(9999999999, 1)" title="选择说说公开程度" id="privacy-button"><a><div id="privacy-btn" class="privacy-icons friends-icon"></div></a></div>
+			<div th:unless="${isGroupPost}" id="message-menu9999999999" class="message-menu-container message-menu-privacy">
 				<div class="message-menu-row" onclick="postPrivacy(1)">公开</div>
 				<div class="message-menu-row" onclick="postPrivacy(2)">朋友</div>
 				<!--<div class="message-menu-row" onclick="postPrivacy(0)">{$lng->private}</div>-->

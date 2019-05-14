@@ -12,4 +12,6 @@ public interface GroupwithuserMapper {
     List<Groupwithuser> selectAll();
 
     List<Groupwithuser> getApplyList(int groupId);
+
+    List<Groupwithuser> selectByGroupIdAndLikeUserName(int groupId,String userName);
 }

@@ -14,5 +14,10 @@ public interface UsermessageviewMapper {
 
     List<Usermessageview> selectByUserId(Integer userId);
 
+    List<Usermessageview> selectByUserIdWithoutGroup(Integer userId);
+
+    List<Usermessageview> selectByGroupId(Integer groupId);
+
+
     List<Usermessageview> getUserMessageList(int offset,int limit ,int userId);
 }

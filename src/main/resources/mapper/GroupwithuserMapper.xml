@@ -19,6 +19,14 @@
       #{groupName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{permissions,jdbcType=INTEGER}
       )
   </insert>
+
+  <select id="selectByGroupIdAndLikeUserName" resultMap="BaseResultMap" parameterType="map">
+    select idu, username, groupId, groupName, `status`, permissions
+    from groupwithuser
+    where groupId = #{groupId,jdbcType=INTEGER}
+    and username like CONCAT('%',#{userName,jdbcType=VARCHAR},'%')
+    and `status` != 3
+  </select>
   <select id="getApplyList" resultMap="BaseResultMap" parameterType="map">
     select idu, username, groupId, groupName, `status`, permissions
     from groupwithuser

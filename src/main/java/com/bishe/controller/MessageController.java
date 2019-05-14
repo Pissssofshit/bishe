@@ -79,12 +79,12 @@ public class MessageController {
         double lat1 = 0;
         double long1 = 0;
         if(user.getLastloginlong() == null || user.getLastloginlat()==null){
-            messageWithComments=null;
+            ;
         }else{
             lat1 = user.getLastloginlat();
             long1 = user.getLastloginlong();
         }
-        for (int i=0;i<messageWithComments.size();i++
+        for (int i=0;(messageWithComments!=null) && (i<messageWithComments.size());i++
              ) {
             if(messageWithComments.get(i).getUsermessageviews().getLatitude()==null || messageWithComments.get(i).getUsermessageviews().getLongitude()==null){
                 messageWithComments.remove(i);
@@ -102,6 +102,12 @@ public class MessageController {
         model.addAttribute("messages",messageWithComments);
         return "/messages/content::content";
     }
+    @RequestMapping("/loadSingelmessage")
+    String loadSingelmessage(Model model, HttpServletRequest request,Integer messageId){
+        MessageWithComments messageWithComments = messageService.getSingelMessageWithComments(messageId);
+        model.addAttribute("message",messageWithComments);
+        return "/messages/rows::row";
+    }
     @RequestMapping("/loadmessage")
     String loadmessage(Model model, HttpServletRequest request){
         HttpSession httpSession = request.getSession();
@@ -110,6 +116,13 @@ public class MessageController {
         model.addAttribute("messages",messageWithComments);
         return "/messages/content::content";
     }
+    @RequestMapping("/loadmessageGroup")
+    String loadmessageGroup(Model model, HttpServletRequest request,Integer groupId){
+        List<MessageWithComments> messageWithCommentsList = messageService.getMessageWithCommentsGroup(groupId);
+        model.addAttribute("messages",messageWithCommentsList);
+        return "/messages/content::content";
+    }
+
     @RequestMapping("/loadcomments")
     String loadcomments(Model model,int messageId, HttpServletRequest request){
         List<Usercommentview> userCommentList= commentService.getMessageComments(messageId);

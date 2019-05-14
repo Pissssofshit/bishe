@@ -89,18 +89,20 @@ public class UserController {
             if(userService.getUserByUsername(userRegister.getUsername())!=null){
                 viewattr.setFragment_id("content");
                 viewattr.setFragment_path("welcome/content");
+                model.addAttribute("errormsg","有同名用户存在");
             }else{
                 int userId = userService.registerUser(userRegister);
                 this.setSession(request,userId);
                 if(userId==0){
                     viewattr.setFragment_id("content");
                     viewattr.setFragment_path("welcome/content");
+                    model.addAttribute("errormsg","注册失败");
                 }else{
-                    viewattr.setFragment_id("content");
-                    viewattr.setFragment_path("welcome/content");
-                    List<Usermessageview> messagesList = messageService.getUserMessageList(10,1,userId);
-                    model.addAttribute("succmsg","注册成功请登录");
-                    model.addAttribute("messages",messagesList);
+                    return "redirect:/user/login";
+//                    viewattr.setFragment_id("timeline");
+//                    viewattr.setFragment_path("shared/timeline");
+//                    model.addAttribute("succmsg","注册成功请登录");
+//                    model = this.setParamModel(model,userId);
                 }
             }
         }
@@ -133,8 +135,8 @@ public class UserController {
         return "wrapper";
     }
     @RequestMapping("/loadPeopleInGroup")
-    String loadPeopleInGroup(Model model,Integer groupId,HttpServletRequest request){
-        List<User> userList = groupService.getGroupUsersById(groupId);
+    String loadPeopleInGroup(Model model,String keyword,Integer groupId,HttpServletRequest request){
+        List<User> userList = groupService.getGroupUsersById(groupId,keyword);
         Integer userId = userService.getUserId(request);
         List<SearchItem> searchItemList = new ArrayList<>();
         for(User user:userList){
@@ -271,6 +273,18 @@ public class UserController {
         userService.updateUserLocation(userId,latitude,longitude,address);
         return new Response();
     }
+
+    Model setParamModel(Model model,Integer userId){
+        List<MessageWithComments> messageWithCommentsList = messageService.getMessageWithComments(userId);
+        User user = userService.getUserById(userId);
+        List<Groups> groupsList = groupService.loadGroupsByUserId(userId);
+        int count = notificationsService.loadUnreadNotificationCount(userId);
+        model.addAttribute("user",user);
+        model.addAttribute("groupsList",groupsList);
+        model.addAttribute("messages",messageWithCommentsList);
+        model.addAttribute("noticeCount1",count);
+        return model;
+    }
     @RequestMapping("/login")
     String login(Model model,UserLogin userLogin,HttpServletRequest request){
         boolean result = userService.checkPwd(userLogin.getUsername(),userLogin.getPassword());
@@ -283,29 +297,18 @@ public class UserController {
 //            userService.updateUserLocation(userId,userLogin.getLat(),userLogin.getLongitude());
             List<Groups> groupsList = groupService.loadGroupsByUserId(userId);
             User user = userService.getUserById(userId);
-            model.addAttribute("user",user);
-            model.addAttribute("groupsList",groupsList);
-            model.addAttribute("messages",messageWithComments);
             int count = notificationsService.loadUnreadNotificationCount(userId);
-            model.addAttribute("noticeCount1",count);
+            model = this.setParamModel(model,user.getIdu());
+
         }else {
             if (result) {
                 User user = userService.getUserByUsername(userLogin.getUsername());
                 this.setSession(request, user.getIdu());
                 viewattr.setFragment_id("timeline");
                 viewattr.setFragment_path("shared/timeline");
-                List<MessageWithComments> messageWithComments = messageService.getMessageWithComments(user.getIdu());
-                model.addAttribute("messages",messageWithComments);
                 int userId = this.getUserId(request);
-//                userService.updateUserLocation(userId,userLogin.getLat(),userLogin.getLongitude());
-                User user1 = userService.getUserById(userId);
-                model.addAttribute("user",user1);
-                List<Groups> groupsList = groupService.loadGroupsByUserId(userId);
-                model.addAttribute("groupsList",groupsList);
-                int count = notificationsService.loadUnreadNotificationCount(userId);
-                model.addAttribute("noticeCount1",count);
+                model = this.setParamModel(model,userId);
             } else {
-
                 model.addAttribute("errormsg","用户名或密码不对");
                 viewattr.setFragment_id("content");
                 viewattr.setFragment_path("welcome/content");

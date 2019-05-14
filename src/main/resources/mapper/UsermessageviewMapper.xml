@@ -44,6 +44,24 @@
     likes, longitude, latitude, isPushed, message,imgurl,cover
     from usermessageview
   </select>
+
+  <select id="selectByGroupId" resultMap="BaseResultMap" >
+    select username, id, `uid`, tag, `type`, `value`, `group`, page, `time`, public_state,
+    likes, longitude, latitude, isPushed, message,imgurl,cover
+    from usermessageview
+    where `group` = #{groupId,jdbcType=INTEGER}
+    ORDER by id desc
+  </select>
+
+  <select id="selectByUserIdWithoutGroup" resultMap="BaseResultMap" >
+    select username, id, `uid`, tag, `type`, `value`, `group`, page, `time`, public_state,
+    likes, longitude, latitude, isPushed, message,imgurl,cover
+    from usermessageview
+    where uid = #{userid,jdbcType=INTEGER}
+    and (`group` is null or `group`=0)
+    ORDER by id desc
+  </select>
+
   <select id="selectByUserId" resultMap="BaseResultMap" >
     select username, id, `uid`, tag, `type`, `value`, `group`, page, `time`, public_state,
     likes, longitude, latitude, isPushed, message,imgurl,cover

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="content">
-<div class="row-body{$content_class}">
+<div class="row-body">
 	<div th:include="/shared/top:: top"></div>
-	<div th:each="message : ${messages}" th:include="/messages/rows :: row(message = ${message})"></div>
+	<div th:each="message : ${messages}"  th:include="/messages/rows :: row(message = ${message})" th:id="messageId+${message.usermessageviews.id}"></div>
 
 </div>
 </div>

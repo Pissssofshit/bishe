@@ -27,6 +27,13 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
+  <select id="selectByPostByType" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, post, `by`, `type`, `time`
+    from likes
+    where `by` = #{by,jdbcType=INTEGER}
+    and post = #{post,jdbcType=INTEGER}
+    and `type` = #{type,jdbcType=INTEGER}
+  </select>
   <select id="selectByBy" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select id, post, `by`, `type`, `time`
     from likes

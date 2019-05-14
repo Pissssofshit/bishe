@@ -106,13 +106,13 @@ public class GroupService {
         }
         return userList;
     }
-    public List<User> getGroupUsersById(int groupId){
+    public List<User> getGroupUsersById(int groupId,String keyword){
 
-        List<GroupsUsers> groupsUsersList = groupsUsersMapper.selectGroupUsers(groupId);
+        List<Groupwithuser> groupwithuserList = groupwithuserMapper.selectByGroupIdAndLikeUserName(groupId,keyword);
         List<User> userList = new ArrayList<>();
-        for (GroupsUsers groupUsers:groupsUsersList
+        for (Groupwithuser groupwithuser:groupwithuserList
              ) {
-            int userId = groupUsers.getUser();
+            int userId = groupwithuser.getIdu();
             User user = userMapper.selectByPrimaryKey(userId);
             userList.add(user);
         }

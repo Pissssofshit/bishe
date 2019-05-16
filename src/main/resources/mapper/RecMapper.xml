@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bishe.dao.RecMapper" >
+  <resultMap id="BaseResultMap" type="com.bishe.model.Rec" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="userId" property="userId" jdbcType="INTEGER" />
+    <result column="recommandUserId" property="recommandUserId" jdbcType="INTEGER" />
+    <result column="type1" property="type1" jdbcType="VARCHAR" />
+    <result column="type2" property="type2" jdbcType="VARCHAR" />
+    <result column="type3" property="type3" jdbcType="VARCHAR" />
+    <result column="type4" property="type4" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from rec
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bishe.model.Rec" >
+    insert into rec (id, userId, recommandUserId, 
+      type1, type2, type3, 
+      type4)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{recommandUserId,jdbcType=INTEGER}, 
+      #{type1,jdbcType=VARCHAR}, #{type2,jdbcType=VARCHAR}, #{type3,jdbcType=VARCHAR}, 
+      #{type4,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.bishe.model.Rec" >
+    update rec
+    set userId = #{userId,jdbcType=INTEGER},
+      recommandUserId = #{recommandUserId,jdbcType=INTEGER},
+      type1 = #{type1,jdbcType=VARCHAR},
+      type2 = #{type2,jdbcType=VARCHAR},
+      type3 = #{type3,jdbcType=VARCHAR},
+      type4 = #{type4,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, userId, recommandUserId, type1, type2, type3, type4
+    from rec
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, userId, recommandUserId, type1, type2, type3, type4
+    from rec
+  </select>
+</mapper>

@@ -63,6 +63,15 @@
     longitude, latitude, isPushed, message,imgurl
     from messages
   </select>
+
+  <select id="selectAllWithGeo" resultMap="BaseResultMap" >
+    select id, `uid`, tag, `type`, `value`, `group`, page, `time`, public_state, likes,
+    longitude, latitude, isPushed, message,imgurl
+    from messages
+    where longitude is not null
+    and latitude is not null
+  </select>
+
   <select id="getMessageList" resultMap="BaseResultMap" >
     select id, `uid`, tag, `type`, `value`, `group`, page, `time`, public_state, likes,
     longitude, latitude, isPushed, message,imgurl

@@ -38,6 +38,9 @@ public class MessageService {
     }
 
 
+    public List<Messages> getAllMessageWithGeo(){
+        return messagesMapper.selectAllWithGeo();
+    }
     public void test(){
         List<User> userList = userMapper.selectAll();
         List<UserCount> userCountList = new ArrayList<>();

@@ -15,6 +15,8 @@ public interface MessagesMapper {
 
     List<Messages> selectAll();
 
+    List<Messages> selectAllWithGeo();
+
     int updateByPrimaryKey(Messages record);
 
     List<Messages> getMessageList(Integer offset,Integer limit,Integer userId);

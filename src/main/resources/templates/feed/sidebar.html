@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress ThymeleafVariablesResolveInspection-->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="sidebar">
     <div class="sidebar-container widget-welcome">
@@ -96,7 +97,7 @@
             <!--</a></div>-->
             <div class="sidebar-link sidebar-events" style="display: block;"><a
                     onclick="messageAround()" ><img
-                    src="http://localhost:8080/images/icons/events/visited.png">朋友在附近的活动</a></div>
+                    src="http://localhost:8080/images/icons/events/visited.png">朋友在附近的活动lll</a></div>
         </div>
     </div>
     <!--<div class="sidebar-container widget-archive">-->
@@ -191,17 +192,27 @@
     <div class="sidebar-container widget-friends">
         <div class="sidebar-content">
             <div class="sidebar-header"><a href="http://localhost:8080/index.php?a=profile&amp;u=123&amp;r=friends"
-                                           rel="loadpage">推荐的朋友 <span class="sidebar-header-light">(2)</span></a></div>
+                                           rel="loadpage">推荐的朋友 <span class="sidebar-header-light">(3)</span></a></div>
             <div class="message-content">
                 <div class="message-inner">
-                    <div class="message-avatar" id="avatar1">
-                        <a href="http://bishefront.com/index.php?a=profile&amp;u=123" rel="loadpage">
-                            <img src="http://localhost:8080/images/icons/whoami.png">
+                    <div id="searchitem48">
+
+
+                        <div class="friend-button subslist" title="加为好友" onclick="applyBeFriends(48)"></div>
+
+                    </div>
+                    <a href="http://bishefront.com/index.php?a=messages&amp;u=1&amp;id=4" title="发送验证消息" rel="loadpage">
+                        <div class="message_btn subslist_message"></div>
+                    </a>
+                    <div class="message-avatar" id="avatar4">
+                        <a href="http://bishefront.com/index.php?a=profile&amp;u=122" rel="loadpage">
+                            <img src="../images/icons/whoami.png">
                         </a>
                     </div>
                     <div class="message-top">
-                        <div class="message-author" id="author1">
-                            <a href="http://bishefront.com/index.php?a=profile&amp;u=123">122</a>
+                        <div class="message-author" id="author4">
+                            <a href="个人主页">12</a>
+
                         </div>
                         <div class="message-time">
                             &nbsp;

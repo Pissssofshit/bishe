@@ -22,6 +22,13 @@
 							<img width="42px" height="42px" th:src="${user.cover}">
 						</div>
 					</div>
+					<div class="page-input-container">
+						<div class="page-input-title">添加好友</div>
+						<div class="page-input-content">
+							<div id="applyForFriend" class="friend-button" style="float:left" title="加为好友" th:onclick="'applyBeFriends('+${user.idu}+')'"></div>
+						</div>
+					</div>
+
 
 					<!--<div class="page-input-container">-->
 						<!--<div class="page-input-title">封面图片</div>-->

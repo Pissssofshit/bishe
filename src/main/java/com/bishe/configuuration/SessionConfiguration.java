@@ -10,7 +10,7 @@ public class SessionConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(new SysInterceptor()).addPathPatterns("/**").excludePathPatterns("/").excludePathPatterns("/user/login").excludePathPatterns("/user/register").excludePathPatterns("/data/te").excludePathPatterns("/data/te2").excludePathPatterns("/data/te3").excludePathPatterns("/rec/cal");
-//        super.addInterceptors(registry);
+        registry.addInterceptor(new SysInterceptor()).addPathPatterns("/**").excludePathPatterns("/").excludePathPatterns("/user/login").excludePathPatterns("/user/register").excludePathPatterns("/data/te").excludePathPatterns("/data/te2").excludePathPatterns("/data/te3").excludePathPatterns("/rec/cal").excludePathPatterns("/rec/calPerson");
+        super.addInterceptors(registry);
     }
 }

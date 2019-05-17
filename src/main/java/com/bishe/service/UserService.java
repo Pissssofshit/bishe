@@ -94,10 +94,10 @@ public class UserService {
         if(user1==null){
             return false;
         }
-        user1.setCover(user.getCover());
-        user1.setUsername(user.getUsername());
+//        user1.setCover(user.getCover());
+//        user1.setUsername(user.getUsername());
         //为啥不给我写成动态sql
-        userMapper.updateByPrimaryKey(user1);
+        userMapper.updateByPrimaryKey(user);
         return true;
     }
     public int getUserId(HttpServletRequest request){

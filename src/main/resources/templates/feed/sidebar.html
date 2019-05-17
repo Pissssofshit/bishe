@@ -6,8 +6,8 @@
         <div class="sidebar-content">
             <div class="sidebar-header">欢迎</div>
             <div class="sidebar-inner">
-                <div class="sidebar-avatar"><a href="http://localhost:8080/index.php?a=profile&amp;u=123"
-                                               rel="loadpage"><img
+                <div class="sidebar-avatar"><a th:href="'http://localhost:8080/user/person?userId='+${user.idu}"
+                                               ><img
                         width="42px" height="42px" th:src="${user.cover}"></a></div>
                 <div class="sidebar-avatar-desc">
                     <a th:href="'http://localhost:8080/user/person?userId='+${user.idu}" th:text="${user.username}"></a>

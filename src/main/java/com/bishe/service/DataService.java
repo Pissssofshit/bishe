@@ -64,6 +64,9 @@ public class DataService {
     }
     public List<User> getRecommandList(int userId){
        Cluster cluster = clusterMapper.selectByUserId(userId);
+       if(cluster==null){
+           return null;
+       }
        List<Integer> userIdList = clusterMapper.getTheSameClusterByClusterId(cluster.getClusterId());
        List<User> userList = new ArrayList<>();
        List<Integer> friendIdList = userService.getFriendsId(userId);

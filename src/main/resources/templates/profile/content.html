@@ -46,6 +46,29 @@
 							<!--<input name="my_image[]" id="my_file" size="27" type="file" class="inputImage" title="点击添加图片" multiple="multiple">-->
 						</div>
 					</div>
+
+					<div class="page-input-container">
+						<div class="page-input-title">接受推送</div>
+						<div class="page-input-content">
+							<select id="willingpush" name="group_privacy">
+								<option value="1">是</option>
+								<option value="0">否</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="page-input-container">
+						<div class="page-input-title">输入新密码</div>
+						<div class="page-input-content">
+							<input id="newP">
+						</div>
+					</div>
+					<div class="page-input-container">
+						<div class="page-input-title">重复新密码</div>
+						<div class="page-input-content">
+							<input id="newP2">
+						</div>
+					</div>
 					<!--<div class="page-input-container">-->
 						<!--<div class="page-input-title">封面图片</div>-->
 						<!--<div class="page-input-content">-->
@@ -90,7 +113,11 @@
 				<div class="message-divider"></div>
 
 				<div class="page-inner">
-					<div class="page-input-title"></div><input type="button" onclick="saveProfile()" value="保存修改"> <span class="sidebar-header-link delete-group" style="display: none;"><a href="http://bishefront.com/index.php?a=page" rel="loadpage">删除页面</a></span>
+					<div class="page-input-title"></div>
+					<div type="button" name="action" class="message-btn button-active" value="Post">
+						<a onclick="saveProfile()">保存修改</a>
+					</div>
+					<span class="sidebar-header-link delete-group" style="display: none;"><a href="http://bishefront.com/index.php?a=page" rel="loadpage">删除页面</a></span>
 				</div>
 
 			</form>

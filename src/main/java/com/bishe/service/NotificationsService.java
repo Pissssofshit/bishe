@@ -100,6 +100,9 @@ public class NotificationsService {
             case 4:
                 result = false;
                 break;
+            case 5:
+                result = true;
+                break;
             default:
                 result = false;
 

@@ -10,9 +10,9 @@
                 <div th:if="${item.type}==2 and ${item.relationship}!=1" class="friend-button subslist" title="加为好友" th:onclick="'applyBeFriends('+${item.id}+')'"></div>
                 <div th:if="${item.type}==2 and ${item.relationship} ==1" class="friend-button friend-remove subslist" title="删除好友" th:onclick="'applyBeFriends('+${item.id}+')'"></div>
             </div>
-            <a href="http://bishefront.com/index.php?a=messages&amp;u=122&amp;id=4" title="发送验证消息" rel="loadpage">
-                <div class="message_btn subslist_message"></div>
-            </a>
+<!--            <a href="http://bishefront.com/index.php?a=messages&amp;u=122&amp;id=4" title="发送验证消息" rel="loadpage">-->
+<!--                <div class="message_btn subslist_message"></div>-->
+<!--            </a>-->
             <div class="message-avatar" id="avatar4">
                 <a href="http://bishefront.com/index.php?a=profile&amp;u=122" rel="loadpage">
                     <img th:src="${item.logoUrl}">

@@ -22,9 +22,7 @@ public class KMeansRun {
         this.kNum = k;
         this.original_data = original_data;
         this.len = original_data.get(0).length-1;
-        //检查规范
         check();
-        //初始化点集。
         init();
     }
 

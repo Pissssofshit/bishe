@@ -3,18 +3,18 @@
 <div th:fragment="menu">
     <div class="bc-container">
         <div class="smiles-container scrollable" id="smiles-container" data-active-window="">{$smiles}</div>
-        <div class="bc-friends-container desktop" id="chat-window-friends-list">
-            <div class="bc-friends-header" onclick="minimizeChatWindow('friends-list')" data-state="maximized">
-                <div class="bc-friends-username">{$lng->online_friends} (<span id="friends-count">0</span>)</div>
-                <div class="minimize_btn"></div>
-                <a href="{$url}/index.php?a=settings&b=privacy" rel="loadpage"
-                   onclick="minimizeChatWindow('friends-list')">
-                    <div class="settings_btn c-s-icon"></div>
-                </a></div>
-            <div class="bc-friends-content scrollable" id="friends-list"></div>
-            <div class="c-w-input c-w-input-search"><input type="text" placeholder="{$lng->search_in_friends}"
-                                                           id="search-window"></div>
-        </div>
+<!--        <div class="bc-friends-container desktop" id="chat-window-friends-list">-->
+<!--            <div class="bc-friends-header" onclick="minimizeChatWindow('friends-list')" data-state="maximized">-->
+<!--                <div class="bc-friends-username">{$lng->online_friends} (<span id="friends-count">0</span>)</div>-->
+<!--                <div class="minimize_btn"></div>-->
+<!--                <a href="{$url}/index.php?a=settings&b=privacy" rel="loadpage"-->
+<!--                   onclick="minimizeChatWindow('friends-list')">-->
+<!--                    <div class="settings_btn c-s-icon"></div>-->
+<!--                </a></div>-->
+<!--            <div class="bc-friends-content scrollable" id="friends-list"></div>-->
+<!--            <div class="c-w-input c-w-input-search"><input type="text" placeholder="{$lng->search_in_friends}"-->
+<!--                                                           id="search-window"></div>-->
+<!--        </div>-->
     </div>
     <div class="menu-image">
         <div class="menu_arrow"></div>

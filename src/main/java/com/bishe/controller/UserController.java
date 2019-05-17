@@ -72,6 +72,7 @@ public class UserController {
         model.addAttribute("viewattr",viewattr);
         return "wrapper";
     }
+
     @RequestMapping("/register")
     String reg(@Valid UserRegister userRegister, BindingResult bindingResult, Model model, HttpServletRequest request){
 
@@ -89,7 +90,12 @@ public class UserController {
                 }
                 return null;
             }
-            if(userService.getUserByUsername(userRegister.getUsername())!=null){
+            if(!this.CheckEmail(userRegister.getEmail())){
+                viewattr.setFragment_id("content");
+                viewattr.setFragment_path("welcome/content");
+                model.addAttribute("errormsg","邮件格式错误");
+            }
+            else if(userService.getUserByUsername(userRegister.getUsername())!=null){
                 viewattr.setFragment_id("content");
                 viewattr.setFragment_path("welcome/content");
                 model.addAttribute("errormsg","有同名用户存在");
@@ -111,6 +117,15 @@ public class UserController {
         }
         model.addAttribute("viewattr",viewattr);
         return "wrapper";
+    }
+    private boolean CheckEmail(String email) {
+        int x = email.indexOf("@");//记录@第一次出现的下标
+        int y = email.indexOf(".");//记录.最后出现的下标
+        if(0 == email.indexOf("@")|| email.length()-1 == email.lastIndexOf(".")|| y-x<2){
+            return false;
+        }else {
+            return true;
+        }
     }
     @RequestMapping("/message")
     String message(Model model,Integer messageId, @RequestParam(value = "noticeId",required = false) Integer noticeId,HttpServletRequest request){
@@ -227,12 +242,19 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping("/saveProfile")
-    public Response saveProfile(HttpServletRequest request,@RequestParam(value = "fileName",required = false) MultipartFile file,String userName){
+    public Response saveProfile(HttpServletRequest request,int push,@RequestParam(value = "fileName",required = false) MultipartFile file,@RequestParam(value = "newPwd",required = false) String pwd,String userName){
         int userId = userService.getUserId(request);
-        String urlcover = FileUtils.saveImg(file);
+
         User user = userService.getUserById(userId);
         user.setUsername(userName);
-        user.setCover(urlcover);
+        if(file!=null){
+            String urlcover = FileUtils.saveImg(file);
+            user.setCover(urlcover);
+        }
+        if(pwd!=null){
+            user.setPassword(pwd);
+        }
+        user.setPush((byte)(push&0xff));
         userService.updateUser(user);
         Response response = new Response();
         return response;

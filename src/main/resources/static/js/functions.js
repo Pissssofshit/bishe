@@ -97,6 +97,15 @@ function loadFeed(start, filter) {
 	});
 }
 
+function checkEmail(str){
+	var re = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
+	if (re.test(str)) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 function getRecommand(type){
 	$("#recommandFriend").load("/data/getRecommandListView",{"type":type});
 }
@@ -1193,8 +1202,22 @@ function loadGroupAdmin(groupId){
 }
 function saveProfile(){
 	var formdata=new FormData();
+	if($('#newP').val()!=undefined && $('#newP1').val()!=undefined){
+		if($('#newP').val()!=$('#newP1').val()){
+			alert("新密码不一致");
+			return ;
+		}else{
+			formdata.append('newPwd',$('#newP').val());
+		}
+	}else if($('#newP').val()!=undefined || $('#newP1').val()!=undefined){
+		alert("请重复输入密码");
+		return;
+	}
+
+	formdata.append('push',$('#willingpush').val());
 	formdata.append('fileName',$('#filename').get(0).files[0]);
 	formdata.append('userName',$('#userName').val());
+
 	$.ajax({
 		async: false,
 		type: 'POST',
@@ -2039,7 +2062,9 @@ $(document).ready(function() {
 			data: {"userId":userId}, // start is not used in this particular case, only needs to be set
 			cache: false,
 			success: function(data) {
-				$("#searchitem"+groupId+" div").addClass("friend-remove");
+				$("#searchitem"+userId+" div").addClass("friend-remove");
+				$("#applyForFriend").addClass("friend-remove");
+
 			}
 		});
 	}

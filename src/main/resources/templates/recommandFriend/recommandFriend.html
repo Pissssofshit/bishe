@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--suppress ThymeleafVariablesResolveInspection-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="recommandFriend">
+	<div class="sidebar-container widget-friends" id="recommandFriend">
+		<div class="sidebar-content">
+			<div class="sidebar-header"><a href="http://localhost:8080/index.php?a=profile&amp;u=123&amp;r=friends"
+										   rel="loadpage">推荐的朋友 <span class="sidebar-header-light"></span></a></div>
+			<div class="sidebar-link sidebar-events" style="display: block;">
+				<a onclick="getRecommand(1)" >
+					旅游达人推荐</a>
+			</div>
+			<div class="sidebar-link sidebar-events" style="display: block;">
+				<a onclick="getRecommand(2)" >
+					商务精英推荐推荐</a>
+			</div>
+			<div class="sidebar-link sidebar-events" style="display: block;">
+				<a onclick="getRecommand(3)" >
+					科教精英推荐</a>
+			</div>
+			<div class="sidebar-link sidebar-events" style="display: block;">
+				<a onclick="getRecommand(4)" >
+					宅家达人推荐</a>
+			</div>
+			<div class="message-content" th:each="recommander : ${recommandList}">
+				<div class="message-inner">
+					<div th:id="searchitem+${recommander.idu}">
+						<div class="friend-button subslist" title="加为好友" th:onclick="'applyBeFriends('+${recommander.idu}+')'"></div>
+					</div>
+					<div class="message-avatar" >
+						<a th:href="'http://localhost:8080/user/person?userId='+${recommander.idu}">
+							<img th:src="${recommander.cover}">
+						</a>
+					</div>
+					<div class="message-top">
+						<div class="message-author" id="author4">
+							<a th:href="'http://localhost:8080/user/person?userId='+${recommander.idu}" th:text="${recommander.username}"></a>
+
+						</div>
+						<div class="message-time">
+							&nbsp;
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</html>

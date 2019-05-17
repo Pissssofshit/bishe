@@ -22,6 +22,7 @@ public class test {
 
     public static void main(String[] args) throws Exception {
 
+
         // recommender configuration
         Configuration conf = new Configuration();
         Configuration.Resource resource = new Configuration.Resource("rec/cf/userknn-test.properties");

@@ -41,6 +41,8 @@ public class UserController {
     FriendshipService friendshipService;
     @Autowired
     NotificationsService notificationsService;
+    @Autowired
+    DataService dataService;
 
     public boolean isLogin(HttpServletRequest request){
         HttpSession httpSession = request.getSession();
@@ -75,9 +77,10 @@ public class UserController {
 
         Viewattr viewattr =new Viewattr();
         if(this.isLogin(request)){
-            viewattr.setFragment_id("timeline");
-            viewattr.setFragment_path("shared/timeline");
-            List<Usermessageview> messagesList = messageService.getUserMessageList(10,1,(int)request.getSession().getAttribute("userid"));
+            return "redirect:/user/login";
+//            viewattr.setFragment_id("timeline");
+//            viewattr.setFragment_path("shared/timeline");
+//            List<Usermessageview> messagesList = messageService.getUserMessageList(10,1,(int)request.getSession().getAttribute("userid"));
         }else{
             if(bindingResult.hasErrors()){
 //            return null;
@@ -283,6 +286,9 @@ public class UserController {
         model.addAttribute("groupsList",groupsList);
         model.addAttribute("messages",messageWithCommentsList);
         model.addAttribute("noticeCount1",count);
+        List<User> userList = dataService.getRecommandList(userId);
+        model.addAttribute("recommandList",userList);
+
         return model;
     }
     @RequestMapping("/login")
@@ -295,9 +301,7 @@ public class UserController {
             List<MessageWithComments> messageWithComments = messageService.getMessageWithComments(this.getUserId(request));
             int userId = this.getUserId(request);
 //            userService.updateUserLocation(userId,userLogin.getLat(),userLogin.getLongitude());
-            List<Groups> groupsList = groupService.loadGroupsByUserId(userId);
             User user = userService.getUserById(userId);
-            int count = notificationsService.loadUnreadNotificationCount(userId);
             model = this.setParamModel(model,user.getIdu());
 
         }else {

@@ -6,6 +6,7 @@ import com.bishe.Util.FileUtils;
 import com.bishe.dao.ClusterMapper;
 import com.bishe.data.MongoDBUtil;
 import com.bishe.model.*;
+import com.bishe.service.DataService;
 import com.bishe.service.GroupService;
 import com.bishe.service.MessageService;
 import com.bishe.service.UserService;
@@ -49,20 +50,35 @@ public class DataController {
     UserService userService;
     @Autowired
     ClusterMapper clusterMapper;
+    @Autowired
+    DataService dataService;
+
 
     @ResponseBody
     @RequestMapping("/getRecommandList")
-    public List<User> getRecommandList(@RequestParam(value = "type",required = false) int type,HttpServletRequest request){
+    public List<User> getRecommandList(@RequestParam(value = "type",required = false) Integer type,HttpServletRequest request){
+
         int userId = userService.getUserId(request);
-        Cluster cluster = clusterMapper.selectByUserId(userId);
-        List<Integer> userIdList = clusterMapper.getTheSameClusterByClusterId(cluster.getClusterId());
-        List<User> userList = new ArrayList<>();
-        for (Integer userId2:userIdList
-             ) {
-            User user = userService.getUserById(userId2);
-            userList.add(user);
+        List<User> userList = null;
+        if(type!=null){
+            userList = dataService.getRecommandListPreference(userId,type);
+        }else{
+            userList = dataService.getRecommandList(userId);
         }
         return userList;
+    }
+    @RequestMapping("/getRecommandListView")
+    public String getRecommandListView(@RequestParam(value = "type",required = false) Integer type,HttpServletRequest request,Model model){
+
+        int userId = userService.getUserId(request);
+        List<User> userList = null;
+        if(type!=null){
+            userList = dataService.getRecommandListPreference(userId,type);
+        }else{
+            userList = dataService.getRecommandList(userId);
+        }
+        model.addAttribute("recommandList",userList);
+        return "recommandFriend/recommandFriend::recommandFriend";
     }
 
     @ResponseBody

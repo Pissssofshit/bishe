@@ -94,7 +94,7 @@
         $.ajax({
             type: "POST",
             url: "{$url}/requests/check_notifications.php",
-            data: "for=1&token_id=" + token_id,
+            data: "for=1",
             success: function (html) {
                 // If the response does not include "No notifications" and is not empty show the notification
                 if (html.indexOf("{$lng->no_notifications}") == -1 && html !== "" && html !== "0") {

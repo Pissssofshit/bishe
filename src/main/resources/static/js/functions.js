@@ -52,7 +52,7 @@ function loadComments(id, cid, start) {
 	$.ajax({
 		type: "POST",
 		url: baseUrl+"/requests/load_comments.php",
-		data: "id="+id+"&start="+start+"&cid="+cid+"&token_id="+token_id, 
+		data: "id="+id+"&start="+start+"&cid="+cid,
 		cache: false,
 		success: function(html) {
 			// Remove the loader animation
@@ -81,7 +81,7 @@ function loadFeed(start, filter) {
 	$.ajax({
 		type: "POST",
 		url: baseUrl+"/requests/load_feed.php",
-		data: "start="+start+q+"&token_id="+token_id, 
+		data: "start="+start+q,
 		cache: false,
 		success: function(html) {
 			$('#more_messages').remove();
@@ -97,6 +97,10 @@ function loadFeed(start, filter) {
 	});
 }
 
+function getRecommand(type){
+	$("#recommandFriend").load("/data/getRecommandListView",{"type":type});
+}
+
 function messageAround(){
 	$(".nine.columns").load("/message/loadmessageAround");
 	jQuery("div.timeago").timeago();
@@ -107,7 +111,7 @@ function loadPage(start, page) {
 	$.ajax({
 		type: "POST",
 		url: baseUrl+"/requests/load_page.php",
-		data: "start="+start+"&page="+page+"&token_id="+token_id, 
+		data: "start="+start+"&page="+page,
 		cache: false,
 		success: function(html) {
 			$('#more_messages').remove();
@@ -128,7 +132,7 @@ function loadGroup(start, group) {
 	$.ajax({
 		type: "POST",
 		url: baseUrl+"/requests/load_group.php",
-		data: "start="+start+"&group="+group+"&token_id="+token_id, 
+		data: "start="+start+"&group="+group,
 		cache: false,
 		success: function(html) {
 			$('#more_messages').remove();
@@ -160,7 +164,7 @@ function loadPeople(start, value, filter, age) {
 	$.ajax({
 		type: "POST",
 		url: baseUrl+"/requests/load_people.php",
-		data: "start="+start+'&q='+encodeURIComponent(value)+filter+age+"&token_id="+token_id, 
+		data: "start="+start+'&q='+encodeURIComponent(value)+filter+age,
 		cache: false,
 		success: function(html) {
 			$('#more_messages').remove();
@@ -187,7 +191,7 @@ function loadProfile(start, filter, profile) {
 	$.ajax({
 		type: "POST",
 		url: baseUrl+"/requests/load_profile.php",
-		data: "profile="+profile+"&start="+start+q+"&token_id="+token_id, 
+		data: "profile="+profile+"&start="+start+q,
 		cache: false,
 		success: function(html) {
 			$('#more_messages').remove();
@@ -208,7 +212,7 @@ function loadHashtags(start, value) {
 	$.ajax({
 		type: "POST",
 		url: baseUrl+"/requests/load_tags.php",
-		data: "start="+start+'&q='+value+"&token_id="+token_id, 
+		data: "start="+start+'&q='+value,
 		cache: false,
 		success: function(html) {
 			$('#more_messages').remove();
@@ -229,7 +233,7 @@ function loadSubs(start, type, profile) {
 	$.ajax({
 		type: "POST",
 		url: baseUrl+"/requests/load_friends.php",
-		data: "id="+profile+"&start="+start+"&type="+type+"&token_id="+token_id, 
+		data: "id="+profile+"&start="+start+"&type="+type,
 		cache: false,
 		success: function(html) {
 			$('#more_messages').remove();
@@ -250,7 +254,7 @@ function postComment(id) {
 	$.ajax({
 		type: "POST",
 		url: "/message/post_comment",
-		data: "mid="+id+"&message="+encodeURIComponent(comment)+"&token_id="+token_id,
+		data: "mid="+id+"&message="+encodeURIComponent(comment),
 		cache: false,
 		success: function(html) {
 			// Remove the loader animation
@@ -293,7 +297,7 @@ function doShare(id, type) {
 		$.ajax({
 			type: "POST",
 			url: baseUrl+"/requests/share.php",
-			data: "id="+id+"&token_id="+token_id, 
+			data: "id="+id,
 			cache: false,
 			success: function(html) {
 				$('#share-result').html(html);
@@ -330,7 +334,7 @@ function likesModal(id, type, close) {
 		$.ajax({
 			type: "POST",
 			url: baseUrl+"/requests/load_likes.php",
-			data: "id="+id+"&extra="+type+"&token_id="+token_id, 
+			data: "id="+id+"&extra="+type,
 			cache: false,
 			success: function(html) {
 				$('#likes-result').html(html);
@@ -353,7 +357,7 @@ function loadLikes(start, id, type, extra) {
 	$.ajax({
 		type: "POST",
 		url: baseUrl+"/requests/load_likes.php",
-		data: query+"&token_id="+token_id,
+		data: query,
 		cache: false,
 		success: function(html) {
 			// Append the new comment to the div i
@@ -385,7 +389,7 @@ function delete_the(id, type) {
 	$.ajax({
 		type: "POST",
 		url: baseUrl+"/requests/delete.php",
-		data: "message="+id+"&type="+type+"&token_id="+token_id,
+		data: "message="+id+"&type="+type,
 		cache: false
 	});
 }
@@ -402,7 +406,7 @@ function edit_message(id, type) {
 		$.ajax({
 			type: "POST",
 			url: baseUrl+"/requests/post_edit.php",
-			data: "message="+message+"&id="+id+"&token_id="+token_id,
+			data: "message="+message+"&id="+id,
 			cache: false,
 			success: function(html) {
 				$('#message_loader'+id).empty();
@@ -467,7 +471,7 @@ function report_the(id, type) {
 	$.ajax({
 		type: "POST",
 		url: baseUrl+"/requests/report.php",
-		data: "id="+id+"&type="+type+"&token_id="+token_id,
+		data: "id="+id+"&type="+type,
 		cache: false,
 		success: function(html) {
 			if(type == 0) {
@@ -499,7 +503,7 @@ function friend(id, type, z) {
 	$.ajax({
 		type: "POST",
 		url: baseUrl+"/requests/friend.php",
-		data: "id="+id+"&type="+type+"&z="+z+"&token_id="+token_id, 
+		data: "id="+id+"&type="+type+"&z="+z,
 		cache: false,
 		success: function(html) {
 			if(type == 2 || type == 3) {
@@ -528,7 +532,7 @@ function page(type, user, id, profile) {
 	$.ajax({
 		type: "POST",
 		url: baseUrl+"/requests/page.php",
-		data: "page="+id+"&user="+user+"&type="+type+"&profile="+profile+"&token_id="+token_id, 
+		data: "page="+id+"&user="+user+"&type="+type+"&profile="+profile,
 		cache: false,
 		success: function(html) {
 			if(type == 1) {
@@ -577,7 +581,7 @@ function group(type, value, group, user, id) {
 	$.ajax({
 		type: "POST",
 		url: baseUrl+"/requests/group.php",
-		data: "type="+type+"&value="+value+"&group="+group+"&user="+user+"&token_id="+token_id, 
+		data: "type="+type+"&value="+value+"&group="+group+"&user="+user,
 		cache: false,
 		success: function(html) {
 			if(type == 1) {
@@ -623,7 +627,7 @@ function privacy(id, value) {
 	$.ajax({
 		type: "POST",
 		url: baseUrl+"/requests/privacy.php",
-		data: "message="+id+"&value="+value+"&token_id="+token_id, 
+		data: "message="+id+"&value="+value,
 		cache: false,
 		success: function(html) {
 			$('#message_loader'+id).empty();
@@ -648,7 +652,7 @@ function manage_the(start, type, filter) {
 	$.ajax({
 		type: "POST",
 		url: baseUrl+"/requests/manage_"+type+".php",
-		data: "start="+start+"&filter="+filter+"&token_id="+token_id, 
+		data: "start="+start+"&filter="+filter,
 		cache: false,
 		success: function(html) {
 			$('#more_'+type).remove();
@@ -669,7 +673,7 @@ function manage_report(id, type, post, kind) {
 	$.ajax({
 		type: "POST",
 		url: baseUrl+"/requests/manage_reports.php",
-		data: "id="+id+"&type="+type+"&post="+post+"&kind="+kind+"&token_id="+token_id, 
+		data: "id="+id+"&type="+type+"&post="+post+"&kind="+kind,
 		cache: false,
 		success: function(html) {
 		}
@@ -730,7 +734,7 @@ function doBlock(id, type) {
 	$.ajax({
 		type: "POST",
 		url: baseUrl+"/requests/block.php",
-		data: "id="+id+"&type="+type+"&token_id="+token_id, 
+		data: "id="+id+"&type="+type,
 		cache: false,
 		success: function(html) {
 			// Display the block on the Messages page
@@ -749,7 +753,7 @@ function poke(id) {
 	$.ajax({
 		type: "POST",
 		url: baseUrl+"/requests/poke.php",
-		data: "id="+id+"&token_id="+token_id, 
+		data: "id="+id,
 		cache: false,
 		success: function(html) {
 			// Display the block on the profile [...] menu 
@@ -874,20 +878,20 @@ function checkNewMessages() {
 		$.ajax({
 			type: "POST",
 			url: baseUrl+"/requests/check_messages.php",
-			data: "last="+last+"&filter="+filter+"&profile="+profile+"&type="+type+"&token_id="+token_id, 
+			data: "last="+last+"&filter="+filter+"&profile="+profile+"&type="+type,
 			success: function(html) {
 				 // html is a string of all output of the server script.
 				if(html) {
 					$('#load-content').after('<div id="temphide'+last+'">'+html+'</div>');
-					
+
 					// Remove the duplicated message if exists
 					var last = $('.last-message').data("last");
 					$('.last-message[data-last="'+last+'"]:gt(0)').remove();
-					
+
 					$('#temphide'+last).hide().fadeIn('slow');
 				}
 				jQuery("div.timeago").timeago();
-		   }
+		   },
 		});
 	}
 	stopNewMessages = setTimeout(checkNewMessages, checkMessageTimeout);
@@ -919,7 +923,7 @@ function postChat(id, type) {
 	$.ajax({
 		type: "POST",
 		url: baseUrl+"/requests/post_chat.php",
-		data: 'message='+encodeURIComponent(message)+'&id='+id+"&token_id="+token_id,
+		data: 'message='+encodeURIComponent(message)+'&id='+id,
 		cache: false,
 		success: function(html) {
 			// Check if in the mean time any message was sent
@@ -962,7 +966,7 @@ function checkChat(x, id) {
 	$.ajax({
 		type: "POST",
 		url: baseUrl+"/requests/load_chat.php",
-		data: "friends="+friends_windows+"&type="+x+freq+"&token_id="+token_id+"&longititude="+locationsss["lng"]+"&latitude="+locationsss["lat"],
+		data: "friends="+friends_windows+"&type="+x+freq+"&longititude="+locationsss["lng"]+"&latitude="+locationsss["lat"],
 		success: function(html) {
 			 // html is a string of all output of the server script.
 			if(html) {
@@ -1027,7 +1031,7 @@ function loadChat(uid, cid, start, z) {
 	$.ajax({
 		type: "POST",
 		url: baseUrl+"/requests/load_chat.php",
-		data: "uid="+uid+"&cid="+cid+"&start="+start+"&for="+z+"&token_id="+token_id,
+		data: "uid="+uid+"&cid="+cid+"&start="+start+"&for="+z,
 		cache: false,
 		success: function(html) {
 			// Append the new comment to the div id
@@ -1089,7 +1093,7 @@ function openChatWindow(id, username, realname, url, status) {
 		$.ajax({
 			type: "POST",
 			url: baseUrl+"/requests/load_chat.php",
-			data: "uid="+id+"&for=1&token_id="+token_id, 
+			data: "uid="+id+"&for=1",
 			cache: false,
 			success: function(html) {
 				// Append the new comment to the div id
@@ -1480,7 +1484,7 @@ function chatLiveSearch(type) {
 			$.ajax({
 				type: "POST",
 				url: baseUrl+"/requests/load_people.php",
-				data: 'q='+q+'&start=1&live=1&list=1&type='+type+"&token_id="+token_id, // start is not used in this particular case, only needs to be set
+				data: 'q='+q+'&start=1&live=1&list=1&type='+type, // start is not used in this particular case, only needs to be set
 				cache: false,
 				success: function(html) {
 					if(type) {
@@ -1533,7 +1537,7 @@ function profileCard(id, post, type, delay, page) {
 		$.ajax({
 			type: "POST",
 			url: baseUrl+"/requests/load_profilecard.php",
-			data: 'id='+id+"&page="+page+"&token_id="+token_id,
+			data: 'id='+id+"&page="+page,
 			cache: false,
 			success: function(html) {			
 				$('#profile-card').html(html);
